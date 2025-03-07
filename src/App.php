@@ -3,14 +3,9 @@ namespace Kuva;
 
 use Kuva\Backend\User;
 
-require '../vendor/autoload.php';
-
 class App {
     public function __construct()
-    {
-
-        
-         User::login("eee");
+    {       
+        echo var_dump(User::login("me", "me"));
     }
-
 }

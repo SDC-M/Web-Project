@@ -17,11 +17,11 @@ class Database {
         $this->db = new PDO("mysql:host=". self::ip . ":" . self::port . ";dbname=" . self::db_name, self::username, self::password);
     }
 
-    public function getUserIdByNameAndPassword(string $username, string $password): void {
+    public function getUserIdByNameAndPassword(string $username, string $password): int {
         $q = $this->db->prepare('SELECT id FROM users WHERE username = :username and password = :pass');
         $q->bindParam('username', $username);
         $q->bindParam('pass', $password);
         $q->execute();
-        print_r($q->fetch(PDO::FETCH_ASSOC));
+        return $q->fetch(PDO::FETCH_ASSOC)["id"];
     }
 }
