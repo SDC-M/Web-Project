@@ -1,0 +1,10 @@
+{
+  "name": "kuva/kuva",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Kuva\\": "src/"
+    }
+  },
+  "require": {}
+}
