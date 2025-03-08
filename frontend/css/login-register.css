@@ -78,7 +78,7 @@ input:focus {
 }
 
 .left {
-    width: 350px;
+    width: 400px;
     height: auto;
     min-height: 100%;
     background-size: cover;
@@ -119,4 +119,10 @@ input[type=checkbox] {
 #conditions {
     color: grey;
     font-style: italic;
+}
+
+#forgottenp {
+    color: grey;
+    font-style: italic;
+    margin-left: 140px;
 }
