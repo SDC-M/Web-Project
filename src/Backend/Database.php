@@ -4,7 +4,7 @@ namespace Kuva\Backend;
 use PDO;
 
 class Database {
-    private const ip = '127.0.0.1';
+    private const ip = 'mariadb';
     private const port = '3306';
     private const username = "root";
     private const password = "root";
