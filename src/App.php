@@ -5,9 +5,9 @@ use Kuva\Backend\User;
 
 class App {
     public function __construct() {
-        $user = User::login("me", "me");
-        if ($user == null) {
-            echo "Not found";
-        }
+        $r = User::register("eee", "eee", "eee");
+        echo var_dump($r);
+        $user = User::login("eee", "eee");
+        echo var_dump($user);
     }
 }
