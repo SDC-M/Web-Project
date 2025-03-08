@@ -16,3 +16,4 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - './.db_value/:/var/lib/mysql'
+      - "./migration/:/migration"
