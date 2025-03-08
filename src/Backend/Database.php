@@ -10,34 +10,9 @@ class Database {
     private const password = "root";
     private const db_name = "kuva";
 
-    public PDO $db;
+    public readonly PDO $db;
 
     public function __construct() {
         $this->db = new PDO("mysql:host=". self::ip . ":" . self::port . ";dbname=" . self::db_name, self::username, self::password);
     }
-
-    public function getUserIdByNameAndPassword(string $username, string $password): int|null {
-        $q = $this->db->prepare('SELECT id FROM users WHERE username = :username and password = :pass');
-        $q->bindParam('username', $username);
-        $q->bindParam('pass', $password);
-        $q->execute();
-        $id = $q->fetch(PDO::FETCH_ASSOC);
-        if ($id === false) {
-            return null;
-        }
-        return $id["id"];
-    }
-
-
-    public function updateName(string $username, string $password): int|null {
-        $q = $this->db->prepare('SELECT id FROM users WHERE username = :username and password = :pass');
-        $q->bindParam('username', $username);
-        $q->bindParam('pass', $password);
-        $q->execute();
-        $id = $q->fetch(PDO::FETCH_ASSOC);
-        if ($id === false) {
-            return null;
-        }
-        return $id["id"];
-    }    
 }
