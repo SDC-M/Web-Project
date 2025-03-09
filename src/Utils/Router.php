@@ -12,8 +12,10 @@ class Router
     /**
      * @param  array<string,array<string, Handler>>  $path
      */
-    public function __construct(public array $path = [],
-        public Handler $fallback = new EmptyResponse) {}
+    public function __construct(
+        public array $path = [],
+        public Handler $fallback = new EmptyResponse
+    ) {}
 
     public function handleCurrent(): void
     {
@@ -28,7 +30,7 @@ class Router
     private function handleRequest(Request $req): Response
     {
         if (! array_key_exists($req->method, $this->path)) {
-            return $this->fallback->handle($req);
+            return $this->fallback->handleAndResponse($req);
         }
 
         foreach ($this->path[$req->method] as $p => $h) {
@@ -78,6 +80,6 @@ class EmptyResponse extends Handler
 
     public function handle(Request $req): void
     {
-        $this->response = new Response(404, 'Not found: '.$req->uri);
+        $this->response = new Response(404, 'Not found: ' . $req->uri);
     }
 }

@@ -11,13 +11,13 @@ class RegisterHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        if (! isset($_POST['username']) || ! isset($_POST['email']) || ! isset($_POST['password'])) {
+        if (! isset($_POST['username']) || ! isset($_POST['email']) || ! isset($_POST['password']) || ! isset($_POST['recovery_answer'])) {
             $this->response = new Response(400);
 
             return;
         }
         // TODO: Verify input
-        $registered = User::register($_POST['username'], $_POST['email'], $_POST['password']);
+        $registered = User::register($_POST['username'], $_POST['email'], $_POST['password'], $_POST['recovery_answer']);
         if (!$registered) {
             $this->response = new Response(500);
 
