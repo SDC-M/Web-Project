@@ -37,5 +37,10 @@ CREATE TABLE `annotations` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
 INSERT INTO migration
 VALUES ("1");
+
+ALTER TABLE `users`
+ADD COLUMN `secret_answer` text NOT NULL AFTER `email`;
+

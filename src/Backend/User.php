@@ -22,7 +22,6 @@ class User
         if ($id === false) {
             return null;
         }
-
         return new static($id['id'], $name, $password);
     }
 
