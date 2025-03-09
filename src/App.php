@@ -5,10 +5,12 @@ namespace Kuva;
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
+use Kuva\Handler\LoginHandler;
 use Kuva\Utils\Router;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
+use Kuva\Handler\RegisterHandler;
 
 class App
 {
@@ -16,7 +18,8 @@ class App
     {
         $r = new Router;
         $r->get('/', new Aa)
-            ->get('/{user}/eee', new Ee)
+            ->post('/login', new LoginHandler)
+            ->post('/register', new RegisterHandler)
             ->handleCurrent();
     }
 }
