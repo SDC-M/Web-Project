@@ -18,14 +18,14 @@ abstract class Handler
                 $this->response = new Response(200, '');
             }
             if ($this->response->body != '') {
-                trigger_error('The handler ( '.static::class.' ) is bufferize but your response have a body so the body will be replace by buffizied output', E_USER_WARNING);
+                trigger_error('The handler ( ' . static::class . ' ) is bufferize but your response have a body so the body will be replace by bufferized output', E_USER_WARNING);
             }
             $b = ob_get_clean();
             $this->response->body = $b;
         } else {
             $this->handle($req);
             if ($this->response == null) {
-                return new Response(500, 'Bad implementation in '.static::class);
+                return new Response(500, 'Bad implementation in ' . static::class);
             }
         }
 

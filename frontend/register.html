@@ -11,21 +11,22 @@
 <body>
     <div class="session">
         <div class="left" id="register"></div>
-        <form action="" method="post" class="log-in" autocomplete="off">
+        <form action="/register" method="post" class="log-in" autocomplete="off">
             <h4>Bienvenue sur <span>Kuva</span></h4>
             <input placeholder="Username" type="text" name="username" id="username" autocomplete="off"
                 required="required">
             <input placeholder="Email" type="email" name="email" id="email" autocomplete="off" required="required">
             <input placeholder="Password" type="password" name="password" id="password" autocomplete="off"
                 required="required">
-            <input placeholder="Recovery key" type="text" name="text" id="text" autocomplete="off" required="required">
+            <input placeholder="Recovery key" type="text" name="recovery_answer" id="text" autocomplete="off"
+                required="required">
             <div class="cond">
                 <input class="check" type="checkbox" name="checkbox" id="checkbox" autocomplete="off"
                     required="required">
                 <pre id="conditions">J'ai lu et j'accepte les conditions générales</pre>
             </div>
             <button type="submit">Register</button>
-            <a href="login.html">
+            <a href="login">
                 Log in
             </a>
         </form>

@@ -5,11 +5,10 @@ namespace Kuva;
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
+use Kuva\Handler\FileHandler;
+use Kuva\Handler\FolderHandler;
 use Kuva\Handler\LoginHandler;
 use Kuva\Utils\Router;
-use Kuva\Utils\Router\Handler;
-use Kuva\Utils\Router\Request;
-use Kuva\Utils\Router\Response;
 use Kuva\Handler\RegisterHandler;
 
 class App
@@ -17,29 +16,14 @@ class App
     public function __construct()
     {
         $r = new Router;
-        $r->get('/', new Aa)
+        $r->get('/', new FileHandler("../frontend/login.html"))
+            ->get('/register', new FileHandler("../frontend/register.html"))
+            ->get('/login', new FileHandler("../frontend/login.html"))
+            ->get('/frontend/css/{file}', new FolderHandler("../frontend/css/"))
+            ->get('/frontend/img/{file}', new FolderHandler("../frontend/img/"))
+            ->get('/frontend/js/{file}', new FolderHandler("../frontend/js/"))
             ->post('/login', new LoginHandler)
             ->post('/register', new RegisterHandler)
             ->handleCurrent();
-    }
-}
-
-class Ee extends Handler
-{
-    public function handle(Request $req): void
-    {
-        echo 'Salut '.$req->extracts['user'].' !';
-
-        $this->response = new Response(200);
-    }
-}
-
-class Aa extends Handler
-{
-    public bool $is_bufferize = false;
-
-    public function handle(Request $req): void
-    {
-        $this->response = new Response(200, 'aaaa');
     }
 }
