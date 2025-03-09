@@ -20,7 +20,7 @@ class Router
         $req = $this->handleRequest(Request::fromCurrentRequest());
         http_response_code($req->status);
         foreach ($req->headers as $key => $value) {
-            header("$key = $value", true);
+            header("$key: $value", true);
         }
         echo $req->body;
     }

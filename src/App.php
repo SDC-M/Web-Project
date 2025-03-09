@@ -10,6 +10,17 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
+class App
+{
+    public function __construct()
+    {
+        $r = new Router;
+        $r->get('/', new Aa)
+            ->get('/{user}/eee', new Ee)
+            ->handleCurrent();
+    }
+}
+
 class Ee extends Handler
 {
     public function handle(Request $req): Response
@@ -24,16 +35,5 @@ class Aa extends Handler
     public function handle(Request $req): Response
     {
         return new Response(200, 'aaaa');
-    }
-}
-
-class App
-{
-    public function __construct()
-    {
-        $r = new Router;
-        $r->get('/', new Aa)
-            ->get('/{user}/eee', new Ee)
-            ->handleCurrent();
     }
 }
