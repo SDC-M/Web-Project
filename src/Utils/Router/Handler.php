@@ -2,7 +2,9 @@
 
 namespace Kuva\Utils\Router;
 
-interface Handler
+abstract class Handler
 {
-    public function handle(Request $req): Response;
+    public bool $is_bufferize = true;
+
+    abstract public function handle(Request $req): Response;
 }

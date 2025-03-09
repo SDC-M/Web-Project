@@ -10,19 +10,16 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class Ee implements Handler
+class Ee extends Handler
 {
     public function handle(Request $req): Response
     {
-        ob_start();
-        var_dump($req);
-        $result = ob_get_clean();
-        
-        return new Response(200, $result);
+        echo 'Salut '.$req->extracts['user'].' !';
+        return new Response(200);
     }
 }
 
-class Aa implements Handler
+class Aa extends Handler
 {
     public function handle(Request $req): Response
     {
@@ -36,7 +33,7 @@ class App
     {
         $r = new Router;
         $r->get('/', new Aa)
-            ->get('/{user}', new Ee)
+            ->get('/{user}/eee', new Ee)
             ->handleCurrent();
     }
 }

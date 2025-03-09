@@ -7,15 +7,17 @@ use Kuva\Utils\Router\Path;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class Router {
+class Router
+{
     /**
-     * @param array<String,Array<String, Handler>> $path
+     * @param  array<string,array<string, Handler>>  $path
      */
     public function __construct(public array $path = [],
-                                public Handler $fallback = new EmptyResponse()) {}
+        public Handler $fallback = new EmptyResponse) {}
 
-    public function handleCurrent(): void {
-        $req = $this->handleRequest(Request::fromCurrentRequest());        
+    public function handleCurrent(): void
+    {
+        $req = $this->handleRequest(Request::fromCurrentRequest());
         http_response_code($req->status);
         foreach ($req->headers as $key => $value) {
             header("$key = $value", true);
@@ -23,8 +25,9 @@ class Router {
         echo $req->body;
     }
 
-    private function handleRequest(Request $req): Response {
-        if (!array_key_exists($req->method, $this->path)) {
+    private function handleRequest(Request $req): Response
+    {
+        if (! array_key_exists($req->method, $this->path)) {
             return $this->fallback->handle($req);
         }
 
@@ -32,37 +35,54 @@ class Router {
             $path = new Path($p);
             if ($path->resolve($req->uri)) {
                 $req->extracts = $path->extract($req->uri);
-                return $h->handle($req);
+                if ($h->is_bufferize) {
+                    ob_start();
+                    $r = $h->handle($req);
+                    $b = ob_get_clean();
+                    $r->body = $b;
+                    return $r;
+                } else {
+                    return $h->handle($req);
+                }
             }
         }
 
         return $this->fallback->handle($req);
     }
 
-    public function get(string $path, Handler $handler): Router {
-        $this->path["GET"][$path] = $handler;
+    public function get(string $path, Handler $handler): Router
+    {
+        $this->path['GET'][$path] = $handler;
+
         return $this;
     }
 
-    public function post(string $path, Handler $handler): Router {
-        $this->path["POST"][$path] = $handler;
+    public function post(string $path, Handler $handler): Router
+    {
+        $this->path['POST'][$path] = $handler;
+
         return $this;
     }
 
-    public function delete(string $path, Handler $handler): Router {
-        $this->path["DELETE"][$path] = $handler;
+    public function delete(string $path, Handler $handler): Router
+    {
+        $this->path['DELETE'][$path] = $handler;
+
         return $this;
     }
 
-    public function withFallback(Handler $fallback): Router {
+    public function withFallback(Handler $fallback): Router
+    {
         $this->fallback = $fallback;
+
         return $this;
-    }    
+    }
 }
 
-class EmptyResponse implements Handler {
+class EmptyResponse extends Handler
+{
     public function handle(Request $req): Response
     {
-        return new Response(404, "Not found: " . $req->uri);
+        return new Response(404, 'Not found: '.$req->uri);
     }
 }
