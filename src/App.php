@@ -1,4 +1,5 @@
 <?php
+
 namespace Kuva;
 
 error_reporting(E_ALL);
@@ -9,30 +10,33 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-
-class Ee implements Handler {
+class Ee implements Handler
+{
     public function handle(Request $req): Response
     {
-        return new Response(200, "eeee");
+        ob_start();
+        var_dump($req);
+        $result = ob_get_clean();
+        
+        return new Response(200, $result);
     }
 }
 
-
-class Aa implements Handler {
+class Aa implements Handler
+{
     public function handle(Request $req): Response
     {
-        return new Response(200, "aaaa");
+        return new Response(200, 'aaaa');
     }
 }
 
-
-
-class App {
-    public function __construct() {
-        new Router()
-            ->get("/", new Aa())
-            ->get("/user", new Ee())            
+class App
+{
+    public function __construct()
+    {
+        $r = new Router;
+        $r->get('/', new Aa)
+            ->get('/{user}', new Ee)
             ->handleCurrent();
     }
 }
-

@@ -3,6 +3,7 @@
 namespace Kuva\Utils;
 
 use Kuva\Utils\Router\Handler;
+use Kuva\Utils\Router\Path;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
@@ -28,7 +29,9 @@ class Router {
         }
 
         foreach ($this->path[$req->method] as $p => $h) {
-            if ($p == $req->uri) {
+            $path = new Path($p);
+            if ($path->resolve($req->uri)) {
+                $req->extracts = $path->extract($req->uri);
                 return $h->handle($req);
             }
         }
