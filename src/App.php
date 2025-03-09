@@ -23,17 +23,20 @@ class App
 
 class Ee extends Handler
 {
-    public function handle(Request $req): Response
+    public function handle(Request $req): void
     {
         echo 'Salut '.$req->extracts['user'].' !';
-        return new Response(200);
+
+        $this->response = new Response(200);
     }
 }
 
 class Aa extends Handler
 {
-    public function handle(Request $req): Response
+    public bool $is_bufferize = false;
+
+    public function handle(Request $req): void
     {
-        return new Response(200, 'aaaa');
+        $this->response = new Response(200, 'aaaa');
     }
 }

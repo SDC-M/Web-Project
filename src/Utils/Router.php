@@ -35,19 +35,12 @@ class Router
             $path = new Path($p);
             if ($path->resolve($req->uri)) {
                 $req->extracts = $path->extract($req->uri);
-                if ($h->is_bufferize) {
-                    ob_start();
-                    $r = $h->handle($req);
-                    $b = ob_get_clean();
-                    $r->body = $b;
-                    return $r;
-                } else {
-                    return $h->handle($req);
-                }
+
+                return $h->handleAndResponse($req);
             }
         }
 
-        return $this->fallback->handle($req);
+        return $this->fallback->handleAndResponse($req);
     }
 
     public function get(string $path, Handler $handler): Router
@@ -81,8 +74,10 @@ class Router
 
 class EmptyResponse extends Handler
 {
-    public function handle(Request $req): Response
+    public bool $is_bufferize = false;
+
+    public function handle(Request $req): void
     {
-        return new Response(404, 'Not found: '.$req->uri);
+        $this->response = new Response(404, 'Not found: '.$req->uri);
     }
 }
