@@ -4,6 +4,10 @@ namespace Kuva\Utils\Router;
 
 class Request
 {
+    /**
+     * @param array<string,string> $headers
+     * @param array<string,string> $extracts
+     */
     public function __construct(
         public readonly array $headers,
         public readonly string $method,
