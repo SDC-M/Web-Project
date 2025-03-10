@@ -10,7 +10,9 @@ class FileHandler extends Handler
 {
     public bool $is_bufferize = false;
 
-    public function __construct(public readonly string $file_path) {}
+    public function __construct(public readonly string $file_path)
+    {
+    }
 
     public function handle(Request $req): void
     {

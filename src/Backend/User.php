@@ -11,11 +11,12 @@ class User
         protected string $id,
         public readonly string $username,
         public readonly string $email
-    ) {}
+    ) {
+    }
 
     public static function login(string $name, string $password): ?static
     {
-        $db = new Database;
+        $db = new Database();
         $q = $db->db->prepare('SELECT id FROM users WHERE username = :username and password = :pass');
         $q->bindParam('username', $name);
         $q->bindParam('pass', $password);
@@ -24,12 +25,13 @@ class User
         if ($id === false) {
             return null;
         }
+
         return new static($id['id'], $name, $password);
     }
 
     public static function register(string $name, string $email, string $password, string $recovery_answer): bool
     {
-        $db = new Database;
+        $db = new Database();
         $q = $db->db->prepare('INSERT INTO users(username, email, password, recovery_key) VALUES (:name, :email, :password, :answer)');
         $q->bindParam('name', $name);
         $q->bindParam('email', $email);
@@ -39,6 +41,7 @@ class User
             return $q->execute();
         } catch (Exception $ex) {
             var_dump($ex);
+
             return false;
         }
     }

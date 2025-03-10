@@ -4,11 +4,14 @@ namespace Kuva\Utils\Router;
 
 class Request
 {
-    public function __construct(public readonly array $headers,
+    public function __construct(
+        public readonly array $headers,
         public readonly string $method,
         public readonly string $uri,
         public readonly string $body,
-        public array $extracts = []) {}
+        public array $extracts = []
+    ) {
+    }
 
     private static function getHeaders(): array
     {

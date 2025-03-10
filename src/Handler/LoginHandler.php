@@ -11,8 +11,8 @@ class LoginHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        if (! isset($_POST['username'])  || ! isset($_POST['password'])) {
-            echo "A field is not set";
+        if (! isset($_POST['username']) || ! isset($_POST['password'])) {
+            echo 'A field is not set';
             $this->response = new Response(400);
 
             return;
@@ -25,7 +25,6 @@ class LoginHandler extends Handler
             return;
         }
 
-        $this->response = new Response(301, headers: ["Location" => "/"]);
+        $this->response = new Response(301, headers: ['Location' => '/']);
     }
 }
-

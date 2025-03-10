@@ -14,8 +14,9 @@ class Router
      */
     public function __construct(
         public array $path = [],
-        public Handler $fallback = new EmptyResponse
-    ) {}
+        public Handler $fallback = new EmptyResponse()
+    ) {
+    }
 
     public function handleCurrent(): void
     {
@@ -80,6 +81,6 @@ class EmptyResponse extends Handler
 
     public function handle(Request $req): void
     {
-        $this->response = new Response(404, 'Not found: ' . $req->uri);
+        $this->response = new Response(404, 'Not found: '.$req->uri);
     }
 }

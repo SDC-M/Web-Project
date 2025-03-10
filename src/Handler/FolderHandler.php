@@ -12,20 +12,21 @@ class FolderHandler extends Handler
 
     public function __construct(
         public readonly string $folder,
-    ) {}
-
+    ) {
+    }
 
     private function getExtensionOfFile(string $path): string
     {
         $ext = explode('.', $path);
+
         return $ext[count($ext) - 1];
     }
 
     public function handle(Request $req): void
     {
-        $path = $this->folder . $req->extracts["file"];
+        $path = $this->folder.$req->extracts['path'];
         $mime_type = mime_content_type($path);
-        if ($mime_type == "text/plain") {
+        if ($mime_type == 'text/plain') {
             $media_types = [
                 'jpg' => 'image/jpeg',
                 'jpeg' => 'image/jpeg',
@@ -40,16 +41,16 @@ class FolderHandler extends Handler
                 'zip' => 'application/zip',
                 'mp3' => 'audio/mpeg',
                 'mp4' => 'video/mp4',
-                'css' => "text/css",
-                'js' => "application/javascript"
+                'css' => 'text/css',
+                'js' => 'application/javascript',
             ];
 
-            $ext = $this->getExtensionOfFile($req->extracts["file"]);
+            $ext = $this->getExtensionOfFile($path);
             if (array_key_exists($ext, $media_types)) {
                 $mime_type = $media_types[$ext];
             }
         }
 
-        $this->response = new Response(200, file_get_contents($path), ["Content-Type" => $mime_type]);
+        $this->response = new Response(200, file_get_contents($path), ['Content-Type' => $mime_type]);
     }
 }
