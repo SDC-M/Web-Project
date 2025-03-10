@@ -16,7 +16,7 @@ class User
     public static function login(string $name, string $password): ?static
     {
         $db = new Database;
-        $q = $db->db->prepare('SELECT username FROM users WHERE username = :username and password = :pass');
+        $q = $db->db->prepare('SELECT id FROM users WHERE username = :username and password = :pass');
         $q->bindParam('username', $name);
         $q->bindParam('pass', $password);
         $q->execute();
@@ -24,7 +24,7 @@ class User
         if ($id === false) {
             return null;
         }
-        return new static($id['username'], $name, $password);
+        return new static($id['id'], $name, $password);
     }
 
     public static function register(string $name, string $email, string $password, string $recovery_answer): bool

@@ -3,10 +3,13 @@ CREATE DATABASE IF NOT EXISTS kuva;
 USE kuva;
 
 CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `password` text NOT NULL,
   `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`username`)
+  `secret_answer` text NOT NULL,
+  PRIMARY KEY (`username`),
+  CONSTRAINT ID_unique UNIQUE(id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `migration` (
@@ -39,5 +42,3 @@ CREATE TABLE `annotations` (
 INSERT INTO migration
 VALUES ("1");
 
-ALTER TABLE `users`
-ADD COLUMN `secret_answer` text NOT NULL AFTER `email`;
