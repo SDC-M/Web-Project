@@ -19,7 +19,9 @@ class Path
         $r = explode('/', $this->path);
         $this->long_suffix = self::isLongMode($r);
     }
-
+    /**
+     * @param array<int,mixed> $r
+     */
     private static function isLongMode(array $r): bool
     {
         foreach ($r as $path) {
@@ -67,9 +69,7 @@ class Path
 
     public function extract(string $uri): array
     {
-        $ex = new Extractor(UrlArgs::fromPath($this->path));
-
-        return $ex->extract($uri);
+        return (new Extractor(UrlArgs::fromPath($this->path)))->extract($uri);
     }
 }
 
@@ -97,6 +97,7 @@ class UrlArg
         if (str_starts_with($part, '{') && str_ends_with($part, '}')) {
             $name = self::getNameOfPart($part);
             if (str_ends_with($name, ":+")) {
+                // Remove the :+ of the name
                 return new static(substr($name, 0, strlen($name) - 2), '', ArgsType::LongVariable);
             }
 
@@ -109,6 +110,9 @@ class UrlArg
 
 class UrlArgs
 {
+    /**
+     * @param array<int,UrlArg> $parts
+     */
     public function __construct(public array $parts)
     {
     }
@@ -119,8 +123,6 @@ class UrlArgs
         foreach (explode('/', $uri) as $part) {
             array_push($parts, UrlArg::fromPart($part));
         }
-
-
         return new static($parts);
     }
 }
@@ -154,9 +156,7 @@ class Extractor
         $regex .= '(\/)?$/';
         return $regex;
     }
-    /**
-     * @return array<<missing>,string[]|bool>
-     */
+
     public function extract(string $uri): array
     {
         $extract = [];
