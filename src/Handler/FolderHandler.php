@@ -25,6 +25,12 @@ class FolderHandler extends Handler
     public function handle(Request $req): void
     {
         $path = $this->folder.$req->extracts['path'];
+
+        if (!is_file($path)) {
+            $this->response = new Response(404);
+            return;
+        }
+        
         $mime_type = mime_content_type($path);
         if ($mime_type == 'text/plain') {
             $media_types = [
