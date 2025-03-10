@@ -9,11 +9,12 @@ use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 use Kuva\Utils\SessionVariable;
 
-class ImageFormHandler extends Handler {
+class ImageFormHandler extends Handler
+{
     public function handle(Request $req): void
     {
         // Set by default, error response
-        $this->response = new Response(400, headers: ["Location" => "/"]);        
+        $this->response = new Response(400, headers: ["Location" => "/"]);
 
         if (!isset($_POST["image"])) {
             return;

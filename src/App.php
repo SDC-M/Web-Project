@@ -25,7 +25,7 @@ class App
             /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
-            ->post("/image/new", new ImageFormHandler)
+            ->post("/image/new", new ImageFormHandler())
             ->handleCurrent();
     }
 }

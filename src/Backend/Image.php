@@ -4,44 +4,53 @@ namespace Kuva\Backend;
 
 use AssertionError;
 
-class Image {
-    const string IMAGE_FOLDER = "../images/";
+class Image
+{
+    public const string IMAGE_FOLDER = "../images/";
 
-    
-    private function __construct(public readonly ?string $name,
-                                public readonly ?User $owner,
-                                public array $bytes) {}
-    
-    public static function fromBytes(array $bytes): static {
+
+    private function __construct(
+        public readonly ?string $name,
+        public readonly ?User $owner,
+        public array $bytes
+    ) {
+    }
+
+    public static function fromBytes(array $bytes): static
+    {
         return new static(generateRandomString() . ".image", null, $bytes);
     }
 
-    public function linkTo(User $owner): void {
+    public function linkTo(User $owner): void
+    {
         $this->owner = $owner;
     }
 
     /**
      * Create image as file and an entry in db
      */
-    public function commit(): void {
-        if($this->owner == null) {
+    public function commit(): void
+    {
+        if ($this->owner == null) {
             throw new AssertionError("Owner should not be null");
         }
 
-        if($this->name == null || $this->name == '') {
+        if ($this->name == null || $this->name == '') {
             throw new AssertionError("Image name should not be null");
         }
-        
+
         $this->writeToFolder();
         $this->addToDatabase();
     }
 
-    private function writeToFolder(): void {
+    private function writeToFolder(): void
+    {
         $path = self::IMAGE_FOLDER . $this->owner->id . '/' . $this->name;
         file_put_contents($path, $this->bytes);
     }
 
-    private function addToDatabase(): void {        
+    private function addToDatabase(): void
+    {
         $db = new Database();
         $q = $db->db->prepare('INSERT INTO images(file_path, description, is_public, image_date, user_id)'
         . 'VALUES (:file_path, :descripton, :is_public, :image_date, :owner_id)');
@@ -56,7 +65,8 @@ class Image {
     }
 }
 
-function generateRandomString($length = 16) {
+function generateRandomString($length = 16)
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
