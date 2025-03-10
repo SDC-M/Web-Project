@@ -22,8 +22,10 @@ class App
             ->get('/login', new FileHandler('../frontend/login.html'))
             ->get('/recovery', new FileHandler('../frontend/recovery-password.html'))
             ->get('/frontend/{path:+}', new FolderHandler("../frontend/"))
+            /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
+            ->post("/image/new", new ImageFormHandler)
             ->handleCurrent();
     }
 }
