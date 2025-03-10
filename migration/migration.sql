@@ -5,9 +5,12 @@ USE kuva;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
-  `password` text NOT NULL,
   `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  `password` text NOT NULL,
+  `recovery_key` text NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT user_unique UNIQUE(username),
+  CONSTRAINT email_unique UNIQUE(email) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `migration` (
@@ -20,7 +23,7 @@ CREATE TABLE `images` (
   `description` text NOT NULL,
   `is_public` boolean NOT NULL,
   `image_date` datetime NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
+  `user_id` int (10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -28,7 +31,7 @@ CREATE TABLE `images` (
 CREATE TABLE `annotations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `image_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
+  `user_id` int (10) unsigned NOT NULL,
   `description` text NOT NULL,
   `position_x` float NOT NULL,
   `position_y` float NOT NULL,
@@ -37,10 +40,6 @@ CREATE TABLE `annotations` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
 INSERT INTO migration
 VALUES ("1");
-
-ALTER TABLE `users`
-ADD COLUMN `secret_answer` text NOT NULL AFTER `email`;
 
