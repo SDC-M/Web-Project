@@ -11,7 +11,6 @@ class SessionVariable
         }
     }
 
-
     public function setUserId(int $id): void
     {
         $_SESSION["user_id"] = $id;
@@ -19,10 +18,6 @@ class SessionVariable
 
     public function getUserId(): ?int
     {
-        if (!isset($_SESSION["user_id"])) {
-            return null;
-        }
-
         return $_SESSION["user_id"];
     }
 }
