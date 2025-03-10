@@ -18,12 +18,12 @@ class RegisterHandler extends Handler
         }
         // TODO: Verify input
         $registered = User::register($_POST['username'], $_POST['email'], $_POST['password'], $_POST['recovery_answer']);
-        if (!$registered) {
+        if (! $registered) {
             $this->response = new Response(500);
 
             return;
         }
 
-        $this->response = new Response(301, headers: ["Location" => "/"]);
+        $this->response = new Response(301, headers: ['Location' => '/']);
     }
 }

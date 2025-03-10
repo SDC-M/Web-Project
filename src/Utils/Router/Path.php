@@ -4,7 +4,34 @@ namespace Kuva\Utils\Router;
 
 class Path
 {
-    public function __construct(public string $path) {}
+    /**
+        When the path extract a long suffix
+        Path: /aaa/{long:+}
+        /aaa/eee => long = eee
+        /aaa/eeee/aaa/eee => long = eeee/aaa/eee
+     */
+    private bool $long_suffix;
+
+    private array $path_part;
+
+    public function __construct(public string $path)
+    {
+        $r = explode('/', $this->path);
+        $this->long_suffix = self::isLongMode($r);
+    }
+
+    private static function isLongMode(array $r): bool
+    {
+        foreach ($r as $path) {
+            $matches = [];
+            preg_match('(\{([a-zA-Z]+)\:\+})', $path, $matches);
+            if (count($matches) != 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public function isEqual(string $path): bool
     {
@@ -18,11 +45,10 @@ class Path
 
     public function resolve(string $uri): bool
     {
-
         $r = explode('/', $this->path);
         $uri = explode('/', $uri);
 
-        if (count($r) != count($uri)) {
+        if (! $this->long_suffix && (count($r) != count($uri))) {
             return false;
         }
 
@@ -41,42 +67,110 @@ class Path
 
     public function extract(string $uri): array
     {
-        $ex = Extractor::fromPath($this->path);
+        $ex = new Extractor(UrlArgs::fromPath($this->path));
 
         return $ex->extract($uri);
     }
 }
 
-class Extractor
+enum ArgsType
 {
-    public function __construct(private array $path_parts) {}
+    case Constant;
+    case Variable;
+    case LongVariable;
+}
 
-    public static function fromPathParts(array $path_parts): static
+class UrlArg
+{
+    public function __construct(public string $name, public string $value, public ArgsType $type)
     {
-        return new static($path_parts);
     }
 
-    public static function fromPath(string $path): static
-    {
-        return new static(explode('/', $path));
-    }
 
     private static function getNameOfPart(string $part): string
     {
         return substr($part, 1, strlen($part) - 2);
     }
 
-    public function extract(string $uri): array
+    public static function fromPart(string $part): static
     {
-        $uri_parts = explode('/', $uri);
-        $extract = [];
-        foreach ($this->path_parts as $i => $part) {
-            if (str_starts_with($part, '{') && str_ends_with($part, '}')) {
-                $name = self::getNameOfPart($part);
-                $extract[$name] = $uri_parts[$i];
+        if (str_starts_with($part, '{') && str_ends_with($part, '}')) {
+            $name = self::getNameOfPart($part);
+            if (str_ends_with($name, ":+")) {
+                return new static(substr($name, 0, strlen($name) - 2), '', ArgsType::LongVariable);
+            }
+
+            return new static($name, '', ArgsType::Variable);
+        }
+
+        return new static('', $part, ArgsType::Constant);
+    }
+}
+
+class UrlArgs
+{
+    public function __construct(public array $parts)
+    {
+    }
+
+    public static function fromPath(string $uri): static
+    {
+        $parts = [];
+        foreach (explode('/', $uri) as $part) {
+            array_push($parts, UrlArg::fromPart($part));
+        }
+
+
+        return new static($parts);
+    }
+}
+
+class Extractor
+{
+    public function __construct(private UrlArgs $url_args)
+    {
+    }
+
+    public function buildRegex(): string
+    {
+        $regex = '/^';
+        $args_regex = [];
+
+        foreach ($this->url_args->parts as $arg) {
+            $arg_regex = match ($arg->type) {
+                ArgsType::Constant => "({$arg->value})",
+                ArgsType::Variable => "(.+)",
+                ArgsType::LongVariable => "(.+(\/)?)+"
+            };
+
+            array_push($args_regex, $arg_regex);
+
+            if ($arg->type == ArgsType::LongVariable) {
+                break;
             }
         }
 
+        $regex .= implode('\/', $args_regex);
+        $regex .= '(\/)?$/';
+        return $regex;
+    }
+    /**
+     * @return array<<missing>,string[]|bool>
+     */
+    public function extract(string $uri): array
+    {
+        $extract = [];
+        $regex = $this->buildRegex();
+        $matches = [];
+        $r = preg_match($regex, $uri, $matches);
+        foreach (array_slice($matches, 1) as $i => $val) {
+            $arg = $this->url_args->parts[$i];
+            match ($arg->type) {
+                ArgsType::Variable,
+                ArgsType::LongVariable => $extract[$arg->name] = $val,
+                default => null,
+            };
+        }
         return $extract;
     }
 }
