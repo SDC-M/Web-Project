@@ -3,12 +3,13 @@
 namespace Kuva\Backend;
 
 use Exception;
+use Kuva\Utils\SessionVariable;
 use PDO;
 
 class User
 {
     private function __construct(
-        protected string $id,
+        public readonly string $id,
         public readonly string $username,
         public readonly string $email
     ) {
@@ -17,16 +18,16 @@ class User
     public static function login(string $name, string $password): ?static
     {
         $db = new Database();
-        $q = $db->db->prepare('SELECT id FROM users WHERE username = :username and password = :pass');
+        $q = $db->db->prepare('SELECT id, email FROM users WHERE username = :username and password = :pass');
         $q->bindParam('username', $name);
         $q->bindParam('pass', $password);
         $q->execute();
-        $id = $q->fetch(PDO::FETCH_ASSOC);
-        if ($id === false) {
+        $values = $q->fetch(PDO::FETCH_ASSOC);
+        if ($values === false) {
             return null;
         }
 
-        return new static($id['id'], $name, $password);
+        return new static($values['id'], $name, $values["email"]);
     }
 
     public static function register(string $name, string $email, string $password, string $recovery_answer): bool
@@ -44,5 +45,26 @@ class User
 
             return false;
         }
+    }
+
+    public static function getById(int $id): static {
+        $db = new Database();
+        $q = $db->db->prepare('SELECT username, email FROM users WHERE id = :id');
+        $q->bindParam(":id", $id);
+        $q->execute();
+        $values = $q->fetch(PDO::FETCH_ASSOC);
+
+        return new static($id, $values["username"], $values["email"]);
+    }
+
+    public static function getFromSession(): ?static {
+        $session = new SessionVariable();
+        $id = $session->getUserId();
+        
+        if ($id == null) {
+            return null;
+        }
+
+        return User::getById($id);
     }
 }
