@@ -30,7 +30,7 @@ class User
     public static function register(string $name, string $email, string $password, string $recovery_answer): bool
     {
         $db = new Database;
-        $q = $db->db->prepare('INSERT INTO users(username, email, password, secret_answer) VALUES (:name, :email, :password, :answer)');
+        $q = $db->db->prepare('INSERT INTO users(username, email, password, recovery_key) VALUES (:name, :email, :password, :answer)');
         $q->bindParam('name', $name);
         $q->bindParam('email', $email);
         $q->bindParam('password', $password);
