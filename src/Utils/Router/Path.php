@@ -6,9 +6,9 @@ class Path
 {
     /**
         When the path extract a long suffix
-        Path: /aaa/{long:+}
-        /aaa/eee => long = eee
-        /aaa/eeee/aaa/eee => long = eeee/aaa/eee
+        Path: /this/{long:+}
+        /this/is/ => long = is
+        /this/is/my/path => long = is/my/path
      */
     private bool $long_suffix;
 
