@@ -6,6 +6,7 @@ use Kuva\Backend\User;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
+use Kuva\Utils\SessionVariable;
 
 class LoginHandler extends Handler
 {
@@ -24,7 +25,7 @@ class LoginHandler extends Handler
 
             return;
         }
-
+        (new SessionVariable())->setUserId($login->id);
         $this->response = new Response(301, headers: ['Location' => '/']);
     }
 }
