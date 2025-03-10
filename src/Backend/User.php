@@ -47,7 +47,8 @@ class User
         }
     }
 
-    public static function getById(int $id): static {
+    public static function getById(int $id): static
+    {
         $db = new Database();
         $q = $db->db->prepare('SELECT username, email FROM users WHERE id = :id');
         $q->bindParam(":id", $id);
@@ -57,10 +58,11 @@ class User
         return new static($id, $values["username"], $values["email"]);
     }
 
-    public static function getFromSession(): ?static {
+    public static function getFromSession(): ?static
+    {
         $session = new SessionVariable();
         $id = $session->getUserId();
-        
+
         if ($id == null) {
             return null;
         }

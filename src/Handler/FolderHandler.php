@@ -30,7 +30,7 @@ class FolderHandler extends Handler
             $this->response = new Response(404);
             return;
         }
-        
+
         $mime_type = mime_content_type($path);
         if ($mime_type == 'text/plain') {
             $media_types = [
