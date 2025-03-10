@@ -33,8 +33,8 @@ CREATE TABLE `annotations` (
   `image_id` int(10) unsigned NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
   `description` text NOT NULL,
-  `position_x` float NOT NULL,
-  `position_y` float NOT NULL,
+  `position_x` int NOT NULL,
+  `position_y` int NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`image_id`) REFERENCES `images`(`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
