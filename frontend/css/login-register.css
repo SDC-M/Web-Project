@@ -93,6 +93,10 @@ input:focus {
     background-image: url("../img/register_logo.jpg");
 }
 
+#register2 {
+    background-image: url("../img/login_logo.jpg");
+}
+
 @media screen and (max-width: 700px) {
     .left {
         display: none;
