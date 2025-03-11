@@ -75,6 +75,7 @@ input:focus {
     width: auto;
     height: auto;
     margin: auto auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .left {
@@ -91,10 +92,6 @@ input:focus {
 
 #register {
     background-image: url("../img/register_logo.jpg");
-}
-
-#register2 {
-    background-image: url("../img/login_logo.jpg");
 }
 
 @media screen and (max-width: 700px) {
@@ -129,4 +126,9 @@ input[type=checkbox] {
     color: grey;
     font-style: italic;
     margin-left: 140px;
+}
+
+.dark-button {
+    background-color: #58495a;
+    color: white;
 }
