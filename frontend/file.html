@@ -4,8 +4,8 @@
 </head>
 
 <body>
-  <form action="/image/new" method="post">
-    <input type="file" name="image">
+  <form action="/image/new" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/png, image/jpeg">
     <input type="submit" />
   </form>
 </body>

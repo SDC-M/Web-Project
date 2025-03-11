@@ -3,6 +3,7 @@
 namespace Kuva\Backend;
 
 use AssertionError;
+use PDO;
 
 class Image
 {
@@ -11,14 +12,18 @@ class Image
 
     private function __construct(
         public readonly ?string $name,
-        public readonly ?User $owner,
-        public array $bytes
+        public ?User $owner,
+        public string $bytes
     ) {
     }
 
-    public static function fromBytes(array $bytes): static
+    public static function fromBytes(string $bytes): static
     {
         return new static(generateRandomString() . ".image", null, $bytes);
+    }
+
+    public static function fromFile(string $tmpfile): static {
+        return self::fromBytes(file_get_contents($tmpfile));
     }
 
     public function linkTo(User $owner): void
@@ -52,7 +57,7 @@ class Image
         if (!file_exists(self::IMAGE_FOLDER . $this->owner->id)) {
             mkdir(self::IMAGE_FOLDER . $this->owner->id);
         }
-        echo "eee";
+        
         $path = self::IMAGE_FOLDER . $this->owner->id . '/' . $this->name;
         file_put_contents($path, $this->bytes);
     }
@@ -61,13 +66,13 @@ class Image
     {
         $db = new Database();
         $q = $db->db->prepare('INSERT INTO images(file_path, description, is_public, image_date, user_id)'
-        . 'VALUES (:file_path, :descripton, :is_public, :image_date, :owner_id)');
+        . 'VALUES (:file_path, :description, :is_public, :image_date, :owner_id)');
 
-        $q->bindParam(":file_path", $this->name);
-        $q->bindParam(":description", "blah");
-        $q->bindParam(":is_public", false);
-        $q->bindParam(":image_date", "10-02-2024 13:30:30");
-        $q->bindParam(":owner_id", $this->owner->id);
+        $q->bindValue(":file_path", $this->name);
+        $q->bindValue(":description", "");
+        $q->bindValue(":is_public", false, PDO::PARAM_BOOL);
+        $q->bindValue(":image_date",date("Y-m-d H:i:s"));
+        $q->bindValue(":owner_id", $this->owner->id);
 
         $q->execute();
     }

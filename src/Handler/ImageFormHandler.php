@@ -16,7 +16,7 @@ class ImageFormHandler extends Handler
         // Set by default, error response
         $this->response = new Response(400, headers: ["Location" => "/"]);
 
-        if (!isset($_POST["image"])) {
+        if (!isset($_FILES["image"])) {
             return;
         }
 
@@ -27,10 +27,10 @@ class ImageFormHandler extends Handler
             return;
         }
 
-        $image = Image::fromBytes($_POST["image"]);
+        $image = Image::fromFile($_FILES["image"]["tmp_name"]);
         $image->linkTo($user);
         $image->commit();
-
-        $this->response = new Response(200);
+ 
+        $this->response = new Response(200, headers: ["Location" => "/app"]);
     }
 }
