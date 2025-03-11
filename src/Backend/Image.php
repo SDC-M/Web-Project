@@ -11,6 +11,7 @@ class Image implements JsonSerializable
     public const string IMAGE_FOLDER = "../images/";
 
     private function __construct(
+        private readonly ?int $id,
         public readonly ?string $name,
         public bool $is_public,
         public ?User $owner,
@@ -20,7 +21,7 @@ class Image implements JsonSerializable
 
     public static function fromBytes(string $bytes): static
     {
-        return new static(generateRandomString() . ".image", null, $bytes);
+        return new static(null, generateRandomString() . ".image", null, $bytes);
     }
 
     public static function fromFile(string $tmpfile): static {
@@ -34,7 +35,7 @@ class Image implements JsonSerializable
         $q->execute();
         $values = $q->fetch();
 
-        return new static($values["file_path"], $values["is_public"] == 1, User::getById($values["user_id"]), "");
+        return new static($values["id"], $values["file_path"], $values["is_public"] == 1, User::getById($values["user_id"]), "");
     }
 
     public function getPath(): string {
@@ -97,7 +98,7 @@ class Image implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return ["name" => $this->name, "is_public" => $this->is_public, "user" => $this->owner->id];
+        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner->id];
     }
 }
 

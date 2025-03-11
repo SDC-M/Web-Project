@@ -2,7 +2,6 @@
 
 namespace Kuva\Backend;
 
-use JsonSerializable;
 use PDO;
 
 class Images {
