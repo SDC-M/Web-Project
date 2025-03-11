@@ -10,6 +10,7 @@ use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
 use Kuva\Handler\ImageFormHandler;
 use Kuva\Handler\LoginHandler;
+use Kuva\Handler\RecoveryHandler;
 use Kuva\Handler\RegisterHandler;
 use Kuva\Utils\Router;
 
@@ -28,6 +29,7 @@ class App
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
             ->post("/image/new", new ImageFormHandler())
+            ->post('/recovery', new RecoveryHandler())
             ->handleCurrent();
     }
 }
