@@ -11,14 +11,14 @@ class User
     private function __construct(
         public readonly string $id,
         public readonly string $username,
-        public readonly string $email
-    ) {
-    }
+        public readonly string $email,
+        public readonly string $recovery
+    ) {}
 
-    public static function login(string $name, string $password): ?static
+    public static function getByNameAndPassword(string $name, string $password): ?static
     {
         $db = new Database();
-        $q = $db->db->prepare('SELECT id, email FROM users WHERE username = :username and password = :pass');
+        $q = $db->db->prepare('SELECT id, email, recovery_key FROM users WHERE username = :username and password = :pass');
         $q->bindParam('username', $name);
         $q->bindParam('pass', $password);
         $q->execute();
@@ -27,7 +27,7 @@ class User
             return null;
         }
 
-        return new static($values['id'], $name, $values["email"]);
+        return new static($values['id'], $name, $values["email"], $values["recovery_key"]);
     }
 
     public static function register(string $name, string $email, string $password, string $recovery_answer): bool
@@ -54,8 +54,23 @@ class User
         $q->bindParam(":id", $id);
         $q->execute();
         $values = $q->fetch(PDO::FETCH_ASSOC);
+        // TODO: Add recovery key
+        return new static($id, $values["username"], $values["email"], "");
+    }
 
-        return new static($id, $values["username"], $values["email"]);
+    public static function getByNameAndRecoverykey(string $name, string $recovery): ?static
+    {
+        $db = new Database();
+        $q = $db->db->prepare('SELECT id, email, recovery_key FROM users WHERE username = :username and recovery_key = :pass');
+        $q->bindParam('username', $name);
+        $q->bindParam('pass', $recovery);
+        $q->execute();
+        $values = $q->fetch(PDO::FETCH_ASSOC);
+        if ($values === false) {
+            return null;
+        }
+
+        return new static($values['id'], $name, $values["email"], $values["recovery_key"]);
     }
 
     public static function getFromSession(): ?static
@@ -68,5 +83,20 @@ class User
         }
 
         return User::getById($id);
+    }
+
+    public function updatePassword(string $password)
+    {
+        $db = new Database();
+        $q = $db->db->prepare('UPDATE users SET password = :password WHERE id = :id');
+        $q->bindParam('password', $password);
+        $q->bindParam('id', $this->id);
+        try {
+            return $q->execute();
+        } catch (Exception $ex) {
+            var_dump($ex);
+
+            return false;
+        }
     }
 }

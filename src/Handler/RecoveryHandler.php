@@ -8,7 +8,7 @@ use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 use Kuva\Utils\SessionVariable;
 
-class LoginHandler extends Handler
+class RecoveryHandler extends Handler
 {
     public function handle(Request $req): void
     {
@@ -22,10 +22,13 @@ class LoginHandler extends Handler
         $login = User::getByNameAndPassword($_POST['username'], $_POST['password']);
         if ($login == null) {
             $this->response = new Response(400);
-
             return;
         }
-        (new SessionVariable())->setUserId($login->id);
-        $this->response = new Response(301, headers: ['Location' => '/']);
+
+        if ($login->recovery != $_POST['recovery_key']) {
+            $this->response = new Response(400);
+            return;
+        }
+        $login->updatePassword($_POST['password']);
     }
 }

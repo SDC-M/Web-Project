@@ -20,6 +20,7 @@ class App
         $r->get('/', new AppHandler())
             ->get('/register', new FileHandler('../frontend/register.html'))
             ->get('/login', new FileHandler('../frontend/login.html'))
+            ->get('/recovery', new FileHandler('../frontend/recovery-password.html'))
             ->get('/frontend/{path:+}', new FolderHandler("../frontend/"))
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())

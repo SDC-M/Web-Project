@@ -14,7 +14,7 @@ class AppHandler extends Handler
 
     private function showLoginPage(): void
     {
-        $this->response = new Response(200, file_get_contents(FileConstant::LOGINPAGE));
+        $this->response = new Response(200, file_get_contents(FileConstant::HOMEPAGE));
     }
 
     public function handle(Request $req): void
