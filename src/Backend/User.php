@@ -53,15 +53,13 @@ class User
         $q = $db->db->prepare('SELECT username, email FROM users WHERE id = :id');
         $q->bindParam(":id", $id);
         try {
-            return $q->execute();
+            $q->execute();
         } catch (Exception $ex) {
-            var_dump($ex);
-
             return null;
         }
         $values = $q->fetch(PDO::FETCH_ASSOC);
         // TODO: Add recovery key
-        if ($value === false) {
+        if ($values === false) {
             return null;
         }
 

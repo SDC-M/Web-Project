@@ -30,5 +30,7 @@ class ImageFormHandler extends Handler
         $image = Image::fromBytes($_POST["image"]);
         $image->linkTo($user);
         $image->commit();
+
+        $this->response = new Response(200);
     }
 }

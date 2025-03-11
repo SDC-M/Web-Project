@@ -45,6 +45,14 @@ class Image
 
     private function writeToFolder(): void
     {
+        if (!file_exists(self::IMAGE_FOLDER)) {
+            mkdir(self::IMAGE_FOLDER);
+        }
+
+        if (!file_exists(self::IMAGE_FOLDER . $this->owner->id)) {
+            mkdir(self::IMAGE_FOLDER . $this->owner->id);
+        }
+        echo "eee";
         $path = self::IMAGE_FOLDER . $this->owner->id . '/' . $this->name;
         file_put_contents($path, $this->bytes);
     }

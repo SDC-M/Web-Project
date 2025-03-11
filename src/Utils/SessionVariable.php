@@ -18,6 +18,9 @@ class SessionVariable
 
     public function getUserId(): ?int
     {
+        if (!isset($_SESSION["user_id"])) {
+            return null;
+        }
         return $_SESSION["user_id"];
     }
 }
