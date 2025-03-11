@@ -47,14 +47,22 @@ class User
         }
     }
 
-    public static function getById(int $id): static
+    public static function getById(int $id): ?static
     {
         $db = new Database();
         $q = $db->db->prepare('SELECT username, email FROM users WHERE id = :id');
         $q->bindParam(":id", $id);
-        $q->execute();
+        try {
+            $q->execute();
+        } catch (Exception $ex) {
+            return null;
+        }
         $values = $q->fetch(PDO::FETCH_ASSOC);
         // TODO: Add recovery key
+        if ($values === false) {
+            return null;
+        }
+
         return new static($id, $values["username"], $values["email"], "");
     }
 
