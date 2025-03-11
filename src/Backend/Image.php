@@ -3,17 +3,18 @@
 namespace Kuva\Backend;
 
 use AssertionError;
+use JsonSerializable;
 use PDO;
 
-class Image
+class Image implements JsonSerializable
 {
     public const string IMAGE_FOLDER = "../images/";
 
-
     private function __construct(
         public readonly ?string $name,
+        public bool $is_public,
         public ?User $owner,
-        public string $bytes
+        public ?string $bytes
     ) {
     }
 
@@ -24,6 +25,24 @@ class Image
 
     public static function fromFile(string $tmpfile): static {
         return self::fromBytes(file_get_contents($tmpfile));
+    }
+
+    public static function getById(int $id): ?static {
+        $db = new Database();
+        $q = $db->db->prepare("SELECT * FROM images WHERE id = :id");
+        $q->bindValue("id", $id);
+        $q->execute();
+        $values = $q->fetch();
+
+        return new static($values["file_path"], $values["is_public"] == 1, User::getById($values["user_id"]), "");
+    }
+
+    public function getPath(): string {
+        return self::IMAGE_FOLDER . $this->owner->id . '/' . $this->name;
+    }
+
+    public function getBytes(): string {
+        return file_get_contents($this->getPath());
     }
 
     public function linkTo(User $owner): void
@@ -58,8 +77,7 @@ class Image
             mkdir(self::IMAGE_FOLDER . $this->owner->id);
         }
         
-        $path = self::IMAGE_FOLDER . $this->owner->id . '/' . $this->name;
-        file_put_contents($path, $this->bytes);
+        file_put_contents($this->getPath(), $this->bytes);
     }
 
     private function addToDatabase(): void
@@ -75,6 +93,11 @@ class Image
         $q->bindValue(":owner_id", $this->owner->id);
 
         $q->execute();
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return ["name" => $this->name, "is_public" => $this->is_public, "user" => $this->owner->id];
     }
 }
 

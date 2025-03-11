@@ -9,6 +9,7 @@ use Kuva\Handler\AppHandler;
 use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
 use Kuva\Handler\ImageFormHandler;
+use Kuva\Handler\Image\GetByHandler as ImageGet;
 use Kuva\Handler\LoginHandler;
 use Kuva\Handler\RecoveryHandler;
 use Kuva\Handler\RegisterHandler;
@@ -25,6 +26,7 @@ class App
             ->get('/recovery', new FileHandler('../frontend/recovery-password.html'))
             ->get('/frontend/{path:+}', new FolderHandler("../frontend/"))
             ->get("/test_image", new FileHandler('../frontend/file.html'))
+            ->get("/image/{id}", new ImageGet())
             /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
