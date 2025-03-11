@@ -19,13 +19,16 @@ class RecoveryHandler extends Handler
             return;
         }
         // TODO: Verify input
-        $login = User::getByNameAndPassword($_POST['username'], $_POST['password']);
+        $login = User::getByNameAndRecoverykey($_POST['username'], $_POST['recovery_answer']);
+        echo ('ici');
         if ($login == null) {
+            echo ('bbb');
             $this->response = new Response(400);
             return;
         }
 
-        if ($login->recovery != $_POST['recovery_key']) {
+        if ($login->recovery != $_POST['recovery_answer']) {
+            echo ('aaa');
             $this->response = new Response(400);
             return;
         }

@@ -9,7 +9,7 @@ use PDO;
 class User
 {
     private function __construct(
-        public readonly string $id,
+        public string $id,
         public readonly string $username,
         public readonly string $email,
         public readonly string $recovery
