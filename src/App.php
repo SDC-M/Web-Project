@@ -3,7 +3,7 @@
 namespace Kuva;
 
 error_reporting(E_ALL);
-ini_set('display_errors', false);
+ini_set('display_errors', true);
 
 use Kuva\Handler\AppHandler;
 use Kuva\Handler\FileHandler;
@@ -14,6 +14,7 @@ use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\LoginHandler;
 use Kuva\Handler\RecoveryHandler;
 use Kuva\Handler\RegisterHandler;
+use Kuva\Handler\UserIdHandler;
 use Kuva\Utils\Router;
 
 class App
@@ -29,6 +30,8 @@ class App
             ->get("/test_image", new FileHandler('../frontend/file.html'))
             ->get("/image/{user_id}/{image_id}", new GetImageHandler())
             ->get("/image/{id}", new ImagesGet())
+            ->get('/user/me', new UserIdHandler())
+            ->get('/profile', new FileHandler('../frontend/profile.html'))
             /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())

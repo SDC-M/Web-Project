@@ -30,7 +30,7 @@ class ImageFormHandler extends Handler
         $image = Image::fromFile($_FILES["image"]["tmp_name"]);
         $image->linkTo($user);
         $image->commit();
- 
-        $this->response = new Response(200, headers: ["Location" => "/app"]);
+
+        $this->response = new Response(200, headers: ["Location" => "/profile"]);
     }
 }

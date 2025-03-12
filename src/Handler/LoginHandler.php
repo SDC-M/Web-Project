@@ -26,6 +26,6 @@ class LoginHandler extends Handler
             return;
         }
         (new SessionVariable())->setUserId($login->id);
-        $this->response = new Response(301, headers: ['Location' => '/']);
+        $this->response = new Response(301, headers: ['Location' => '/profile']);
     }
 }
