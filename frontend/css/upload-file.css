@@ -94,7 +94,7 @@ input {
 .dark-mode {
     background-color: var(--purple-color) !important;
 
-    * {
+    *:nth-of-type(textarea) {
         color: white;
         border-color: white !important;
     }
