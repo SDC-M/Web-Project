@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/frontend/js/profile.js"></script>
+    <link rel="stylesheet" href="/frontend/css/profile.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <form action="/image/new" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/png, image/jpeg">
+        <input type="text" name="description">
+        <input type="submit" />
+    </form>
+    <div id="container"></div>
+</body>
+
+</html>

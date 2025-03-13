@@ -14,35 +14,39 @@ class Image implements JsonSerializable
         private readonly ?int $id,
         public readonly ?string $name,
         public bool $is_public,
+        public string $description,
         public ?User $owner,
         public ?string $bytes
-    ) {
-    }
+    ) {}
 
     public static function fromBytes(string $bytes): static
     {
-        return new static(null, generateRandomString() . ".image", null, $bytes);
+        return new static(null, generateRandomString(), true, "", null, $bytes);
     }
 
-    public static function fromFile(string $tmpfile): static {
+    public static function fromFile(string $tmpfile): static
+    {
         return self::fromBytes(file_get_contents($tmpfile));
     }
 
-    public static function getById(int $id): ?static {
+    public static function getById(int $id): ?static
+    {
         $db = new Database();
         $q = $db->db->prepare("SELECT * FROM images WHERE id = :id");
         $q->bindValue("id", $id);
         $q->execute();
         $values = $q->fetch();
 
-        return new static($values["id"], $values["file_path"], $values["is_public"] == 1, User::getById($values["user_id"]), "");
+        return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], User::getById($values["user_id"]), "");
     }
 
-    public function getPath(): string {
+    public function getPath(): string
+    {
         return self::IMAGE_FOLDER . $this->owner->id . '/' . $this->name;
     }
 
-    public function getBytes(): string {
+    public function getBytes(): string
+    {
         return file_get_contents($this->getPath());
     }
 
@@ -77,7 +81,7 @@ class Image implements JsonSerializable
         if (!file_exists(self::IMAGE_FOLDER . $this->owner->id)) {
             mkdir(self::IMAGE_FOLDER . $this->owner->id);
         }
-        
+
         file_put_contents($this->getPath(), $this->bytes);
     }
 
@@ -85,12 +89,12 @@ class Image implements JsonSerializable
     {
         $db = new Database();
         $q = $db->db->prepare('INSERT INTO images(file_path, description, is_public, image_date, user_id)'
-        . 'VALUES (:file_path, :description, :is_public, :image_date, :owner_id)');
+            . 'VALUES (:file_path, :description, :is_public, :image_date, :owner_id)');
 
         $q->bindValue(":file_path", $this->name);
-        $q->bindValue(":description", "");
+        $q->bindValue(":description", $this->description);
         $q->bindValue(":is_public", false, PDO::PARAM_BOOL);
-        $q->bindValue(":image_date",date("Y-m-d H:i:s"));
+        $q->bindValue(":image_date", date("Y-m-d H:i:s"));
         $q->bindValue(":owner_id", $this->owner->id);
 
         $q->execute();
@@ -98,7 +102,7 @@ class Image implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner->id];
+        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner->id, "description" => $this->description];
     }
 }
 

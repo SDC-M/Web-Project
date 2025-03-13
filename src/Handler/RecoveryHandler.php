@@ -20,16 +20,13 @@ class RecoveryHandler extends Handler
         }
         // TODO: Verify input
         $login = User::getByNameAndRecoverykey($_POST['username'], $_POST['recovery_answer']);
-        echo ('ici');
         if ($login == null) {
-            echo ('bbb');
-            $this->response = new Response(400);
+            $this->response = new Response(400, headers: ['Location' => '/login']);
             return;
         }
 
         if ($login->recovery != $_POST['recovery_answer']) {
-            echo ('aaa');
-            $this->response = new Response(400);
+            $this->response = new Response(400, headers: ['Location' => '/login']);
             return;
         }
         $login->updatePassword($_POST['password']);
