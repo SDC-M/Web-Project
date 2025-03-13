@@ -29,6 +29,7 @@ class ImageFormHandler extends Handler
 
         $image = Image::fromFile($_FILES["image"]["tmp_name"]);
         $image->description = $_POST["description"];
+        $image->is_public = $_POST["is_public"];
         $image->linkTo($user);
         $image->commit();
 

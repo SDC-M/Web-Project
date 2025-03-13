@@ -8,17 +8,13 @@ async function getPictures() {
         }
 
         const json = await response.json();
-        for (const pictures of json) {
-            let img = document.createElement("img");
-            img.setAttribute('src', `/image/${userId}/${pictures.id}`);
-            let figure = document.createElement("figure");
-            let figcaption = document.createElement("figcaption");
-            figcaption.setAttribute('id', `${pictures.id}`);
-            figcaption.append(`${pictures.description}`);
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-            document.getElementById('container').appendChild(figure);
-        }
+        $.each(json, function (index, picture) {
+            let $img = $("<img>").attr("src", `/image/${userId}/${picture.id}`);
+            let $figure = $("<figure>");
+            let $figcaption = $("<figcaption>").attr("id", picture.id).text(picture.description);
+            $figure.append($img).append($figcaption);
+            $('#container').append($figure);
+        });
     } catch (error) {
         console.error(error.message);
     }
@@ -52,6 +48,5 @@ $(document).ready(function () {
         $('button').removeClass('dark-button');
     }
 });
-
 
 getPictures();

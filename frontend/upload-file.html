@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/frontend/css/upload-file.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div id="page-container">
+        <div id="container">
+            <form action="/image/new" method="post" enctype="multipart/form-data" id="form">
+                <input type="file" name="image" accept="image/png, image/jpeg" id="file-upload">
+                <textarea name="description" id="description" placeholder="De quoi s'agit-il ?"></textarea>
+                <div id="check-box">
+                    <input type="checkbox" name="is_public">
+                    <a>Public image ?</a>
+                </div>
+                <button class="" type="submit">Post</button>
+                <a href="/profile">Cancel</a>
+            </form>
+            <div id="preview-container">
+                <img src="#" alt="" id="file-preview">
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="/frontend/js/upload-file.js"></script>
+
+</html>
