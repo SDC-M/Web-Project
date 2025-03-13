@@ -16,6 +16,11 @@ class FileHandler extends Handler
 
     public function handle(Request $req): void
     {
+        if (!file_exists($this->file_path)) {
+            $this->response = new Response(404, "Not found");
+            return;
+        }
+
         $this->response = new Response(200, file_get_contents($this->file_path));
     }
 }

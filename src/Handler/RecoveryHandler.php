@@ -11,7 +11,7 @@ class RecoveryHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        if (! isset($_POST['username']) || ! isset($_POST['password'])) {
+        if (! isset($_POST['username']) || ! isset($_POST['password']) || ! isset($_POST["recovery_answer"])) {
             echo 'A field is not set';
             $this->response = new Response(400);
 

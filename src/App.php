@@ -28,16 +28,16 @@ class App
             ->get('/login', new FileHandler('../frontend/login.html'))
             ->get('/profile', new FileHandler('../frontend/profile.html'))
             ->get('/recovery', new FileHandler('../frontend/recovery-password.html'))
-            ->get('/frontend/{path:+}', new FolderHandler("../frontend/"))
-            ->get("/test_image", new FileHandler('../frontend/file.html'))
-            ->get("/image/{user_id}/{image_id}", new GetImageHandler())
-            ->get("/image/{id}", new ImagesGet())
+            ->get('/frontend/{path:+}', new FolderHandler('../frontend/'))
+            ->get('/test_image', new FileHandler('../frontend/file.html'))
+            ->get('/image/{user_id}/{image_id}', new GetImageHandler())
+            ->get('/image/{id}', new ImagesGet())
             ->get('/user/me', new UserIdHandler())
             ->get('/disconnect', new DisconnectHandler())
             /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
-            ->post("/image/new", new ImageFormHandler())
+            ->post('/image/new', new ImageFormHandler())
             ->post('/recovery', new RecoveryHandler())
             ->handleCurrent();
     }

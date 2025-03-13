@@ -22,7 +22,10 @@ class GetByHandler extends Handler
         }
 
         $session_user = User::getFromSession();
-
+        if ($session_user != null && $session_user->id == $user_id->id) {
+            $this->response = new Response(200, Images::getAllImagesOf($user_id)->jsonify(), ["Content-Type" => "application/json"]);
+            return;
+        }
 
         $this->response = new Response(200, Images::getPublicImagesOf($user_id)->jsonify(), ["Content-Type" => "application/json"]);
     }
