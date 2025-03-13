@@ -14,14 +14,26 @@ form {
 #container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 1px;
     background-color: grey;
     padding: 10px;
     margin: 50px;
+    background-color: red;
 }
 
 #container img {
     width: 150px;
     height: 150px;
     object-fit: cover;
+    background-color: blue;
 }
+
+figcaption {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*
+img:hover {
+    transform: scale(1.1);
+}*/
