@@ -18,7 +18,7 @@ class LoginHandler extends Handler
 
             return;
         }
-        // TODO: Verify input
+
         $login = User::getByNameAndPassword($_POST['username'], $_POST['password']);
         if ($login == null) {
             $this->response = new Response(400);

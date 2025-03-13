@@ -16,7 +16,7 @@ class ImageFormHandler extends Handler
         // Set by default, error response
         $this->response = new Response(400, headers: ["Location" => "/"]);
 
-        if (!isset($_FILES["image"])) {
+        if (!isset($_FILES["image"]) || !isset($_POST["description"])) {
             return;
         }
 

@@ -12,9 +12,14 @@ class AppHandler extends Handler
 {
     public bool $is_bufferize = false;
 
-    private function showLoginPage(): void
+    private function showUnconnectedPage(): void
     {
         $this->response = new Response(200, file_get_contents(FileConstant::HOMEPAGE));
+    }
+
+    private function showConnectedPage(): void
+    {
+        $this->response = new Response(200, "Connected");
     }
 
     public function handle(Request $req): void
@@ -22,10 +27,10 @@ class AppHandler extends Handler
         session_start();
         $r = User::getFromSession();
         if ($r == null) {
-            $this->showLoginPage();
+            $this->showUnconnectedPage();
             return;
         }
 
-        $this->response = new Response(200, "Connected");
+        $this->showConnectedPage();
     }
 }

@@ -38,6 +38,10 @@ class Image implements JsonSerializable
         $q->execute();
         $values = $q->fetch();
 
+        if ($values === false) {
+            return null;
+        }
+
         return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], User::getById($values["user_id"]), "");
     }
 

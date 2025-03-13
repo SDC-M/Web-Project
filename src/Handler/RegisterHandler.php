@@ -20,7 +20,6 @@ class RegisterHandler extends Handler
         $registered = User::register($_POST['username'], $_POST['email'], $_POST['password'], $_POST['recovery_answer']);
         if (! $registered) {
             $this->response = new Response(500);
-
             return;
         }
 
