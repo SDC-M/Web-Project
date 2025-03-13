@@ -17,7 +17,8 @@ class Image implements JsonSerializable
         public string $description,
         public ?User $owner,
         public ?string $bytes
-    ) {}
+    ) {
+    }
 
     public static function fromBytes(string $bytes): static
     {

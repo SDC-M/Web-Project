@@ -6,7 +6,6 @@ use Kuva\Backend\User;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
-use Kuva\Utils\SessionVariable;
 
 class RecoveryHandler extends Handler
 {
