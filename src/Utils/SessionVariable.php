@@ -11,7 +11,8 @@ class SessionVariable
         }
     }
 
-    public static function destroy(): void {
+    public static function destroy(): void
+    {
         session_start();
         session_destroy();
     }
