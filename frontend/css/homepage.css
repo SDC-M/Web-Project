@@ -202,7 +202,7 @@ section {
     #navbar {
         display: flex;
         flex-direction: column;
-        margin-top: 2rem;
+        margin-top: 3.5rem;
         margin-bottom: 1rem;
         padding-left: 0;
         padding-right: 0;
@@ -211,17 +211,16 @@ section {
     }
 
     #navbar ul {
-        margin: 0;
+        margin-top: 10px;
         padding: 0;
         box-sizing: border-box;
     }
 
     #navbar li {
-        margin: 10px 0;
+        margin: 20px 0;
         padding: 10px;
         text-align: center;
         display: block;
-        width: 100%;
     }
 
     #footer {
@@ -240,10 +239,19 @@ section {
     }
 
     #logo {
-        top: 10px;
+        margin-left: 10px;
     }
 
     #container {
         width: 90vw;
+        padding: 0 !important;
+    }
+
+    #dark-light-mode-button {
+        margin-top: 12px;
+    }
+
+    #name {
+        margin-top: 30px;
     }
 }

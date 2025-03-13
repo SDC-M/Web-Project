@@ -93,7 +93,7 @@ class Image implements JsonSerializable
 
         $q->bindValue(":file_path", $this->name);
         $q->bindValue(":description", $this->description);
-        $q->bindValue(":is_public", false, PDO::PARAM_BOOL);
+        $q->bindValue(":is_public", $this->is_public, PDO::PARAM_BOOL);
         $q->bindValue(":image_date", date("Y-m-d H:i:s"));
         $q->bindValue(":owner_id", $this->owner->id);
 
