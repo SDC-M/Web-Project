@@ -29,7 +29,11 @@ class ImageFormHandler extends Handler
 
         $image = Image::fromFile($_FILES["image"]["tmp_name"]);
         $image->description = $_POST["description"];
-        $image->is_public = $_POST["is_public"];
+        if (isset($_POST['is_public']) && $_POST['is_public'] === '1') {
+            $image->is_public = true;
+        } else {
+            $image->is_public = false;
+        }
         $image->linkTo($user);
         $image->commit();
 

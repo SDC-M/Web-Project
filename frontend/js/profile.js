@@ -10,7 +10,7 @@ async function getPictures() {
         const json = await response.json();
         $.each(json, function (index, picture) {
             let $img = $("<img>").attr("src", `/image/${userId}/${picture.id}`);
-            $('#container').append($img);
+            $('#img-container').append($img);
         });
     } catch (error) {
         console.error(error.message);
@@ -46,7 +46,7 @@ async function getNb() {
         let $cptr_pri = 0;
         $.each(json, function (index, picture) {
             $cptr += 1;
-            if (picture.is_public) {
+            if (!picture.is_public) {
                 $cptr_pri += 1;
             }
         });
