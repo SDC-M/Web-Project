@@ -36,8 +36,8 @@ class Router
 
         foreach ($this->path[$req->method] as $p => $h) {
             $path = new Path($p);
-            if ($path->resolve($req->uri)) {
-                $req->extracts = $path->extract($req->uri);
+            if ($path->resolve($req->path)) {
+                $req->extracts = $path->extract($req->path);
 
                 return $h->handleAndResponse($req);
             }

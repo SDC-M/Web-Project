@@ -12,6 +12,7 @@ class Request
         public readonly array $headers,
         public readonly string $method,
         public readonly string $uri,
+        public readonly string $path,
         public readonly string $body,
         public array $extracts = []
     ) {
@@ -34,6 +35,7 @@ class Request
         return new static(self::getHeaders(),
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI'],
+            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
             file_get_contents('php://input'));
     }
 }
