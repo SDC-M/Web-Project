@@ -8,7 +8,7 @@ use PDO;
 
 class Image implements JsonSerializable
 {
-    public const string IMAGE_FOLDER = "../images/";
+    public const IMAGE_FOLDER = "../images/";
 
     private function __construct(
         private readonly ?int $id,
