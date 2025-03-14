@@ -3,6 +3,7 @@
 namespace Kuva\Handler;
 
 use Kuva\Backend\User;
+use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -11,23 +12,31 @@ class RecoveryHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        if (! isset($_POST['username']) || ! isset($_POST['password']) || ! isset($_POST["recovery_answer"])) {
-            echo 'A field is not set';
-            $this->response = new Response(400);
 
+        $this->response = new Response(400);
+
+        $form_value = (new FormValidator())
+                        ->addTextField("username")
+                        ->addTextField("password")
+                        ->addTextField("recovery_answer")
+                        ->validate();
+
+        if ($form_value === false) {
             return;
         }
+
         // TODO: Verify input
-        $login = User::getByNameAndRecoverykey($_POST['username'], $_POST['recovery_answer']);
+        $login = User::getByNameAndRecoverykey($form_value['username'], $form_value['recovery_answer']);
+
         if ($login == null) {
             $this->response = new Response(400, headers: ['Location' => '/login']);
             return;
         }
 
-        if ($login->recovery != $_POST['recovery_answer']) {
+        if ($login->recovery != $form_value['recovery_answer']) {
             $this->response = new Response(400, headers: ['Location' => '/login']);
             return;
         }
-        $login->updatePassword($_POST['password']);
+        $login->updatePassword($form_value['password']);
     }
 }

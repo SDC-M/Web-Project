@@ -3,6 +3,7 @@
 namespace Kuva\Handler;
 
 use Kuva\Backend\User;
+use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -11,13 +12,29 @@ class RegisterHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        if (! isset($_POST['username']) || ! isset($_POST['email']) || ! isset($_POST['password']) || ! isset($_POST['recovery_answer'])) {
-            $this->response = new Response(400);
 
+
+        $this->response = new Response(400);
+
+        $form_value = (new FormValidator())
+                        ->addTextField("username")
+                        ->addTextField("email")
+                        ->addTextField("password")
+                        ->addTextField("recovery_answer")
+                        ->validate();
+
+        if ($form_value === false) {
             return;
         }
+
         // TODO: Verify input
-        $registered = User::register($_POST['username'], $_POST['email'], $_POST['password'], $_POST['recovery_answer']);
+        $registered = User::register(
+            $form_value['username'],
+            $form_value['email'],
+            $form_value['password'],
+            $form_value['recovery_answer']
+        );
+
         if (! $registered) {
             $this->response = new Response(500);
             return;

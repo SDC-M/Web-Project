@@ -3,6 +3,7 @@
 namespace Kuva\Handler;
 
 use Kuva\Backend\User;
+use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -12,17 +13,20 @@ class LoginHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        if (! isset($_POST['username']) || ! isset($_POST['password'])) {
-            echo 'A field is not set';
-            $this->response = new Response(400);
 
+        $this->response = new Response(400);
+        $form_values = (new FormValidator())
+                            ->addTextField("username")
+                            ->addTextField("password")
+                            ->validate();
+
+        if ($form_values === false) {
             return;
         }
 
-        $login = User::getByNameAndPassword($_POST['username'], $_POST['password']);
+        $login = User::getByNameAndPassword($form_values['username'], $form_values['password']);
         if ($login == null) {
-            $this->response = new Response(400);
-
+            $this->response = new Response(400, headers: ['Location' => '/login']);
             return;
         }
         (new SessionVariable())->setUserId($login->id);
