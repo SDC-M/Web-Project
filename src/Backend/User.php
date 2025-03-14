@@ -13,7 +13,8 @@ class User
         public readonly string $username,
         public readonly string $email,
         public readonly string $recovery
-    ) {}
+    ) {
+    }
 
     public static function getByNameAndPassword(string $name, string $password): ?static
     {

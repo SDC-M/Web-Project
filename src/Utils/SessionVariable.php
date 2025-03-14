@@ -11,6 +11,12 @@ class SessionVariable
         }
     }
 
+    public static function destroy(): void
+    {
+        session_start();
+        session_destroy();
+    }
+
     public function setUserId(int $id): void
     {
         $_SESSION["user_id"] = $id;
@@ -23,4 +29,6 @@ class SessionVariable
         }
         return $_SESSION["user_id"];
     }
+
+
 }

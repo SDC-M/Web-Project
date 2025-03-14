@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 
 use Kuva\Handler\AppHandler;
+use Kuva\Handler\DisconnectHandler;
 use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
 use Kuva\Handler\ImageFormHandler;
@@ -25,18 +26,20 @@ class App
         $r->get('/', new AppHandler())
             ->get('/register', new FileHandler('../frontend/register.html'))
             ->get('/login', new FileHandler('../frontend/login.html'))
+            ->get('/profile', new FileHandler('../frontend/profile.html'))
             ->get('/recovery', new FileHandler('../frontend/recovery-password.html'))
-            ->get('/frontend/{path:+}', new FolderHandler("../frontend/"))
-            ->get("/test_image", new FileHandler('../frontend/file.html'))
-            ->get("/image/{user_id}/{image_id}", new GetImageHandler())
-            ->get("/image/{id}", new ImagesGet())
+            ->get('/frontend/{path:+}', new FolderHandler('../frontend/'))
+            ->get('/test_image', new FileHandler('../frontend/file.html'))
+            ->get('/image/{user_id}/{image_id}', new GetImageHandler())
+            ->get('/image/{id}', new ImagesGet())
             ->get('/user/me', new UserIdHandler())
+            ->get('/disconnect', new DisconnectHandler())
             ->get('/profile', new FileHandler('../frontend/profile.html'))
             ->get('/upload-file', new FileHandler('../frontend/upload-file.html'))
             /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
-            ->post("/image/new", new ImageFormHandler())
+            ->post('/image/new', new ImageFormHandler())
             ->post('/recovery', new RecoveryHandler())
             ->handleCurrent();
     }

@@ -8,9 +8,10 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class GetByHandler extends Handler {
+class GetByHandler extends Handler
+{
     public bool $is_bufferize = false;
-    
+
     public function handle(Request $req): void
     {
         $user_id = User::getById($req->extracts["id"]);
@@ -21,9 +22,12 @@ class GetByHandler extends Handler {
         }
 
         $session_user = User::getFromSession();
-
+        if ($session_user != null && $session_user->id == $user_id->id) {
+            $this->response = new Response(200, Images::getAllImagesOf($user_id)->jsonify(), ["Content-Type" => "application/json"]);
+            return;
+        }
 
         $this->response = new Response(200, Images::getPublicImagesOf($user_id)->jsonify(), ["Content-Type" => "application/json"]);
     }
-    
+
 }

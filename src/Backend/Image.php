@@ -17,7 +17,8 @@ class Image implements JsonSerializable
         public string $description,
         public ?User $owner,
         public ?string $bytes
-    ) {}
+    ) {
+    }
 
     public static function fromBytes(string $bytes): static
     {
@@ -36,6 +37,10 @@ class Image implements JsonSerializable
         $q->bindValue("id", $id);
         $q->execute();
         $values = $q->fetch();
+
+        if ($values === false) {
+            return null;
+        }
 
         return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], User::getById($values["user_id"]), "");
     }
