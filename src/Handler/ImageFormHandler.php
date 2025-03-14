@@ -20,13 +20,13 @@ class ImageFormHandler extends Handler
         $form = (new FormValidator())
             ->addFileField("image")
             ->addTextField("description")
-            ->addTextField("is_public")
+            ->addCheckBoxField("is_public")
             ->validate();
 
         if ($form === false) {
             return;
         }
-        
+
 
         $user_id = (new SessionVariable())->getUserId() ?? -1;
         $user = User::getById($user_id);

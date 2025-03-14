@@ -23,7 +23,13 @@ class FormValidator
         }
 
         return $_POST[$name];
-    }    
+    }
+
+
+    public static function checkboxValidator(string $name): bool
+    {
+        return isset($_POST[$name]);
+    }
 
     /**
      * @param callable(): mixed $validator
@@ -57,7 +63,20 @@ class FormValidator
         return $this;
     }
 
-    public function validate(): bool|array {
+    public function addCheckBoxField(string $name): FormValidator
+    {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name) {
+                return FormValidator::checkboxValidator($name);
+            }
+        );
+
+        return $this;
+    }
+
+    public function validate(): bool|array
+    {
         $array = [];
         foreach ($this->fields as $key => $validator) {
             $value = $validator($key);
