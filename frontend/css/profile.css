@@ -18,14 +18,12 @@ form {
     background-color: grey;
     padding: 10px;
     margin: 50px;
-    background-color: red;
 }
 
 #container img {
-    width: 150px;
-    height: 150px;
+    width: 15rem;
+    height: 15rem;
     object-fit: cover;
-    background-color: blue;
 }
 
 figcaption {
@@ -33,6 +31,4 @@ figcaption {
     padding: 0px;
 }
 
-img:hover {
-    transform: scale(1.1);
-}
+#cptr {}
