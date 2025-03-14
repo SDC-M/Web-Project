@@ -34,6 +34,7 @@ class App
             ->get('/image/{id}', new ImagesGet())
             ->get('/user/me', new UserIdHandler())
             ->get('/disconnect', new DisconnectHandler())
+            ->get('/profile', new FileHandler('../frontend/profile.html'))
             ->get('/upload-file', new FileHandler('../frontend/upload-file.html'))
             /* Post Routes */
             ->post('/login', new LoginHandler())
