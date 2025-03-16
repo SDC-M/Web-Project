@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Galindo&family=Rubik+Scribble&display=swap');
+
+:root {
+    /* fonts */
+    --general-font-family: Roboto, sans-serif;
+    --logo-font-family: Galindo;
+    --normal-font-weight: 400;
+    --small-font-size: 0.95rem;
+    --normal-font-size: 1.05rem;
+    --big-font-size: 1.3rem;
+    --enormous-font-size: 2.5rem;
+
+    /* colors */
+
+    /* light mode colors */
+    --beige-color: #e9cfb8;
+    --dark-beige-color: #ceb8a5;
+    --grey-color: #f3f2f2;
+
+    /* dark mode colors */
+    --purple-color: #58495a;
+    --dark-grey-color: rgb(128, 128, 128);
+    --light-grey-color: #fefefe;
+}
+
+* {
+    font-family: var(--general-font-family);
+    font-weight: var(--general-font-family);
+    font-size: var(--normal-font-size);
+    margin: 0;
+}
+
+/* animations */
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

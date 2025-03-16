@@ -10,6 +10,6 @@
     "laravel/pint": "^1.21"
   },
   "require": {
-    "fileeye/mimemap": "^2.2"
+    "fileeye/mimemap": "^2.2.1"
   }
 }
