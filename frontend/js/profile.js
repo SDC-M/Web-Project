@@ -9,8 +9,10 @@ async function getPictures() {
 
         const json = await response.json();
         $.each(json, function (index, picture) {
+            let $link = $("<a>").attr("href", `/image/${userId}/${picture.id}`);
             let $img = $("<img>").attr("src", `/image/${userId}/${picture.id}`);
-            $('#img-container').append($img);
+            $link.append($img);
+            $('#img-container').append($link);
         });
     } catch (error) {
         console.error(error.message);
@@ -51,7 +53,7 @@ async function getNb() {
             }
         });
         $("#nb-pictures").append($cptr);
-        $("#affichage-compteur-prive").append($cptr_pri);
+        $("#nb-pictures-private").append($cptr_pri);
     } catch (error) {
         console.error(error.message);
     }
