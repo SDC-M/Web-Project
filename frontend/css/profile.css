@@ -77,6 +77,11 @@ figcaption {
     width: 100%;
 }
 
+.datas {
+    display: flex;
+    flex-direction: row;
+}
+
 #user-stat {
     display: flex;
     flex-direction: row;
@@ -95,6 +100,7 @@ figcaption {
 #bio {
     display: flex;
     padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 #profile-picture-container {
@@ -174,6 +180,11 @@ a {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
     }
+
+
+    #user-stat {
+        flex-direction: column;
+    }
 }
 
 
@@ -185,5 +196,24 @@ a {
     #container {
         width: 100vw;
         padding: 0 !important;
+    }
+
+    #user-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #user-stat {
+        margin-bottom: 1.5rem;
+        line-height: 2rem;
+        padding-top: 0;
+    }
+
+    .datas p {
+        margin-left: 1rem;
+    }
+
+    #profile-picture-container {
+        padding: 0;
     }
 }
