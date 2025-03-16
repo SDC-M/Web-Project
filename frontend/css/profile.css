@@ -22,7 +22,7 @@ form {
 
 #img-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1px;
     background-color: var(--beige-color);
     width: 100%;
@@ -124,6 +124,10 @@ a {
 
 }
 
+.datas p {
+    margin-left: 1rem;
+}
+
 #navbar {
     background-color: var(--beige-color);
     position: fixed;
@@ -159,7 +163,23 @@ a {
     background-color: #555;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1245px) {
+    #img-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 940px) {
+    * {
+        font-size: var(--small-font-size);
+    }
+
+    #container {
+        width: 100vw;
+        padding: 0 !important;
+    }
+
     #navbar {
         width: 100vh;
     }
@@ -173,6 +193,21 @@ a {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
+
+    #user-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #profile-picture-container {
+        padding: 0;
+    }
+
+    #user-stat {
+        margin-bottom: 1.5rem;
+        line-height: 2rem;
+        padding-top: 0;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -184,36 +219,5 @@ a {
 
     #user-stat {
         flex-direction: column;
-    }
-}
-
-
-@media screen and (max-width: 800px) {
-    * {
-        font-size: var(--small-font-size);
-    }
-
-    #container {
-        width: 100vw;
-        padding: 0 !important;
-    }
-
-    #user-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #user-stat {
-        margin-bottom: 1.5rem;
-        line-height: 2rem;
-        padding-top: 0;
-    }
-
-    .datas p {
-        margin-left: 1rem;
-    }
-
-    #profile-picture-container {
-        padding: 0;
     }
 }
