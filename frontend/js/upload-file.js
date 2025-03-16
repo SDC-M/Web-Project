@@ -1,6 +1,6 @@
 const previewPhoto = () => {
-    const file = input.files;
-    if (file) {
+    const file = $('#file-upload')[0].files;
+    if (file && file[0]) {
         const fileReader = new FileReader();
         const preview = $('#file-preview');
         fileReader.onload = function (event) {
@@ -12,17 +12,28 @@ const previewPhoto = () => {
 
 function dark_theme() {
     $("#container").removeClass("light-mode").addClass("dark-mode");
-    $("body").css("background-color", "rgb(128, 128, 128)");
-    $("html").css("background-color", "rgb(128, 128, 128)");
+    $("body, html").css("background-color", "rgb(128, 128, 128)");
+    localStorage.setItem('theme', 'dark');
+}
+
+function light_theme() {
+    $("#container").removeClass("dark-mode").addClass("light-mode");
+    $("body, html").css("background-color", "white");
+    localStorage.setItem('theme', 'light');
 }
 
 $(document).ready(function () {
     if (localStorage.getItem('theme') === 'dark') {
         dark_theme();
     } else {
-        $('button').removeClass('dark-button');
+        light_theme();
     }
+    $('#theme-toggle').on('click', function () {
+        if (localStorage.getItem('theme') === 'dark') {
+            light_theme();
+        } else {
+            dark_theme();
+        }
+    });
+    $('#file-upload').on('change', previewPhoto);
 });
-
-let input = document.getElementById('file-upload');
-input.addEventListener('change', previewPhoto);

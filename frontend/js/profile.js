@@ -50,7 +50,7 @@ async function getNb() {
                 $cptr_pri += 1;
             }
         });
-        $("#affichage-compteur").append($cptr);
+        $("#nb-pictures").append($cptr);
         $("#affichage-compteur-prive").append($cptr_pri);
     } catch (error) {
         console.error(error.message);
@@ -58,6 +58,7 @@ async function getNb() {
 }
 
 function dark_theme() {
+    $("#container").addClass("dark-mode");
     $("body").css("background-color", "rgb(128, 128, 128)");
     $("html").css("background-color", "rgb(128, 128, 128)");
 }
@@ -66,7 +67,7 @@ $(document).ready(function () {
     if (localStorage.getItem('theme') === 'dark') {
         dark_theme();
     } else {
-        $('button').removeClass('dark-button');
+
     }
 });
 
