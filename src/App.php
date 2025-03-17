@@ -35,6 +35,7 @@ class App
             ->get('/user/me', new UserIdHandler())
             ->get('/disconnect', new DisconnectHandler())
             ->get('/upload-file', new FileHandler('../frontend/upload-file.html'))
+            ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             /* Post Routes */
             ->post('/login', new LoginHandler())
             ->post('/register', new RegisterHandler())
