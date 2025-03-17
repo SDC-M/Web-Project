@@ -19,7 +19,7 @@ class ImageFormHandler extends Handler
 
         $form = (new FormValidator())
             ->addFileField("image")
-            ->addTextField("description")
+            ->addOptionalTextField("description")
             ->addCheckBoxField("is_public")
             ->validate();
 
@@ -32,6 +32,10 @@ class ImageFormHandler extends Handler
         $user = User::getById($user_id);
 
         if ($user == null) {
+            return;
+        }
+        if ($form["image"]["error"] != 0) {
+            echo "Problem when handling image (Probably too large)";
             return;
         }
 
