@@ -21,17 +21,23 @@ class GetUserHandler extends Handler
 
     public function handle(Request $req): void
     {
-        $this->response = new Response(200);
+        $this->response = new Response(400);
         $id = $req->extracts["id"];
         if ($id == null) {
             return;
         }
-
         if ($id == 'me') {
             $this->getCurrentUser();
             return;
         }
 
+        $user = User::getById($id);
 
+        if ($user === null) {
+            return;
+        }
+
+
+        $this->response = new Response(200, $user->jsonify(), ['Content-Type' => 'application/json']);        
     }
 }
