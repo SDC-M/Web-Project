@@ -62,7 +62,7 @@ class FormValidator
         );
 
         return $this;
-    }    
+    }
 
     public function addFileField(string $name): FormValidator
     {
