@@ -8,6 +8,8 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` text NOT NULL,
   `recovery_key` text NOT NULL,
+  `biographie` varchar(250),
+  `profile_image_path` varchar(255),
   PRIMARY KEY (`id`),
   CONSTRAINT user_unique UNIQUE(username),
   CONSTRAINT email_unique UNIQUE(email) 
@@ -33,9 +35,29 @@ CREATE TABLE `annotations` (
   `image_id` int(10) unsigned NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
   `description` text NOT NULL,
-  `position_x` int NOT NULL,
-  `position_y` int NOT NULL,
+  `position_x1` int NOT NULL,
+  `position_y1` int NOT NULL,
+  `position_x2` int NOT NULL,
+  `position_y2` int NOT NULL,
   PRIMARY KEY (`id`),
+  FOREIGN KEY (`image_id`) REFERENCES `images`(`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `followers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_follow` int(10) unsigned NOT NULL,
+  `id_follower` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`, `id_follow`, `id_follower`),
+  FOREIGN KEY (`id_follow`) REFERENCES `users`(`id`),
+  FOREIGN KEY (`id_follower`) REFERENCES `users`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `like` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `image_id` int(10) unsigned NOT NULL,
+  `user_id` int (10) unsigned NOT NULL,
+  PRIMARY KEY (`id`, `image_id`, `user_id`),
   FOREIGN KEY (`image_id`) REFERENCES `images`(`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
