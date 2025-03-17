@@ -10,16 +10,17 @@ class User
 {
     private function __construct(
         public string $id,
-        public readonly string $username,
-        public readonly string $email,
-        public readonly string $recovery
+        public string $username,
+        public string $email,
+        public string $recovery,
+        public ?string $biography = null,
     ) {
     }
 
     public static function getByNameAndPassword(string $name, string $password): ?static
     {
         $db = new Database();
-        $q = $db->db->prepare('SELECT id, email, recovery_key FROM users WHERE username = :username and password = :pass');
+        $q = $db->db->prepare('SELECT id, email, recovery_key, biography FROM users WHERE username = :username and password = :pass');
         $q->bindParam('username', $name);
         $q->bindParam('pass', $password);
         $q->execute();
@@ -28,7 +29,7 @@ class User
             return null;
         }
 
-        return new static($values['id'], $name, $values["email"], $values["recovery_key"]);
+        return new static($values['id'], $name, $values["email"], $values["recovery_key"], $values["biography"]);
     }
 
     public static function register(string $name, string $email, string $password, string $recovery_answer): bool
@@ -51,7 +52,7 @@ class User
     public static function getById(int $id): ?static
     {
         $db = new Database();
-        $q = $db->db->prepare('SELECT username, email FROM users WHERE id = :id');
+        $q = $db->db->prepare('SELECT username, email, recovery_key, biography FROM users WHERE id = :id');
         $q->bindParam(":id", $id);
         try {
             $q->execute();
@@ -64,13 +65,13 @@ class User
             return null;
         }
 
-        return new static($id, $values["username"], $values["email"], "");
+        return new static($id, $values["username"], $values["email"], $values["recovery_key"], $values["biography"]);
     }
 
     public static function getByNameAndRecoverykey(string $name, string $recovery): ?static
     {
         $db = new Database();
-        $q = $db->db->prepare('SELECT id, email, recovery_key FROM users WHERE username = :username and recovery_key = :pass');
+        $q = $db->db->prepare('SELECT id, email, recovery_key, biography FROM users WHERE username = :username and recovery_key = :pass');
         $q->bindParam('username', $name);
         $q->bindParam('pass', $recovery);
         $q->execute();
@@ -79,7 +80,7 @@ class User
             return null;
         }
 
-        return new static($values['id'], $name, $values["email"], $values["recovery_key"]);
+        return new static($values['id'], $name, $values["email"], $values["recovery_key"], $values["biography"]);
     }
 
     public static function getFromSession(): ?static

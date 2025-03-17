@@ -24,6 +24,7 @@ class ImageFormHandler extends Handler
             ->validate();
 
         if ($form === false) {
+            echo "Bad form";
             return;
         }
 
@@ -32,6 +33,7 @@ class ImageFormHandler extends Handler
         $user = User::getById($user_id);
 
         if ($user == null) {
+            echo "Connect you plz";
             return;
         }
         if ($form["image"]["error"] != 0) {

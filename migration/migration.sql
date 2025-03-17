@@ -8,7 +8,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` text NOT NULL,
   `recovery_key` text NOT NULL,
-  `biographie` varchar(250),
+  `biography` varchar(250),
   `profile_image_path` varchar(255),
   PRIMARY KEY (`id`),
   CONSTRAINT user_unique UNIQUE(username),
