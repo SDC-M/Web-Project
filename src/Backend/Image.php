@@ -3,6 +3,7 @@
 namespace Kuva\Backend;
 
 use AssertionError;
+use Exception;
 use JsonSerializable;
 use PDO;
 
@@ -103,6 +104,25 @@ class Image implements JsonSerializable
         $q->bindValue(":owner_id", $this->owner->id);
 
         $q->execute();
+    }
+
+    public function delete(): bool
+    {
+        if (unlink($this->getPath()) === false) {
+            return false;
+        }
+
+        $db = new Database();
+        $q = $db->db->prepare('DELETE FROM images WHERE id = :id');
+        $q->bindValue(":id", $this->id);
+        try {
+
+            $q->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function jsonSerialize(): mixed

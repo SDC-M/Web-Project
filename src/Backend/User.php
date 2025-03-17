@@ -9,7 +9,7 @@ use PDO;
 class User
 {
     private function __construct(
-        public string $id,
+        public int $id,
         public string $username,
         public string $email,
         public string $recovery,
@@ -108,5 +108,10 @@ class User
 
             return false;
         }
+    }
+
+    public function jsonify(): string
+    {
+        return json_encode(['id' => $this->id, 'username' => $this->username, 'biography' => $this->biography]);
     }
 }
