@@ -28,7 +28,7 @@ class FormValidator
 
     public static function checkboxValidator(string $name): bool
     {
-        return isset($_POST[$name]);
+        return array_key_exists($name, $_POST);
     }
 
     /**
@@ -50,6 +50,19 @@ class FormValidator
 
         return $this;
     }
+
+
+    public function addOptionalTextField(string $name): FormValidator
+    {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name) {
+                return FormValidator::textValidator($name) ?? "";
+            }
+        );
+
+        return $this;
+    }    
 
     public function addFileField(string $name): FormValidator
     {
@@ -80,7 +93,7 @@ class FormValidator
         $array = [];
         foreach ($this->fields as $key => $validator) {
             $value = $validator($key);
-            if ($value == null) {
+            if ($value === null) {
                 return false;
             }
             $array[$key] = $value;

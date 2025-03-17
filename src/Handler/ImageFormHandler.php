@@ -11,7 +11,7 @@ use Kuva\Utils\Router\Response;
 use Kuva\Utils\SessionVariable;
 
 class ImageFormHandler extends Handler
-{
+{   
     public function handle(Request $req): void
     {
         // Set by default, error response
@@ -19,7 +19,7 @@ class ImageFormHandler extends Handler
 
         $form = (new FormValidator())
             ->addFileField("image")
-            ->addTextField("description")
+            ->addOptionalTextField("description")
             ->addCheckBoxField("is_public")
             ->validate();
 
@@ -34,7 +34,11 @@ class ImageFormHandler extends Handler
         if ($user == null) {
             return;
         }
-
+        if ($form["image"]["error"] != 0) {
+            echo "Problem when handling image (Probably too large)";
+            return;
+        }
+        
         $image = Image::fromFile($form["image"]["tmp_name"]);
         $image->description = $form["description"];
         $image->is_public = $form["is_public"];
