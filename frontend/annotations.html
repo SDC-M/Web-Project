@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/frontend/css/annotations.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div id="page-container">
+        <div id="img-container"></div>
+        <canvas id="canvas"></canvas>
+        <form action="">
+            <input type="number" name="x1Coord" id="x1Coord" placeholder="X1" readonly>
+            <input type="number" name="y1Coord" id="y1Coord" placeholder="Y1" readonly>
+            <input type="number" name="x2Coord" id="x2Coord" placeholder="X2" readonly>
+            <input type="number" name="y2Coord" id="y2Coord" placeholder="Y2" readonly>
+            <textarea name="description" id="description" placeholder="De quoi s'agit-il ?"></textarea>
+            <button type="submit">Send it</button>
+            <a href="#" id="reset">reset</a>
+        </form>
+    </div>
+    <script src="/frontend/js/annot.js"></script>
+</body>
