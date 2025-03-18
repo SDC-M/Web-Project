@@ -10,19 +10,12 @@ function displayImage() {
     $img[0].onload = function () {
         $('#canvas')[0].width = $img[0].clientWidth;
         $('#canvas')[0].height = $img[0].clientHeight;
-
-        $("#p1").text(`natural width: ${$('#image')[0].naturalWidth}`);
-        $("#p2").text(`natural height: ${$('#image')[0].naturalHeight}`);
-        $("#p3").text(`print width: ${$('#image')[0].clientWidth}`);
-        $("#p4").text(`print height: ${$('#image')[0].clientHeight}`);
     };
 }
 
 function resizeCanvas() {
     $('#canvas')[0].width = $('#image')[0].clientWidth;
     $('#canvas')[0].height = $('#image')[0].clientHeight;
-    $("#p3").text(`print width:  ${$('#image')[0].clientWidth}`);
-    $("#p4").text(`print height:  ${$('#image')[0].clientHeight}`);
 }
 
 function convertPoint(x, y, widthRatio, heightRatio) {
