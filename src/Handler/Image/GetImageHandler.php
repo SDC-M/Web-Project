@@ -14,7 +14,6 @@ class GetImageHandler extends Handler
 
     public function handle(Request $req): void
     {
-        $user_id = $req->extracts["user_id"];
         $image_id = $req->extracts["image_id"];
 
         $image = Image::getById($image_id);

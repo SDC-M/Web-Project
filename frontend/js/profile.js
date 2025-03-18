@@ -1,6 +1,6 @@
 async function getPictures() {
     const userId = await getUserId();
-    const url = `/image/${userId}`;
+    const url = `/user/${userId}/images`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -10,7 +10,7 @@ async function getPictures() {
         const json = await response.json();
         $.each(json, function (index, picture) {
             let $link = $("<a>").attr("href", `/annotations/${userId}/${picture.id}`);
-            let $img = $("<img>").attr("src", `/image/${userId}/${picture.id}`);
+            let $img = $("<img>").attr("src", `/images/${picture.id}`);
             $link.append($img);
             $('#img-container').append($link);
         });

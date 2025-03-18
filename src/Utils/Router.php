@@ -60,6 +60,13 @@ class Router
         return $this;
     }
 
+    public function put(string $path, Handler $handler): Router
+    {
+        $this->path['PUT'][$path] = $handler;
+
+        return $this;
+    }
+
     public function delete(string $path, Handler $handler): Router
     {
         $this->path['DELETE'][$path] = $handler;
