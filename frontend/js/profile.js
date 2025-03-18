@@ -36,7 +36,7 @@ async function getUserId() {
 
 async function getNb() {
     const userId = await getUserId();
-    const url = `/image/${userId}`;
+    const url = `/user/${userId}/images`;
     try {
         const response = await fetch(url);
         if (!response.ok) {

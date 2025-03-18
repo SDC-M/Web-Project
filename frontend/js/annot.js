@@ -2,7 +2,9 @@ function displayImage() {
     const path = document.location.pathname.split('/');
     const userId = path[2];
     const imageId = path[3];
-    const imageUrl = `/image/${userId}/${imageId}`;
+    const imageUrl = `/images/${imageId}`;
+
+    $('#annot').attr("action", `/annotation/${imageId}`);
 
     let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
     $('#img-container').html($img);
