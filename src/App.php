@@ -5,6 +5,8 @@ namespace Kuva;
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
+use Kuva\Handler\Annotation\AnnotationFormHandler;
+use Kuva\Handler\Annotation\GetAnnotationHandler;
 use Kuva\Handler\AppHandler;
 use Kuva\Handler\DeleteImageHandler;
 use Kuva\Handler\DisconnectHandler;
@@ -45,6 +47,9 @@ class App
             ->get('/user/{id}', new GetUserHandler())
             ->get('/user/{id}/images', new ImagesGet())
             ->post('/user/recovery', new RecoveryHandler())
+            ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
+            ->get('/annotation/{image_id}', new GetAnnotationHandler())
+            ->post('/annotation/{image_id}', new AnnotationFormHandler())
             ->handleCurrent();
     }
 }

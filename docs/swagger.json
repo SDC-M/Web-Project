@@ -1,0 +1,353 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Petstore - OpenAPI 3.0",
+    "version": "0.1"
+  },
+  "tags": [
+    {
+      "name": "images",
+      "description": "Operation about images"
+    }
+  ],
+  "paths": {
+    "/images": {
+      "get": {
+        "tags": [
+          "images"
+        ],
+        "summary": "Get images of the connected user",
+        "description": "This can only be done by a logged user",
+        "responses": {
+          "200": {
+            "description": "Bouh"
+          },
+          "400": {
+            "description": "Bouh"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "images"
+        ],
+        "summary": "Add a new image",
+        "description": "Add a new image",
+        "responses": {
+          "200": {
+            "description": "Bouh"
+          },
+          "400": {
+            "description": "Bouh"
+          },
+          "500": {
+            "description": "Bouh"
+          }
+        }
+      }
+    },
+    "/images/{image_id}": {
+      "get": {
+        "tags": [
+          "images"
+        ],
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get image as raw bytes"
+          },
+          "404": {
+            "description": "Bad image_id or not enought permission to see the image"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "images"
+        ],
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The image have been deleted"
+          },
+          "404": {
+            "description": "Bad image_id or not enought permission to delete the image"
+          }
+        }
+      }
+    },
+    "/annotation/{image_id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return json with coord of annonoted zones"
+          },
+          "404": {
+            "description": "Bad image_id or not enought permission to see the image"
+          }
+        }
+      },
+      "post": {
+        "description": "Add an annotation to the images",
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return id of the annotation"
+          },
+          "404": {
+            "description": "Bad image_id or not enought permission to see the image"
+          }
+        }
+      }
+    },
+    "/annotation/{image_id}/{annotation_id}": {
+      "get": {
+        "description": "Get an annotation",
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "annotation_id",
+            "in": "path",
+            "description": "The annotation_id got in /annotation/{image_id}",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return annotation json"
+          }
+        }
+      },
+      "put": {
+        "description": "Edit an annotation",
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "annotation_id",
+            "in": "path",
+            "description": "The annotation_id got in /annotation/{image_id}",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return id of the annotation"
+          },
+          "404": {
+            "description": "Bad image_id or not enought permission to see the image or annotation doesn't exists"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete the annotation",
+        "parameters": [
+          {
+            "name": "image_id",
+            "in": "path",
+            "description": "The image_id got in /images",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "annotation_id",
+            "in": "path",
+            "description": "The annotation_id got in /annotation/{image_id}",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Remove the specified annotation"
+          },
+          "404": {
+            "description": "Bad image_id or not enought permission to see the image or annotation doesn't exists"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Return the current connected user",
+        "description": "",
+        "operationId": "",
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "description": "",
+        "operationId": "",
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update the connected user",
+        "description": "",
+        "operationId": "",
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete the connected user",
+        "description": "",
+        "operationId": "",
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "summary": "Login the current user",
+        "responses": {
+          "200": {
+            "description": "The user is connected"
+          },
+          "400": {
+            "description": "Otherwise, get this"
+          }
+        }
+      }
+    },
+    "/user/disconnect": {
+      "get": {
+        "summary": "Disconnect the current user",
+        "responses": {
+          "200": {
+            "description": "The user is disconnected"
+          },
+          "400": {
+            "description": "Otherwise, get this"
+          }
+        }
+      }
+    },
+    "/user/{user_tag}": {
+      "summary": "Return informations about the user",
+      "get": {
+        "summary": "Return informations about the user",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "user_tag",
+            "in": "path",
+            "description": "The user tag got somewhere",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      }
+    },
+    "/user/{user_tag}/images": {
+      "summary": "Return images of the user",
+      "get": {
+        "summary": "Return image of the user",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "user_tag",
+            "in": "path",
+            "description": "The user tag got somewhere",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      }
+    }
+  }
+}
