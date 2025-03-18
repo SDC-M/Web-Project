@@ -8,10 +8,10 @@ use PDO;
 
 class Annotation implements JsonSerializable
 {
-    public function __construct(
+    private function __construct(
         public readonly ?int $id = null,
-        public Image $image,
-        public User $user,
+        public ?Image $image = null,
+        public ?User $user = null,
         public ?string $description = null,
         private ?int $x1 = null,
         private ?int $y1 = null,
@@ -20,17 +20,22 @@ class Annotation implements JsonSerializable
     ) {
     }
 
+    public static function createWithUserAndImage(Image $image, User $user): self
+    {
+        return new self(null, $image, $user);
+    }
+
     public function setFirstPoint(int $x, int $y): void
     {
-        $this->x1 = x;
-        $this->y1 = x;
+        $this->x1 = $x;
+        $this->y1 = $y;
     }
 
 
     public function setSecondPoint(int $x, int $y): void
     {
-        $this->x2 = x;
-        $this->y2 = x;
+        $this->x2 = $x;
+        $this->y2 = $y;
     }
 
     public function setDescription(string $description): void
@@ -64,7 +69,11 @@ class Annotation implements JsonSerializable
 
     public static function fromRow(array $row): self
     {
-        return new self($row["id"], Image::getById($row["image_id"]), User::getById($row["user_id"]), $row["description"]);
+        $annotation = new self($row['id'], Image::getById($row['image_id']), User::getById($row['user_id']), $row['description']);
+        $annotation->setFirstPoint($row['position_x1'], $row['position_y1']);
+        $annotation->setSecondPoint($row['position_x2'], $row['position_y2']);
+
+        return $annotation;
     }
 
     public static function getAllOfImage(Image $image): array

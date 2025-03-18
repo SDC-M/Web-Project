@@ -14,12 +14,14 @@ class AnnotationFormHandler extends Handler
 {
     public function handle(Request $req): void
     {
+
+        $this->response = new Response(400);
         $image_id = $req->extracts["image_id"] ?? -1;
         $image = Image::getById($image_id);
         if ($image == null) {
             return;
         }
-        
+
         $form = (new FormValidator())->addTextField("description")
             ->addTextField("x1")
             ->addTextField("x2")
