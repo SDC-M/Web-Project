@@ -11,18 +11,35 @@ function displayImage() {
         $('#canvas')[0].width = $img[0].clientWidth;
         $('#canvas')[0].height = $img[0].clientHeight;
 
-        $("#p1").text(`natural width: ${image.naturalWidth}`);
-        $("#p2").text(`natural height: ${image.naturalHeight}`);
-        $("#p3").text(`print width: ${image.clientWidth}`);
-        $("#p4").text(`print height: ${image.clientHeight}`);
+        $("#p1").text(`natural width: ${$('#image')[0].naturalWidth}`);
+        $("#p2").text(`natural height: ${$('#image')[0].naturalHeight}`);
+        $("#p3").text(`print width: ${$('#image')[0].clientWidth}`);
+        $("#p4").text(`print height: ${$('#image')[0].clientHeight}`);
     };
 }
 
 function resizeCanvas() {
     $('#canvas')[0].width = $('#image')[0].clientWidth;
     $('#canvas')[0].height = $('#image')[0].clientHeight;
-    $("#p3").text(`print width: ${image.clientWidth}`);
-    $("#p4").text(`print height: ${image.clientHeight}`);
+    $("#p3").text(`print width:  ${$('#image')[0].clientWidth}`);
+    $("#p4").text(`print height:  ${$('#image')[0].clientHeight}`);
+}
+
+function convertPoint(x, y, widthRatio, heightRatio) {
+    let xCalc = Math.round(x * widthRatio);
+    let yCalc = Math.round(y * heightRatio);
+
+    return { xCalc, yCalc };
+}
+
+function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
+    widthRatio = Math.max(realWidth, printWidth) / Math.min(realWidth, printWidth);
+    heightRatio = Math.max(realHeight, printHeight) / Math.min(realHeight, printHeight);
+    tab2 = [];
+    tab.forEach(element => {
+        tab2.push(convertPoint(element.x, element.y, widthRatio, heightRatio));
+    });
+    return tab2;
 }
 
 $(document).ready(function () {
@@ -53,10 +70,10 @@ $(document).ready(function () {
 
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
                 ctx.fillRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+                console.log(convertTabPoints(points, $('#image')[0].naturalWidth, $('#image')[0].clientWidth, $('#image')[0].naturalHeight, $('#image')[0].clientHeight));
             }
         }
     });
-
     $('#reset').on('click', function () {
         points = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
