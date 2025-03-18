@@ -20,6 +20,11 @@ class Image implements JsonSerializable
     ) {
     }
 
+    public function getId(): int
+    {
+        return $this->id ?? -1;
+    }
+
     public static function fromBytes(string $bytes): static
     {
         return new static(null, generateRandomString(), true, "", null, $bytes);
