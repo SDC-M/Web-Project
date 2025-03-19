@@ -47,7 +47,8 @@ class App
             ->get('/user/{id}', new GetUserHandler())
             ->get('/user/{id}/images', new ImagesGet())
             ->post('/user/recovery', new RecoveryHandler())
-            ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
+            ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/image.html'))
+            ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())
             ->handleCurrent();
