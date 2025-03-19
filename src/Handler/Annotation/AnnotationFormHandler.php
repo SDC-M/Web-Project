@@ -34,18 +34,18 @@ class AnnotationFormHandler extends Handler
         }
 
         $user = User::getFromSession();
-
         if ($user === null) {
             return;
         }
 
-        $annotation = new Annotation(null, $image, $user, $form["description"]);
+        $annotation = Annotation::createWithUserAndImage($image, $user);
+        $annotation->setDescription($form["description"]);
         $annotation->setFirstPoint($form["x1"], $form["y1"]);
         $annotation->setSecondPoint($form["x2"], $form["y2"]);
         if ($annotation->addToDatabase() === false) {
             $this->response = new Response(500);
         }
 
-        $this->response = new Response(200);
+        $this->response = new Response(200, headers: ["Location" => "/annotations/$user->id/$image_id"]);
     }
 }

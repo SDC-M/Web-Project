@@ -30,7 +30,7 @@ function convertPoint(x, y, widthRatio, heightRatio) {
 function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
     widthRatio = Math.max(realWidth, printWidth) / Math.min(realWidth, printWidth);
     heightRatio = Math.max(realHeight, printHeight) / Math.min(realHeight, printHeight);
-    tab2 = [];
+    let tab2 = [];
     tab.forEach(element => {
         tab2.push(convertPoint(element.x, element.y, widthRatio, heightRatio));
     });
