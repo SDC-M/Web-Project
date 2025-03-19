@@ -34,23 +34,8 @@ function setFormAction() {
 }
 
 /**
- * Initialise le comportement du boutton reset pour effacer le canvas.
- */
-function setResetButton() {
-    const canvas = $("#canvas")[0];
-    const ctx = canvas.getContext("2d");
-    $("#reset").on("click", function () {
-        points = [];
-        $("#x1Coord").val("");
-        $("#y1Coord").val("");
-        $("#x2Coord").val("");
-        $("#y2Coord").val("");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-}
-
-/**
- * Initialise le comportement du canvas lorsque l'utlisateur selectionne sa zone.
+ * Initialise le comportement du canvas lorsque l'utlisateur selectionne sa zone,
+ *  et affecte sa fonction reset au boutton associé.
  */
 function setCanvas() {
     const canvas = $("#canvas")[0];
@@ -63,6 +48,7 @@ function setCanvas() {
             const y = elem.offsetY;
             points.push({ x, y });
 
+            ctx.fillStyle = "black";
             ctx.beginPath();
             ctx.arc(x, y, 5, 0, 2 * Math.PI);
             ctx.fill();
@@ -87,6 +73,14 @@ function setCanvas() {
                 updateCoords(co[0].xCalc, co[0].yCalc, co[1].xCalc, co[1].yCalc);
             }
         }
+    });
+    $("#reset").on("click", function () {
+        points = [];
+        $("#x1Coord").val("");
+        $("#y1Coord").val("");
+        $("#x2Coord").val("");
+        $("#y2Coord").val("");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 }
 
