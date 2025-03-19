@@ -25,6 +25,7 @@
 
 .selected {
     background-color: var(--light-red-color);
+    color: white;
 }
 
 #link {
