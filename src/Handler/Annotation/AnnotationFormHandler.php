@@ -46,6 +46,6 @@ class AnnotationFormHandler extends Handler
             $this->response = new Response(500);
         }
 
-        $this->response = new Response(200, headers: ["Location" => "/annotations/$user->id/$image_id"]);
+        $this->response = new Response(200, headers: ["Location" => "/annotations/{$user->id}/{$image_id}"]);
     }
 }
