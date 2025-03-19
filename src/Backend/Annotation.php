@@ -94,10 +94,10 @@ class Annotation implements JsonSerializable
     {
         $db = new Database();
         $q = $db->db->prepare("SELECT * FROM annotations WHERE id = :id");
-        $q->bindValue(":image_id", $id);
+        $q->bindValue(":id", $id);
         $values = $q->execute();
         $row = $q->fetch(PDO::FETCH_ASSOC);
-        if (row == null) {
+        if ($row == null) {
             return null;
         }
         return static::fromRow($row);
@@ -109,7 +109,7 @@ class Annotation implements JsonSerializable
         }
 
         $db = new Database();
-        $q = $db->db->prepare("DELETE FROM annotation WHERE id = :id");
+        $q = $db->db->prepare("DELETE FROM annotations WHERE id = :id");
         $q->bindValue(":id", $this->id);
         try {
             return $q->execute();

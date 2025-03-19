@@ -52,7 +52,7 @@ class App
             ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())
-            ->delete('/annotation/{image_id}', new DeleteAnnotationHandler())
+            ->delete('/annotation/{annotation_id}', new DeleteAnnotationHandler())
             ->handleCurrent();
     }
 }
