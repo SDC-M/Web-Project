@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 
 use Kuva\Handler\Annotation\AnnotationFormHandler;
+use Kuva\Handler\Annotation\DeleteAnnotationHandler;
 use Kuva\Handler\Annotation\GetAnnotationHandler;
 use Kuva\Handler\AppHandler;
 use Kuva\Handler\DeleteImageHandler;
