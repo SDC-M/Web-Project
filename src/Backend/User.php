@@ -95,7 +95,7 @@ class User
         return User::getById($id);
     }
 
-    public function updatePassword(string $password)
+    public function updatePassword(string $password): bool
     {
         $db = new Database();
         $q = $db->db->prepare('UPDATE users SET password = :password WHERE id = :id');

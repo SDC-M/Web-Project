@@ -50,6 +50,7 @@ class App
             ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())
+            ->post('/annotation/{image_id}', new DeleteAnnotationHandler())
             ->handleCurrent();
     }
 }

@@ -90,6 +90,34 @@ class Annotation implements JsonSerializable
         return $annotations;
     }
 
+    public static function getById(int $id): ?static
+    {
+        $db = new Database();
+        $q = $db->db->prepare("SELECT * FROM annotations WHERE id = :id");
+        $q->bindValue(":image_id", $id);
+        $values = $q->execute();
+        $row = $q->fetch(PDO::FETCH_ASSOC);
+        if (row == null) {
+            return null;
+        }
+        return static::fromRow($row);
+    }
+
+    public function delete(): bool {
+        if ($this->id == null) {
+            return false;
+        }
+
+        $db = new Database();
+        $q = $db->db->prepare("DELETE FROM annotation WHERE id = :id");
+        $q->bindValue(":id", $this->id);
+        try {
+            return $q->execute();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public function jsonSerialize(): mixed
     {
         $points = [["x" => $this->x1, "y" => $this->y1], ["x" => $this->x2, "y" => $this->y2]];

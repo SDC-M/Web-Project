@@ -2,6 +2,7 @@ services:
   php:
     build: docker/php
     command: bash -c "php -S 0.0.0.0:8080 -t /app/public"
+    user: "1000:1000"
     ports:
         - 8080:8080
     volumes:
