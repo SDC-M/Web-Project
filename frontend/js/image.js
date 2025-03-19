@@ -118,6 +118,8 @@ function focusAnnotation(annotation) {
         Math.min(tab2[0].yCalc, tab2[1].yCalc),
         Math.abs(tab2[1].xCalc - tab2[0].xCalc),
         Math.abs(tab2[1].yCalc - tab2[0].yCalc));
+
+    focusDiv(annotation.id);
 }
 
 /**
@@ -204,6 +206,14 @@ function dark_theme() {
     $("body, html").css("background-color", "rgb(128, 128, 128)");
     localStorage.setItem("theme", "dark");
 }
+
+function focusDiv(id) {
+    $("#annot-content").find("div").each(function () {
+        $(this).removeClass("selected");
+    });
+    $("#" + id).addClass("selected");
+}
+
 
 $(document).ready(function () {
     if (localStorage.getItem("theme") === "dark") {

@@ -14,13 +14,17 @@
 }
 
 .comment:not(:first-child) {
-    margin-top: 0.5rem;
+    padding-top: 0.5rem;
 }
 
 .comment {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.selected {
+    background-color: var(--light-red-color);
 }
 
 #link {
