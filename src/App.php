@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 
 use Kuva\Handler\Annotation\AnnotationFormHandler;
+use Kuva\Handler\Annotation\DeleteAnnotationHandler;
 use Kuva\Handler\Annotation\GetAnnotationHandler;
 use Kuva\Handler\AppHandler;
 use Kuva\Handler\DeleteImageHandler;
@@ -51,6 +52,7 @@ class App
             ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())
+            ->delete('/annotation/{annotation_id}', new DeleteAnnotationHandler())
             ->handleCurrent();
     }
 }
