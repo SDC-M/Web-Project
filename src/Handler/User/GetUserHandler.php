@@ -38,6 +38,6 @@ class GetUserHandler extends Handler
         }
 
 
-        $this->response = new Response(200, $user->jsonify(), ['Content-Type' => 'application/json']);        
+        $this->response = new Response(200, $user->jsonify(), ['Content-Type' => 'application/json']);
     }
 }

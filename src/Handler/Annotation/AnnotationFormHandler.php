@@ -3,12 +3,11 @@
 namespace Kuva\Handler\Annotation;
 
 use Kuva\Backend\Annotation;
-use Kuva\Backend\Image;
 use Kuva\Backend\User;
-use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
+use Kuva\Utils\Validator;
 
 class AnnotationFormHandler extends Handler
 {
@@ -16,22 +15,30 @@ class AnnotationFormHandler extends Handler
     {
 
         $this->response = new Response(400);
-        $image_id = $req->extracts["image_id"] ?? -1;
-        $image = Image::getById($image_id);
-        if ($image == null) {
-            return;
-        }
 
-        $form = (new FormValidator())->addTextField("description")
-            ->addTextField("x1")
-            ->addTextField("x2")
-            ->addTextField("y1")
-            ->addTextField("y2")
+        $description = '';
+        $x1 = '';
+        $x2 = '';
+        $y1 = '';
+        $y2 = '';
+        $image = null;
+        $user = null;
+
+        $form = (new Validator())
+            ->getImageFromUrlParam("image_id", $image)
+            ->getStringFromFormParam("description", $description)
+            ->getStringFromFormParam($x1, "x1")
+            ->getStringFromFormParam($x2, "x2")
+            ->getStringFromFormParam($y1, "y1")
+            ->getStringFromFormParam($y2, "y2")
+            ->getUserFromSession($user)
             ->validate();
 
-        if ($form === false) {
+        if ($form !== null) {
+            $this->response = new Response(400, $form);
             return;
         }
+
 
         $user = User::getFromSession();
         if ($user === null) {
@@ -39,9 +46,9 @@ class AnnotationFormHandler extends Handler
         }
 
         $annotation = Annotation::createWithUserAndImage($image, $user);
-        $annotation->setDescription($form["description"]);
-        $annotation->setFirstPoint($form["x1"], $form["y1"]);
-        $annotation->setSecondPoint($form["x2"], $form["y2"]);
+        $annotation->setDescription($description);
+        $annotation->setFirstPoint($x1, $y1);
+        $annotation->setSecondPoint($x2, $y2);
         if ($annotation->addToDatabase() === false) {
             $this->response = new Response(500);
         }

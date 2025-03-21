@@ -4,7 +4,7 @@ namespace Kuva\Utils\Router;
 
 abstract class Handler
 {
-    public bool $is_bufferize = true;
+    public bool $is_bufferize = false;
 
     public ?Response $response = null;
 
