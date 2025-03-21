@@ -29,6 +29,11 @@ class DeleteAnnotationHandler extends Handler {
             return;
         }
 
+        if ($annotation->user->id != $user->id) {
+            $this->response = new Response(400, "You aren't the owner of this annotation !");
+            return;
+        }
+
         if ($annotation->delete() === false) {
             $this->response = new Response(500, "Cannot delete");
             return;
