@@ -27,7 +27,7 @@ CREATE TABLE `images` (
   `image_date` datetime NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `annotations` (
@@ -40,7 +40,7 @@ CREATE TABLE `annotations` (
   `position_x2` int NOT NULL,
   `position_y2` int NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`image_id`) REFERENCES `images`(`id`),
+  FOREIGN KEY (`image_id`) REFERENCES `images`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -58,7 +58,7 @@ CREATE TABLE `like` (
   `image_id` int(10) unsigned NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
   PRIMARY KEY (`id`, `image_id`, `user_id`),
-  FOREIGN KEY (`image_id`) REFERENCES `images`(`id`),
+  FOREIGN KEY (`image_id`) REFERENCES `images`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

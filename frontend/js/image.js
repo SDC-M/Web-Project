@@ -98,6 +98,7 @@ async function setAnnotations() {
 /**
  * @param annotation 
  * Efface le canvas et redessine l'annotation prise en paramètre.
+ *  Affecte le comportement focus à la div associé à la description de l'annotation.
  */
 function focusAnnotation(annotation) {
     const canvas = $("#canvas")[0];
@@ -211,9 +212,53 @@ function focusDiv(id) {
     $("#annot-content").find("div").each(function () {
         $(this).removeClass("selected");
     });
-    $("#" + id).addClass("selected");
+    $(`#${id}`).addClass("selected");
 }
 
+async function deleteImage(id) {
+    const url = `/images/${id}`;
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+
+}
+
+function setDeleteImage() {
+    $("#del").on("click", async function () {
+        const imageId = getImageId(getPathName());
+        const confirmation = window.confirm("Are you sure to delete it ?");
+
+        if (confirmation) {
+            await deleteImage(imageId);
+            window.location.href = "/profile";
+        }
+    });
+}
+
+async function isMindImage() {
+    const path = getPathName();
+    const userId = getUserId(path);
+    const url = "/user/me"
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        if (parseInt(json.id) == userId) {
+            $("#del").css("display", "block");
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
 
 $(document).ready(function () {
     if (localStorage.getItem("theme") === "dark") {
@@ -227,4 +272,6 @@ $(document).ready(function () {
     displayImage();
     setAnnotations();
     setNav();
+    setDeleteImage();
+    isMindImage();
 });
