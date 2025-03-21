@@ -83,6 +83,7 @@ input {
 
     button {
         background-color: var(--grey-color);
+        color: black;
     }
 }
 
