@@ -1,0 +1,51 @@
+@import url('/frontend/css/root.css');
+
+#annot-content {
+    width: 100%;
+    margin-top: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: var(--light-grey-color);
+    border-radius: 5px;
+}
+
+.comment:not(:last-child) {
+    border-bottom: solid 1px black;
+}
+
+.comment:not(:first-child) {
+    padding-top: 0.5rem;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.selected {
+    background-color: var(--light-red-color);
+    color: white;
+}
+
+#link {
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+
+}
+
+#link a:first-child {
+    border-right: solid 1px black;
+}
+
+#link a {
+    margin-left: 1rem;
+    padding-right: 1rem;
+}
+
+.dark-mode {
+    #annot-content {
+        background-color: var(--dark-grey-color);
+    }
+}

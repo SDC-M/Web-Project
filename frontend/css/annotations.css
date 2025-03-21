@@ -39,7 +39,6 @@ html {
 #canvas {
     position: absolute;
     top: 20px;
-    background-color: rgba(137, 43, 226, 0.486);
 }
 
 button {
