@@ -1,6 +1,6 @@
 /**
- * Applique la classe dark-mode et retire light-mode, gère le background-color
- *  du body et de l'html et stocke une valeur significative dans le local storage.
+ * Applique des couleurs plus sombre au body et l'lement html. Change les backgrounds
+ *  images pour les mêmes raisons. Applique un theme aux bouttons.
  */
 function dark_theme() {
     $('#login').css('background-image', 'url("/frontend/img/login_dark_logo.png")');

@@ -300,8 +300,8 @@ function setDeleteImage() {
 }
 
 /**
- * Vérifie que l'image est bien à la personne connecté, dans ce cas affiche
- *  un element pour pouvoir acceder àa ce traitement n'affiche rien sinon.
+ * Vérifie que l'image est bien à l'utilisateur connecté, dans ce cas affiche
+ *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
  */
 async function setIsMindImage() {
     const path = getPathName();

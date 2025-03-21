@@ -101,8 +101,8 @@ async function getNb() {
 /* --------------------------------------------------------------------- */
 
 /**
- * Vérifie que l'image est bien à la personne connecté, dans ce cas affiche
- *  un element pour pouvoir acceder àa ce traitement n'affiche rien sinon.
+ * Tente d'afficher le nom d'utilisateur dans l'element d'id username
+ *  en cas d'échec renvoie l'erreur associée.
  */
 async function setUserUsername() {
     const path = getPathName();
