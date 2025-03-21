@@ -100,7 +100,6 @@ figcaption {
 #bio {
     display: flex;
     padding: 1rem;
-    margin-bottom: 1rem;
 }
 
 #profile-picture-container {
@@ -163,10 +162,24 @@ a {
     background-color: #555;
 }
 
+#pseudo {
+    margin: 1rem;
+}
+
+#pseudo p {
+    font-size: var(--big-font-size);
+}
+
 @media screen and (max-width: 1245px) {
     #img-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    #pseudo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
