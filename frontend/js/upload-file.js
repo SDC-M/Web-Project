@@ -1,39 +1,35 @@
-const previewPhoto = () => {
-    const file = $('#file-upload')[0].files;
+/**
+ * Initialise le comportement de pré-visionnage de l'image choisie
+ *  dans le container associé.
+ */
+function previewPhoto() {
+    const file = $("#file-upload")[0].files;
     if (file && file[0]) {
         const fileReader = new FileReader();
-        const preview = $('#file-preview');
+        const preview = $("#file-preview");
         fileReader.onload = function (event) {
-            preview.attr('src', event.target.result);
-        }
+            preview.attr("src", event.target.result);
+        };
         fileReader.readAsDataURL(file[0]);
     }
 }
 
+/**
+ * Applique la classe dark-mode et retire light-mode, gère le background-color
+ *  du body et de l'html et stocke une valeur significative dans le local storage.
+ */
 function dark_theme() {
     $("#container").removeClass("light-mode").addClass("dark-mode");
     $("body, html").css("background-color", "rgb(128, 128, 128)");
-    localStorage.setItem('theme', 'dark');
+    localStorage.setItem("theme", "dark");
 }
 
-function light_theme() {
-    $("#container").removeClass("dark-mode").addClass("light-mode");
-    $("body, html").css("background-color", "white");
-    localStorage.setItem('theme', 'light');
-}
+/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
 
 $(document).ready(function () {
-    if (localStorage.getItem('theme') === 'dark') {
+    if (localStorage.getItem("theme") === "dark") {
         dark_theme();
-    } else {
-        light_theme();
     }
-    $('#theme-toggle').on('click', function () {
-        if (localStorage.getItem('theme') === 'dark') {
-            light_theme();
-        } else {
-            dark_theme();
-        }
-    });
-    $('#file-upload').on('change', previewPhoto);
+    $("#file-upload").on("change", previewPhoto);
 });

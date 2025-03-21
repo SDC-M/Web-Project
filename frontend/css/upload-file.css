@@ -87,11 +87,6 @@ input {
     }
 }
 
-.light-mode {
-    background-color: var(--beige-color);
-    transition: all 0.8s ease;
-}
-
 a {
     margin-top: 1rem;
     text-decoration: none;

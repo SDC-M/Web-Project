@@ -28,22 +28,6 @@
     color: white;
 }
 
-#link {
-    display: flex;
-    align-items: center;
-    align-content: space-around;
-
-}
-
-#link a:not(:last-child) {
-    border-right: solid 1px black;
-}
-
-#link a {
-    margin-left: 1rem;
-    padding-right: 1rem;
-}
-
 .dark-mode {
     #annot-content {
         background-color: var(--dark-grey-color);
