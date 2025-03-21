@@ -105,8 +105,8 @@ function updateCoords(x1, y1, x2, y2) {
 /* --------------------------------------------------------------------- */
 
 /**
- * Affecte la route pour acceder à l'image et ses annotations depuis le menu 
- *  de navigation.
+ * Affecte à l'element d'id goto-image la route pour acceder à l'image et 
+ *  ses annotations depuis le menu de navigation.
  */
 function setNav() {
     const path = getPathName();
