@@ -138,7 +138,7 @@ function focusAnnotation(annotation) {
         $("#image")[0].clientWidth,
         $("#image")[0].naturalHeight,
         $("#image")[0].clientHeight);
-    ctx.fillStyle = "rgba(158, 68, 80, 0.88)";
+    ctx.fillStyle = "rgba(158, 68, 80, 0.5)";
     ctx.fillRect(Math.min(tab2[0].xCalc, tab2[1].xCalc),
         Math.min(tab2[0].yCalc, tab2[1].yCalc),
         Math.abs(tab2[1].xCalc - tab2[0].xCalc),
@@ -294,7 +294,9 @@ function setDeleteImage() {
 
         if (confirmation) {
             await deleteImage(imageId);
+            /*
             window.location.href = "/profile";
+            */
         }
     });
 }
