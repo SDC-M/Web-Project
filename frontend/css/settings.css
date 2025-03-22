@@ -1,0 +1,21 @@
+@import url('/frontend/css/root.css');
+
+
+.dark-mode {
+    background-color: var(--purple-color) !important;
+    color: var(--light-grey-color);
+
+    * {
+        color: white;
+        border-color: white !important;
+    }
+
+    li:hover {
+        background-color: var(--dark-grey-color) !important;
+        color: white;
+    }
+
+    #navbar {
+        background-color: var(--purple-color);
+    }
+}
