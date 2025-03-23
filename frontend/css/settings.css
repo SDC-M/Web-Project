@@ -1,6 +1,51 @@
 @import url('/frontend/css/root.css');
 
 
+#container {
+    display: flex;
+    flex-direction: row;
+}
+
+#left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 30vw;
+    height: 100vh;
+    background-color: brown;
+}
+
+#right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70vw;
+    height: 100vh;
+    background-color: aquamarine;
+}
+
+#nav {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 50%;
+    width: 80%;
+    border-right: solid 1px black;
+    margin-right: 1rem;
+    padding-right: 1rem;
+}
+
+li {
+    padding: 0.5rem;
+}
+
+.sect {
+    width: 90%;
+    height: 80%;
+    background-color: blueviolet;
+}
+
 .dark-mode {
     background-color: var(--purple-color) !important;
     color: var(--light-grey-color);
@@ -18,4 +63,64 @@
     #navbar {
         background-color: var(--purple-color);
     }
+}
+
+@media screen and (max-width: 750px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #left {
+        width: 100vw;
+        height: 10vh;
+    }
+
+    #nav {
+        width: 100%;
+        height: 100%;
+        border: none;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: row;
+    }
+
+    li {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    li:not(:last-child) {
+        border-right: solid 1px white;
+    }
+
+    #right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 90vh;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #left {
+        height: 30vh;
+    }
+
+    li {
+        border: none !important;
+    }
+
+    ul {
+        flex-direction: column;
+        padding-top: 0.5rem;
+        height: 100%;
+        justify-content: space-evenly;
+
+    }
+
 }
