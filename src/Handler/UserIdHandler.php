@@ -9,11 +9,11 @@ use Kuva\Utils\SessionVariable;
 
 class UserIdHandler extends Handler
 {
-    public bool $is_bufferize = false;
     public function handle(Request $req): void
     {
         $id = (new SessionVariable())->getUserId();
         if ($id === null) {
+
             $this->response = new Response(400, 'User not connected');
             return;
         }

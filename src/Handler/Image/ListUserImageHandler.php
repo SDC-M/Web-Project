@@ -10,8 +10,6 @@ use Kuva\Utils\Router\Response;
 
 class ListUserImageHandler extends Handler
 {
-    public bool $is_bufferize = false;
-
     public function handle(Request $req): void
     {
         $this->response = new Response(400);

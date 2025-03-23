@@ -24,7 +24,7 @@ class ImageFormHandler extends Handler
             ->validate();
 
         if ($form === false) {
-            echo "Bad form";
+            $this->response = new Response(400, "Bad form");
             return;
         }
 
@@ -33,11 +33,11 @@ class ImageFormHandler extends Handler
         $user = User::getById($user_id);
 
         if ($user == null) {
-            echo "Connect you plz";
+            $this->response = new Response(401, "Connect you plz");
             return;
         }
         if ($form["image"]["error"] != 0) {
-            echo "Problem when handling image (Probably too large)";
+            $this->response = new Response(413, "Problem when handling image (Probably too large)");
             return;
         }
 
