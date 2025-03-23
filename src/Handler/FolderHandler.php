@@ -9,18 +9,9 @@ use Kuva\Utils\Router\Response;
 
 class FolderHandler extends Handler
 {
-    public bool $is_bufferize = false;
-
     public function __construct(
         public readonly string $folder,
     ) {
-    }
-
-    private function getExtensionOfFile(string $path): string
-    {
-        $ext = explode('.', $path);
-
-        return $ext[count($ext) - 1];
     }
 
     public function handle(Request $req): void
@@ -35,7 +26,7 @@ class FolderHandler extends Handler
         $mime_type = mime_content_type($path);
         if ($mime_type == 'text/plain') {
             try {
-                $ext = new \FileEye\MimeMap\Extension($this->getExtensionOfFile($path));
+                $ext = new \FileEye\MimeMap\Extension(pathinfo($path, PATHINFO_EXTENSION));
                 $mime_type = $ext->getDefaultType();
             } catch (Exception $e) {
                 // UwU

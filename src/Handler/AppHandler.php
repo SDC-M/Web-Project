@@ -10,8 +10,6 @@ use Kuva\Utils\Router\Response;
 
 class AppHandler extends Handler
 {
-    public bool $is_bufferize = false;
-
     private function showUnconnectedPage(): void
     {
         $this->response = new Response(200, file_get_contents(FileConstant::HOMEPAGE));

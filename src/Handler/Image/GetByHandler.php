@@ -10,8 +10,6 @@ use Kuva\Utils\Router\Response;
 
 class GetByHandler extends Handler
 {
-    public bool $is_bufferize = false;
-
     public function handle(Request $req): void
     {
         $user_id = User::getById($req->extracts["id"]);

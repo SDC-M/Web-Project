@@ -9,7 +9,6 @@ use Kuva\Utils\Router\Response;
 
 class GetUserHandler extends Handler
 {
-    public bool $is_bufferize = false;
     public function getCurrentUser(): void
     {
         $user = User::getFromSession();

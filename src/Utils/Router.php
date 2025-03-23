@@ -84,8 +84,6 @@ class Router
 
 class EmptyResponse extends Handler
 {
-    public bool $is_bufferize = false;
-
     public function handle(Request $req): void
     {
         $this->response = new Response(404, 'Not found: '.$req->uri);

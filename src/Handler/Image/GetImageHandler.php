@@ -10,8 +10,6 @@ use Kuva\Utils\SessionVariable;
 
 class GetImageHandler extends Handler
 {
-    public bool $is_bufferize = false;
-
     public function handle(Request $req): void
     {
         $image_id = $req->extracts["image_id"];

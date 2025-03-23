@@ -9,8 +9,6 @@ use Kuva\Utils\SessionVariable;
 
 class DisconnectHandler extends Handler
 {
-    public bool $is_bufferize = false;
-
     public function handle(Request $req): void
     {
         SessionVariable::destroy();
