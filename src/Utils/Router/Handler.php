@@ -14,8 +14,14 @@ abstract class Handler
         $b = ob_get_clean();
 
         if ($this->response == null) {
-            $this->response = new Response(200, $b);
+            $this->response = new Response(200, "");
+        } 
+
+        if ($b != null) {
+            $this->response->body .= $b;
+            $this->response->headers["Content-Type"] = "text/html";
         }
+
         return $this->response;
     }
 

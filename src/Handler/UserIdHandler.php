@@ -13,6 +13,7 @@ class UserIdHandler extends Handler
     {
         $id = (new SessionVariable())->getUserId();
         if ($id === null) {
+
             $this->response = new Response(400, 'User not connected');
             return;
         }
