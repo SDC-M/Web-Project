@@ -8,15 +8,16 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class DeleteAnnotationHandler extends Handler {
+class DeleteAnnotationHandler extends Handler
+{
     public bool $is_bufferize = false;
-    
+
     public function handle(Request $req): void
     {
         $this->response = new Response(400);
 
         $annotation_id = $req->extracts['annotation_id'] ?? -1;
-        $annotation = Annotation::getById($annotation_id);        
+        $annotation = Annotation::getById($annotation_id);
         if ($annotation == null) {
             $this->response->body = "This annotation doesn't exists";
             return;

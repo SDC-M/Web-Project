@@ -113,16 +113,16 @@ class Image implements JsonSerializable
 
     public function delete(): bool
     {
-        if (unlink($this->getPath()) === false) {
-            return false;
-        }
-
         $db = new Database();
         $q = $db->db->prepare('DELETE FROM images WHERE id = :id');
         $q->bindValue(":id", $this->id);
         try {
-
-            $q->execute();
+            if ($q->execute() === true) {
+                if (unlink($this->getPath()) === false) {
+                    return false;
+                }
+            };
+            return false;
         } catch (Exception $e) {
             return false;
         }

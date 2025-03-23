@@ -103,7 +103,8 @@ class Annotation implements JsonSerializable
         return static::fromRow($row);
     }
 
-    public function delete(): bool {
+    public function delete(): bool
+    {
         if ($this->id == null) {
             return false;
         }
