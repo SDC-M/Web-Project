@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="session">
+    <div id="page-container" class="session">
         <div class="left" id="login"></div>
         <form action="/user/login" method="post" class="log-in" autocomplete="off">
             <h4>Bienvenue sur <span>Kuva</span></h4>
@@ -28,7 +28,8 @@
             </a>
         </form>
     </div>
-    <script src="/frontend/js/dark-login-register.js"></script>
+    <script type="module" src="/frontend/js/theme.mjs"></script>
+    <script type="module" src="/frontend/js/dark-login-register.js"></script>
 </body>
 
 </html>

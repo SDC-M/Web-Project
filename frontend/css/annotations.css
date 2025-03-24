@@ -89,8 +89,7 @@ textarea {
 
     textarea,
     button {
-        color: black;
+        color: black !important;
     }
 
-    transition: all 0.8s ease;
 }

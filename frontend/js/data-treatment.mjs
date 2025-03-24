@@ -1,0 +1,121 @@
+/**
+ * @returns Retourne un tableau composé des élements de l'url,
+ *  le séparateur utilisé est '/'.
+ */
+export function getPathName() {
+    return document.location.pathname.split("/");
+}
+
+/**
+ * 
+ * @param pathname 
+ * @returns Retourne l'id de l'image associé.
+ */
+export function getImageId(pathname) {
+    return pathname[3];
+}
+
+/**
+ * 
+ * @param pathname 
+ * @returns Tente de retourner l'id de l'utilisateur connecté.
+ *  En cas d'échec l'erreur correspondante.
+ */
+export async function getUserId() {
+    const url = "/user/me"
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        return json.id;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+/**
+ * 
+ * @param x 
+ * @param y 
+ * @param widthRatio 
+ * @param heightRatio 
+ * @returns Un couple de points correspondants aux points pris en
+ *  paramètre et mis a l'échelle du container.
+ */
+export function convertPoint(x, y, widthRatio, heightRatio) {
+    let xCalc = Math.round(x * widthRatio);
+    let yCalc = Math.round(y * heightRatio);
+
+    return { xCalc, yCalc };
+}
+
+/**
+ * Affiche l'image sur le canvas de même taille.
+ */
+export function displayImage() {
+    const path = getPathName();
+    const imageId = getImageId(path);
+
+    const imageUrl = `/images/${imageId}`;
+
+    let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
+    $("#img-container").html($img);
+
+    $img[0].onload = function () {
+        $("#canvas")[0].width = $img[0].clientWidth;
+        $("#canvas")[0].height = $img[0].clientHeight;
+    };
+}
+
+/**
+ * Fixe le canvas sur l'image contenu dans l'element d'id image.
+ */
+export function resizeCanvas() {
+    $("#canvas")[0].width = $("#image")[0].clientWidth;
+    $("#canvas")[0].height = $("#image")[0].clientHeight;
+}
+
+/**
+ * Initialise le comportement de pré-visionnage de l'image choisie
+ *  dans le container associé.
+ */
+function previewPhoto() {
+    const file = $("#file-upload")[0].files;
+    if (file && file[0]) {
+        const fileReader = new FileReader();
+        const preview = $("#file-preview");
+        fileReader.onload = function (event) {
+            preview.attr("src", event.target.result);
+        };
+        fileReader.readAsDataURL(file[0]);
+    }
+}
+
+/**
+ * Initialise le comportement lors du changement du fichier dans la section
+ *  profile et permet d'afficher le pré-affichage de la photo.
+ */
+export function setFileUploadPreview() {
+    $("#file-upload").on("change", previewPhoto);
+}
+
+/**
+ * Tente de renvoyer l'username actuel de l'utilisateur connecté.
+ *  En cas d'échec renvoie l'erreur correspondante.
+ */
+export async function getActualUsername() {
+    const url = "/user/me";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+
+        const json = await response.json();
+        return json.username;
+    } catch (error) {
+        console.error(error.message);
+    }
+}

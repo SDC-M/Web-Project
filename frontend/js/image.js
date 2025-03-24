@@ -1,28 +1,5 @@
-/**
- * @returns Retourne un tableau composé des élements de l'url,
- *  le séparateur utilisé est '/'.
- */
-function getPathName() {
-    return document.location.pathname.split("/");
-}
-
-/**
- * 
- * @param pathname 
- * @returns Retourne l'id de l'image associé.
- */
-function getImageId(pathname) {
-    return pathname[3];
-}
-
-/**
- * 
- * @param pathname 
- * @returns Retourne l'id de l'utilisateur associé à l'image.
- */
-function getUserId(pathname) {
-    return pathname[2];
-}
+const { getPathName, getImageId, getUserId, convertPoint, displayImage, resizeCanvas } = await import("./data-treatment.mjs");
+import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
  * Efface tous les elements du canvas de la page.
@@ -31,22 +8,6 @@ function clearCanvas() {
     const canvas = $("#canvas")[0];
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-/**
- * 
- * @param x 
- * @param y 
- * @param widthRatio 
- * @param heightRatio 
- * @returns Un couple de points correspondants aux points pris en
- *  paramètre et mis a l'échelle du container.
- */
-function convertPoint(x, y, widthRatio, heightRatio) {
-    let xCalc = Math.round(x * widthRatio);
-    let yCalc = Math.round(y * heightRatio);
-
-    return { xCalc, yCalc };
 }
 
 /**
@@ -60,8 +21,8 @@ function convertPoint(x, y, widthRatio, heightRatio) {
  *  tableau pris en paramètre mis à l'échelle du container. 
  */
 function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
-    widthRatio = Math.min(realWidth, printWidth) / Math.max(realWidth, printWidth);
-    heightRatio = Math.min(realHeight, printHeight) / Math.max(realHeight, printHeight);
+    let widthRatio = Math.min(realWidth, printWidth) / Math.max(realWidth, printWidth);
+    let heightRatio = Math.min(realHeight, printHeight) / Math.max(realHeight, printHeight);
     let tab2 = [];
     tab.forEach(element => {
         tab2.push(convertPoint(element.x, element.y, widthRatio, heightRatio));
@@ -71,24 +32,6 @@ function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
 
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
-
-/**
- * Affiche l'image sur le canvas de même taille.
- */
-function displayImage() {
-    const path = getPathName();
-    const imageId = getImageId(path);
-
-    const imageUrl = `/images/${imageId}`;
-
-    let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
-    $("#img-container").html($img);
-
-    $img[0].onload = function () {
-        $("#canvas")[0].width = $img[0].clientWidth;
-        $("#canvas")[0].height = $img[0].clientHeight;
-    };
-}
 
 /**
  * @param annotations 
@@ -153,8 +96,7 @@ function focusAnnotation(annotation) {
  *  stockée dans l'url. Sinon l'erreur correspondante.
  */
 async function getUsername() {
-    const path = getPathName();
-    const userId = getUserId(path);
+    const userId = await getUserId();
     const url = `/user/${userId}`;
     try {
         const response = await fetch(url);
@@ -166,14 +108,6 @@ async function getUsername() {
     } catch (error) {
         console.error(error.message);
     }
-}
-
-/**
- * Fixe le canvas sur l'image contenu dans l'element d'id image.
- */
-function resizeCanvas() {
-    $("#canvas")[0].width = $("#image")[0].clientWidth;
-    $("#canvas")[0].height = $("#image")[0].clientHeight;
 }
 
 /**
@@ -222,9 +156,9 @@ async function deleteImage(id) {
  * Affecte la route pour acceder au formulaire d'une nouvelle annotation
  *  depuis le menu de navigation.
  */
-function setNav() {
+async function setNav() {
     const path = getPathName();
-    const userId = getUserId(path);
+    const userId = await getUserId();
     const imageId = getImageId(path);
     $("#goto-ping").attr("href", `/new_annotations/${userId}/${imageId}`);
 }
@@ -232,7 +166,7 @@ function setNav() {
 /**
  * En cas de succès affichage des annotations sur le canvas 
  *  et les informations relatives dans la div de classe comment.
- *  Sinon l'erreur correspondante.
+ *  et renvoie le json trouvé sinon l'erreur correspondante.
  */
 async function setAnnotations() {
     const path = getPathName();
@@ -268,20 +202,10 @@ async function setAnnotations() {
         });
 
         displayAnnotations(json);
-
+        return json;
     } catch (error) {
         console.error(error.message);
     }
-}
-
-/**
- * Applique la classe dark-mode et retire light-mode, gère le background-color
- *  du body et de l'html et stocke une valeur significative dans le local storage.
- */
-function setDarkTheme() {
-    $("#page-container").removeClass("light-mode").addClass("dark-mode");
-    $("body, html").css("background-color", "rgb(128, 128, 128)");
-    localStorage.setItem("theme", "dark");
 }
 
 /**
@@ -326,18 +250,16 @@ async function setIsMindImage() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
-    if (localStorage.getItem("theme") === "dark") {
-        setDarkTheme();
-    }
-
-    $(window).resize(function () {
-        resizeCanvas();
-    });
-
+$(document).ready(async function () {
+    setLocalStorageTheme();
     displayImage();
-    setAnnotations();
+    const json = await setAnnotations();
     setNav();
     setDeleteImage();
     setIsMindImage();
+
+    $(window).resize(function () {
+        resizeCanvas();
+        displayAnnotations(json);
+    });
 });

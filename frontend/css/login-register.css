@@ -125,11 +125,6 @@ input[type=checkbox] {
     margin-left: 140px;
 }
 
-.dark-button {
-    background-color: var(--purple-color);
-    color: white;
-}
-
 .popup {
     display: none;
     position: absolute;
@@ -155,6 +150,17 @@ input[type=checkbox] {
 
 .password-container.focus .popup {
     display: block;
+}
+
+.dark-mode {
+    button {
+        background-color: var(--dark-purple-color);
+        color: white;
+    }
+
+    button:hover {
+        background-color: var(--purple-color);
+    }
 }
 
 @keyframes slideIn {

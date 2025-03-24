@@ -1,70 +1,5 @@
-/**
- * @returns Retourne un tableau composé des élements de l'url,
- *  le séparateur utilisé est '/'.
- */
-function getPathName() {
-    return document.location.pathname.split("/");
-}
-
-/**
- * 
- * @param pathname 
- * @returns Retourne l'id de l'image associé.
- */
-function getImageId(pathname) {
-    return pathname[3];
-}
-
-/**
- * 
- * @param pathname 
- * @returns Retourne l'id de l'utilisateur associé à l'image.
- */
-function getUserId(pathname) {
-    return pathname[2];
-}
-
-
-/**
- * Affiche l'image sur le canvas de même taille.
- */
-function displayImage() {
-    const path = getPathName();
-    const imageId = getImageId(path);
-    const imageUrl = `/images/${imageId}`;
-
-    let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
-    $("#img-container").html($img);
-
-    $img[0].onload = function () {
-        $("#canvas")[0].width = $img[0].clientWidth;
-        $("#canvas")[0].height = $img[0].clientHeight;
-    };
-}
-
-/**
- * Fixe le canvas sur l'image contenu dans l'element d'id image.
- */
-function resizeCanvas() {
-    $("#canvas")[0].width = $("#image")[0].clientWidth;
-    $("#canvas")[0].height = $("#image")[0].clientHeight;
-}
-
-/**
- * 
- * @param x 
- * @param y 
- * @param widthRatio 
- * @param heightRatio 
- * @returns Un couple de points correspondants aux points pris en
- *  paramètre et mis a l'échelle du container.
- */
-function convertPoint(x, y, widthRatio, heightRatio) {
-    let xCalc = Math.round(x * widthRatio);
-    let yCalc = Math.round(y * heightRatio);
-
-    return { xCalc, yCalc };
-}
+const { getPathName, getImageId, getUserId, convertPoint, displayImage, resizeCanvas } = await import("./data-treatment.mjs");
+import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
  * 
@@ -77,8 +12,8 @@ function convertPoint(x, y, widthRatio, heightRatio) {
  *  tableau pris en paramètre mis à l'échelle du container. 
  */
 function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
-    widthRatio = Math.max(realWidth, printWidth) / Math.min(realWidth, printWidth);
-    heightRatio = Math.max(realHeight, printHeight) / Math.min(realHeight, printHeight);
+    let widthRatio = Math.max(realWidth, printWidth) / Math.min(realWidth, printWidth);
+    let heightRatio = Math.max(realHeight, printHeight) / Math.min(realHeight, printHeight);
     let tab2 = [];
     tab.forEach(element => {
         tab2.push(convertPoint(element.x, element.y, widthRatio, heightRatio));
@@ -108,9 +43,9 @@ function updateCoords(x1, y1, x2, y2) {
  * Affecte à l'element d'id goto-image la route pour acceder à l'image et 
  *  ses annotations depuis le menu de navigation.
  */
-function setNav() {
+async function setNav() {
     const path = getPathName();
-    const userId = getUserId(path);
+    const userId = await getUserId();
     const imageId = getImageId(path);
     $("#goto-image").attr("href", `/annotations/${userId}/${imageId}`);
 }
@@ -175,24 +110,11 @@ function setCanvas() {
     });
 }
 
-/**
- * Applique la classe dark-mode et retire light-mode, gère le background-color
- *  du body et de l'html et stocke une valeur significative dans le local storage.
- */
-function setDarkTheme() {
-    $("#page-container").removeClass("light-mode").addClass("dark-mode");
-    $("body, html").css("background-color", "rgb(128, 128, 128)");
-    localStorage.setItem("theme", "dark");
-}
-
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
 $(document).ready(function () {
-    if (localStorage.getItem("theme") === "dark") {
-        setDarkTheme();
-    }
-
+    setLocalStorageTheme();
     setFormAction();
     displayImage();
     setCanvas();
