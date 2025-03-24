@@ -140,6 +140,14 @@ async function setActualUsername() {
     }
 }
 
+function setHelpValidator() {
+    $("#new-password").on("focus", function () {
+        $(this).closest(".password-container").addClass("focus");
+    });
+    $("#new-password").on("blur", function () {
+        $(this).closest(".password-container").removeClass("focus");
+    });
+}
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -152,4 +160,5 @@ $(document).ready(function () {
     setFileUploadPreview();
     setActualBio();
     setActualUsername();
+    setHelpValidator();
 });

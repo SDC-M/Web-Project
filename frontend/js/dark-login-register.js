@@ -19,10 +19,23 @@ function dark_theme() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
+function setHelpValidator() {
+    $("#password").on("focus", function () {
+        $(this).closest(".password-container").addClass("focus");
+    });
+    $("#password").on("blur", function () {
+        $(this).closest(".password-container").removeClass("focus");
+    });
+}
+
+/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
+
 $(document).ready(function () {
     if (localStorage.getItem('theme') === 'dark') {
         dark_theme();
     } else {
         $('button').removeClass('dark-button');
     }
+    setHelpValidator();
 });
