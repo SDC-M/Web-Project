@@ -20,6 +20,7 @@
 
     /* dark mode colors */
     --purple-color: #58495a;
+    --dark-purple-color: #402a42;
     --dark-grey-color: rgb(128, 128, 128);
     --light-grey-color: #fefefe;
 }
@@ -45,18 +46,28 @@
     }
 }
 
-#link {
-    display: flex;
-    align-items: center;
-    align-content: space-around;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
 
+    100% {
+        opacity: 1;
+    }
 }
 
-#link a:not(:last-child) {
-    border-right: solid 1px black;
+/* reusable rules */
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
-#link a {
-    margin-left: 1rem;
-    padding-right: 1rem;
+ul {
+    list-style-type: none;
+}
+
+input,
+textarea {
+    outline: none;
 }

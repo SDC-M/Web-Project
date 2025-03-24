@@ -1,0 +1,34 @@
+#link {
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+
+}
+
+#link a:not(:last-child) {
+    border-right: solid 1px black;
+}
+
+#link a {
+    margin-left: 1rem;
+    padding-right: 1rem;
+}
+
+.dark-mode {
+    background-color: var(--purple-color) !important;
+    color: var(--light-grey-color);
+
+    * {
+        color: white;
+        border-color: white !important;
+    }
+
+    li:hover {
+        background-color: var(--dark-grey-color) !important;
+        color: white;
+    }
+
+    #navbar {
+        background-color: var(--purple-color);
+    }
+}

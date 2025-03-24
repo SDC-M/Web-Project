@@ -13,6 +13,11 @@ form {
     margin-top: 20px;
 }
 
+
+a {
+    font-size: var(--enormous-font-size);
+}
+
 #profile-picture {
     background-color: var(--dark-grey-color);
     border-radius: 50%;
@@ -46,28 +51,8 @@ figcaption {
     width: 60vw;
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    animation: slideIn 1s ease-out;
     background-color: var(--beige-color);
     height: auto;
-}
-
-.dark-mode {
-    background-color: var(--purple-color) !important;
-    color: var(--light-grey-color);
-
-    * {
-        color: white;
-        border-color: white !important;
-    }
-
-    li:hover {
-        background-color: var(--dark-grey-color) !important;
-        color: white;
-    }
-
-    #navbar {
-        background-color: var(--purple-color);
-    }
 }
 
 #user-data {
@@ -111,20 +96,17 @@ figcaption {
     padding: 1rem;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-    font-size: var(--enormous-font-size);
-
-}
-
 .datas p {
     margin-left: 1rem;
+}
+
+
+#pseudo {
+    margin: 1rem;
+}
+
+#pseudo p {
+    font-size: var(--big-font-size);
 }
 
 #navbar {
@@ -160,14 +142,6 @@ a {
 
 #navbar-list a:hover {
     background-color: #555;
-}
-
-#pseudo {
-    margin: 1rem;
-}
-
-#pseudo p {
-    font-size: var(--big-font-size);
 }
 
 @media screen and (max-width: 1245px) {
