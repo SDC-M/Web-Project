@@ -20,6 +20,7 @@
 
     /* dark mode colors */
     --purple-color: #58495a;
+    --dark-purple-color: #402a42;
     --dark-grey-color: rgb(128, 128, 128);
     --light-grey-color: #fefefe;
 }
@@ -45,6 +46,16 @@
     }
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* reusable rules */
 
 a {
@@ -54,4 +65,9 @@ a {
 
 ul {
     list-style-type: none;
+}
+
+input,
+textarea {
+    outline: none;
 }

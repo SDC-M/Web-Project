@@ -17,20 +17,92 @@
     <div id="container">
         <div id="left">
             <div id="nav">
-                <ul>
-                    <li><a href="#interface"></a>Interface</li>
-                    <li><a href="#profile"></a>Profile</li>
-                    <li><a href="#change-password"></a>Change password</li>
-                    <li><a href="#change-email"></a>Change email</li>
+                <ul id="nav-list">
+                    <li><a id="interface-button" href="#interface">Interface</a></li>
+                    <li><a id="profile-button" href="#profile">Profile</a></li>
+                    <li><a id="change-password-button" href="#change-password">Change password</a></li>
+                    <li><a id="change-email-button" href="#change-email">Change email</a></li>
                     <li><a href="/profile">Go back</a></li>
                 </ul>
             </div>
         </div>
         <div id="right">
-            <section id="interface" class="sect"></section>
-            <section id="profile" class="sect" style="display: none;"></section>
-            <section id="change-password" class="sect" style="display: none;"></section>
-            <section id="change-email" class="sect" style="display: none;"></section>
+            <section id="profile" class="sect">
+                <div class="section-content">
+                    <form action="" method="post" id="profile-form">
+                        <div id="preview-container">
+                            <img src="#" alt="" id="file-preview">
+                        </div>
+                        <div class="label-content">
+                            <label for="image">New picture</label>
+                        </div>
+                        <input type="file" name="image" accept="image/png, image/jpeg" id="file-upload">
+                        <div class="label-content">
+                            <label for="username">New username :</label>
+                        </div>
+                        <input type="text" name="username" id="p-username" placeholder="new username"
+                            autocomplete="off">
+                        <div class="label-content">
+                            <label for="biography">Biography :</label>
+                        </div>
+                        <textarea name="biography" id="biography"></textarea>
+                        <div class="label-content">
+                            <label for="password">Confirm with password :</label>
+                        </div>
+                        <input type="password" name="password" id="password" autocomplete="off" required="required">
+                    </form>
+                    <button type="submit">Confirm changes</button>
+                </div>
+            </section>
+            <section id="interface" class="sect">
+                <div class="section-content">
+                    <div class="label-content">
+                        <label for="mode">New color mode :</label>
+                    </div>
+                    <button id="switch-mode-button">switch mode</button>
+                </div>
+            </section>
+            <section id="change-password" class="sect">
+                <div class="section-content">
+                    <form action="/recovery" method="post" id="change-password-form">
+                        <div class="label-content">
+                            <label for="username">Tape your username :</label>
+                        </div>
+                        <input placeholder="username" type="text" name="username" id="username" autocomplete="off"
+                            required="required">
+                        <div class="label-content">
+                            <label for="oldpass">Tape your old password :</label>
+                        </div>
+                        <input type="password" name="oldpass" placeholder="old" autocomplete="off" required="required">
+                        <div class="label-content">
+                            <label for="newpass">Tape your new password :</label>
+                        </div>
+                        <input type="password" name="newpass" placeholder="new" autocomplete="off" required="required">
+                        <div class="label-content">
+                            <label for="recovery_answer">Tape your recovery key</label>
+                        </div>
+                        <input placeholder="Recovery key" type="text" name="recovery_answer" id="text"
+                            autocomplete="off">
+                    </form>
+                    <button type="submit">Confirm change</button>
+                </div>
+            </section>
+            <section id="change-email" class="sect">
+                <div class="section-content">
+                    <form action="" method="post" id="change-email-form">
+                        <div class="label-content">
+                            <label for="newemail">Tape your new password :</label>
+                        </div>
+                        <input type="email" name="newemail" placeholder="new" autocomplete="off" required="required">
+                        <div class="label-content">
+                            <label for="password">Tape your password to confirm</label>
+                        </div>
+                        <input type="password" name="password" id="password" placeholder="password" autocomplete="off"
+                            required="required">
+                    </form>
+                    <button type="submit">Confirm change</button>
+                </div>
+            </section>
         </div>
     </div>
     <script src="/frontend/js/settings.js" async defer></script>
