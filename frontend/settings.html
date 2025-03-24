@@ -49,7 +49,8 @@
                         <div class="label-content">
                             <label for="password">Confirm with password :</label>
                         </div>
-                        <input type="password" name="password" id="password" autocomplete="off" required="required">
+                        <input type="password" name="password" id="password" autocomplete="off" required="required"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     </form>
                     <button type="submit">Confirm changes</button>
                 </div>
@@ -66,23 +67,32 @@
                 <div class="section-content">
                     <form action="/recovery" method="post" id="change-password-form">
                         <div class="label-content">
-                            <label for="username">type your username :</label>
+                            <label for="username">username :</label>
                         </div>
                         <input placeholder="username" type="text" name="username" id="username" autocomplete="off"
                             required="required">
                         <div class="label-content">
-                            <label for="oldpass">type your old password :</label>
+                            <label for="oldpass">old password :</label>
                         </div>
                         <input type="password" name="oldpass" placeholder="old" autocomplete="off" required="required">
                         <div class="label-content">
-                            <label for="newpass">type your new password :</label>
+                            <label for="newpass">new password :</label>
                         </div>
-                        <input type="password" name="newpass" placeholder="new" autocomplete="off" required="required">
+                        <div class="password-container">
+                            <input placeholder="Password" type="password" name="new-password" id="new-password"
+                                autocomplete="off" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                            <div class="popup">
+                                <p class="without">1 capital</p>
+                                <p class="without">1 lowercase</p>
+                                <p class="without">1 number</p>
+                                <p class="without">8 chars min</b></p>
+                            </div>
+                        </div>
                         <div class="label-content">
-                            <label for="recovery_answer">type your recovery key</label>
+                            <label for="recovery_answer">recovery key :</label>
                         </div>
                         <input placeholder="Recovery key" type="text" name="recovery_answer" id="text"
-                            autocomplete="off">
+                            autocomplete="off" required="required">
                     </form>
                     <button type="submit">Confirm change</button>
                 </div>
@@ -91,14 +101,15 @@
                 <div class="section-content">
                     <form action="" method="post" id="change-email-form">
                         <div class="label-content">
-                            <label for="newemail">type your new email :</label>
+                            <label for="newemail">new email :</label>
                         </div>
-                        <input type="email" name="newemail" placeholder="new" autocomplete="off" required="required">
+                        <input type="email" name="newemail" placeholder="new" autocomplete="off" required="required"
+                            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
                         <div class="label-content">
-                            <label for="password">type your password to confirm</label>
+                            <label for="password">password to confirm</label>
                         </div>
                         <input type="password" name="password" id="password" placeholder="password" autocomplete="off"
-                            required="required">
+                            required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     </form>
                     <button type="submit">Confirm change</button>
                 </div>

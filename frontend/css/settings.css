@@ -131,6 +131,40 @@ button {
     border-radius: 50%;
 }
 
+#new-password input {
+    width: 100%;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    background-color: var(--light-grey-color);
+    border: 1px solid black;
+    padding: 10px;
+    width: 258px;
+    top: 45px;
+    left: 9rem;
+    z-index: 5;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.popup:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.password-container.focus .popup {
+    display: block;
+}
 
 .dark-mode {
     background-color: var(--purple-color) !important;
@@ -150,8 +184,9 @@ button {
     }
 
     textarea,
-    input {
-        color: black;
+    input,
+    .popup {
+        color: black !important;
     }
 
     .section-content {
@@ -168,6 +203,12 @@ button {
 
     #right {
         background-color: var(--dark-grey-color);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .popup {
+        left: 1rem;
     }
 }
 
@@ -209,6 +250,11 @@ button {
         justify-content: center;
         width: 100vw;
         height: 90vh;
+    }
+
+    .popup {
+        left: 2.5rem;
+        width: 190px;
     }
 }
 

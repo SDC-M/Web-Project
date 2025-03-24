@@ -15,8 +15,10 @@
         <div class="left" id="login"></div>
         <form action="/user/login" method="post" class="log-in" autocomplete="off">
             <h4>Bienvenue sur <span>Kuva</span></h4>
-            <input class="text" placeholder="Username" type="text" name="username" id="username" autocomplete="off">
-            <input placeholder="Password" type="password" name="password" id="password" autocomplete="off">
+            <input class="text" placeholder="Username" type="text" name="username" id="username" autocomplete="off"
+                required="required">
+            <input placeholder="Password" type="password" name="password" id="password" autocomplete="off"
+                required="required">
             <a id="forgottenp" href="recovery">
                 forgotten password
             </a>

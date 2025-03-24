@@ -12,6 +12,7 @@
 
     /* colors */
     --light-red-color: rgba(158, 68, 80, 0.62);
+    --smooth-red-color: rgba(214, 191, 191, 0.842);
 
     /* light mode colors */
     --beige-color: #e9cfb8;
@@ -70,4 +71,8 @@ ul {
 input,
 textarea {
     outline: none;
+}
+
+input:invalid:required {
+    background-color: var(--smooth-red-color);
 }

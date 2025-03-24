@@ -18,7 +18,7 @@
     background-color: var(--purple-color) !important;
     color: var(--light-grey-color);
 
-    * {
+    *:not(.without) {
         color: white;
         border-color: white !important;
     }
