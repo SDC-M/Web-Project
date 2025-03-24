@@ -46,3 +46,16 @@ export function setButtonSwitchTheme() {
         }
     });
 }
+
+/**
+ * Initialise le comportement du pop-up pour afficher les indications pour
+ *  pour compléter l'input d'id password.
+ */
+export function setHelpValidator() {
+    $("#x-password").on("focus", function () {
+        $(this).closest(".password-container").addClass("focus");
+    });
+    $("#x-password").on("blur", function () {
+        $(this).closest(".password-container").removeClass("focus");
+    });
+}

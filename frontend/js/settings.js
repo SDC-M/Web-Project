@@ -1,4 +1,4 @@
-import { setLocalStorageTheme, setButtonSwitchTheme } from "./theme.mjs";
+import { setHelpValidator, setLocalStorageTheme, setButtonSwitchTheme } from "./theme.mjs";
 import { setFileUploadPreview, getActualUsername } from "./data-treatment.mjs";
 
 /**
@@ -67,18 +67,6 @@ async function setActualUsername() {
 
 }
 
-/**
- * Initialise le comportement du pop-up pour afficher les indications pour
- *  pour compléter l'input d'id new-password.
- */
-function setHelpValidator() {
-    $("#new-password").on("focus", function () {
-        $(this).closest(".password-container").addClass("focus");
-    });
-    $("#new-password").on("blur", function () {
-        $(this).closest(".password-container").removeClass("focus");
-    });
-}
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
