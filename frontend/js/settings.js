@@ -140,6 +140,10 @@ async function setActualUsername() {
     }
 }
 
+/**
+ * Initialise le comportement du pop-up pour afficher les indications pour
+ *  pour compléter l'input d'id new-password.
+ */
 function setHelpValidator() {
     $("#new-password").on("focus", function () {
         $(this).closest(".password-container").addClass("focus");
