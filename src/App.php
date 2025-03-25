@@ -15,6 +15,7 @@ use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
 use Kuva\Handler\ImageFormHandler;
 use Kuva\Handler\Image\GetByHandler as ImagesGet;
+use Kuva\Handler\Image\GetDescriptionOfImageHandler;
 use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\Image\ListUserImageHandler;
 use Kuva\Handler\LoginHandler;
@@ -37,7 +38,11 @@ class App
             ->get('/frontend/{path:+}', new FolderHandler('../frontend/'))
             ->get('/test_image', new FileHandler('../frontend/file.html'))
             ->get('/upload-file', new FileHandler('../frontend/upload-file.html'))
+            ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/image.html'))
+            ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
+            ->get('/settings', new FileHandler('../frontend/settings.html'))
             ->get('/images/{image_id}', new GetImageHandler())
+            ->get('/images/{image_id}/description', new GetDescriptionOfImageHandler())
             ->delete('/images/{image_id}', new DeleteImageHandler())
             ->get('/images', new ListUserImageHandler())
             ->post('/images', new ImageFormHandler())
@@ -48,12 +53,9 @@ class App
             ->get('/user/{id}', new GetUserHandler())
             ->get('/user/{id}/images', new ImagesGet())
             ->post('/user/recovery', new RecoveryHandler())
-            ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/image.html'))
-            ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/annotation/{annotation_id}', new DeleteAnnotationHandler())
-            ->get('/settings', new FileHandler('../frontend/settings.html'))
             ->handleCurrent();
     }
 }
