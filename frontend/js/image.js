@@ -235,7 +235,7 @@ async function setIsMindImage() {
             throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json();
-        if (parseInt(json.id) == parseInt(userId)) {
+        if (parseInt(json.id) == userId) {
             $("#del").css("display", "block");
         }
     } catch (error) {
