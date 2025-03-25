@@ -5,7 +5,7 @@ body {
     height: 100vh;
 }
 
-#page-container {
+#page {
     height: 100vh;
     width: 100vw;
     display: flex;

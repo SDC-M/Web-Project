@@ -1,45 +1,6 @@
-/**
- * Applique la classe dark-mode et retire light-mode, gère le background-color
- *  du body et de l'html et stocke une valeur significative dans le local storage.
- */
-function dark_theme() {
-    $("#container").removeClass("light-mode").addClass("dark-mode");
-    $("#dark-light-mode-button").removeClass(["fa-regular", "fa-moon"]).addClass(["fa-solid", "fa-sun"]);
-    $("body").css("background-color", "rgb(128, 128, 128)");
-    $("html").css("background-color", "rgb(128, 128, 128)");
-    $("#name").attr("src", "/frontend/img/name-light.png");
-}
-
-/**
- * Applique la classe light-mode et retire dark-mode, gère le background-color
- *  du body et de l'html et stocke une valeur significative dans le local storage.
- */
-function light_theme() {
-    $("#container").removeClass("dark-mode").addClass("light-mode");
-    $("#dark-light-mode-button").removeClass(["fa-solid", "fa-sun"]).addClass(["fa-regular", "fa-moon"]);
-    $("body").css("background-color", "#f3f2f2");
-    $("html").css("background-color", "#fefefe");
-    $("body").css("background-color", "#fefefe");
-    $("#name").attr("src", "/frontend/img/name.png");
-}
-
-/* --------------------------------------------------------------------- */
-/* --------------------------------------------------------------------- */
+import { setLocalStorageTheme, setButtonSwitchTheme } from "./theme.mjs";
 
 $(document).ready(function () {
-    if (localStorage.getItem('theme') === 'dark') {
-        dark_theme();
-    } else {
-        light_theme();
-    }
-
-    $("#dark-light-mode-button").on("click", function () {
-        if ($("#container").hasClass("dark-mode")) {
-            light_theme();
-            localStorage.setItem('theme', 'light');
-        } else {
-            dark_theme();
-            localStorage.setItem('theme', 'dark');
-        }
-    });
+    setLocalStorageTheme();
+    setButtonSwitchTheme();
 });

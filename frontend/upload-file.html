@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div id="page-container">
+    <div id="page">
         <div id="container">
             <form action="/images" method="post" enctype="multipart/form-data" id="form">
                 <input type="file" name="image" accept="image/png, image/jpeg" id="file-upload">
@@ -28,8 +28,9 @@
             </div>
         </div>
     </div>
-
 </body>
-<script src="/frontend/js/upload-file.js"></script>
+<script type="module" src="/frontend/js/theme.mjs"></script>
+<script type="module" src="/frontend/js/data-treatment.mjs"></script>
+<script type="module" src="/frontend/js/upload-file.js"></script>
 
 </html>

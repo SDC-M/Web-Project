@@ -60,7 +60,7 @@
                     <div class="label-content">
                         <label for="mode">New color mode :</label>
                     </div>
-                    <button id="switch-mode-button">switch mode</button>
+                    <button id="dark-light-mode-button">switch mode</button>
                 </div>
             </section>
             <section id="change-password" class="sect">
@@ -79,7 +79,7 @@
                             <label for="newpass">new password :</label>
                         </div>
                         <div class="password-container">
-                            <input placeholder="Password" type="password" name="new-password" id="new-password"
+                            <input placeholder="Password" type="password" name="password" id="x-password"
                                 autocomplete="off" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                             <div class="popup">
                                 <p class="without">1 capital</p>
@@ -116,7 +116,9 @@
             </section>
         </div>
     </div>
-    <script src="/frontend/js/settings.js" async defer></script>
+    <script type="module" src="/frontend/js/data-treatment.mjs"></script>
+    <script type="module" src="/frontend/js/theme.mjs"></script>
+    <script type="module" src="/frontend/js/settings.js"></script>
 </body>
 
 </html>
