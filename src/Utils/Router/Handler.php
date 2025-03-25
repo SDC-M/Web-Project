@@ -8,14 +8,14 @@ abstract class Handler
 
     public function handleAndResponse(Request $req): Response
     {
-        
+
         ob_start();
-        $this->handle($req);        
+        $this->handle($req);
         $b = ob_get_clean();
 
         if ($this->response == null) {
             $this->response = new Response(200, "");
-        } 
+        }
 
         if ($b != null) {
             $this->response->body .= $b;
