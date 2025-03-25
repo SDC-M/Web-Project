@@ -42,7 +42,8 @@ class Images
         return new static($aa);
     }
 
-    public static function getLatestPublicImage(): static {
+    public static function getLatestPublicImage(): static
+    {
         $db = new Database();
 
         $q = $db->db->prepare('SELECT id FROM images WHERE is_public ORDER BY image_date DESC LIMIT 50 ');

@@ -9,7 +9,8 @@ use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 use Kuva\Utils\SessionVariable;
 
-class PostBiographyHandler extends Handler {
+class PostBiographyHandler extends Handler
+{
     public function handle(Request $req): void
     {
         $form = (new FormValidator())
@@ -23,7 +24,7 @@ class PostBiographyHandler extends Handler {
             $this->response = new Response(400, "Bad form");
             return;
         }
-        
+
 
         $user_id = (new SessionVariable())->getUserId() ?? -1;
         $user = User::getById($user_id);

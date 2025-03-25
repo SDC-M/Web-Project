@@ -118,7 +118,7 @@ class User
         $q->bindParam('username', $username);
         $q->bindParam('id', $this->id);
         try {
-            if($q->execute()) {
+            if ($q->execute()) {
                 $this->username = $username;
                 return true;
             }
@@ -138,7 +138,7 @@ class User
         $q->bindParam('biography', $biography);
         $q->bindParam('id', $this->id);
         try {
-            if($q->execute()) {
+            if ($q->execute()) {
                 $this->biography = $biography;
                 return true;
             }
@@ -148,22 +148,23 @@ class User
 
             return false;
         }
-    }    
+    }
 
-    public function verifyPassword(string $password): bool {
+    public function verifyPassword(string $password): bool
+    {
         $db = new Database();
         $q = $db->db->prepare('SELECT password FROM users WHERE id = :id');
         $q->bindParam('id', $this->id);
         try {
-            if($q->execute() === false) {
+            if ($q->execute() === false) {
                 return false;
-            }           
+            }
         } catch (Exception $ex) {
             return false;
         }
         $c = $q->fetch(PDO::FETCH_ASSOC);
         return $c["password"] == $password;
-        
+
     }
 
     public function jsonify(): string
