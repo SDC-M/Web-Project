@@ -112,9 +112,28 @@ export async function getActualUsername() {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status} `);
         }
-
         const json = await response.json();
         return json.username;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+/**
+ * Tente d'afficher la description de l'image courrante dans le paragraphe
+ *  d'id image-description, en cas d'échec renvoie l'erreur associée.
+ */
+export async function setDescription() {
+    const path = getPathName();
+    const imageId = getImageId(path);
+    const url = `/images/${imageId}/description`
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+        const json = await response.json();
+        $("#image-description").html(json.description);
     } catch (error) {
         console.error(error.message);
     }

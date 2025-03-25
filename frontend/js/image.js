@@ -1,4 +1,4 @@
-const { getPathName, getImageId, getUserId, convertPoint, displayImage, resizeCanvas } = await import("./data-treatment.mjs");
+const { getPathName, getImageId, getUserId, convertPoint, displayImage, resizeCanvas, setDescription } = await import("./data-treatment.mjs");
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
@@ -215,12 +215,9 @@ function setDeleteImage() {
     $("#del").on("click", async function () {
         const imageId = getImageId(getPathName());
         const confirmation = window.confirm("Are you sure to delete it ?");
-
         if (confirmation) {
             await deleteImage(imageId);
-            /*
             window.location.href = "/profile";
-            */
         }
     });
 }
@@ -230,8 +227,7 @@ function setDeleteImage() {
  *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
  */
 async function setIsMindImage() {
-    const path = getPathName();
-    const userId = getUserId(path);
+    const userId = await getUserId();
     const url = "/user/me"
     try {
         const response = await fetch(url);
@@ -257,6 +253,7 @@ $(document).ready(async function () {
     setNav();
     setDeleteImage();
     setIsMindImage();
+    setDescription();
 
     $(window).resize(function () {
         resizeCanvas();
