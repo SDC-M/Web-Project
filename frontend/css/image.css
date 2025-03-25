@@ -37,3 +37,7 @@
 #del {
     display: none;
 }
+
+#image-description {
+    margin-top: 1rem;
+}
