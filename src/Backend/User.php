@@ -3,10 +3,11 @@
 namespace Kuva\Backend;
 
 use Exception;
+use JsonSerializable;
 use Kuva\Utils\SessionVariable;
 use PDO;
 
-class User
+class User implements JsonSerializable
 {
     private function __construct(
         public int $id,
@@ -169,6 +170,11 @@ class User
 
     public function jsonify(): string
     {
-        return json_encode(['id' => $this->id, 'username' => $this->username, 'biography' => $this->biography]);
+        return json_encode($this);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return ['id' => $this->id, 'username' => $this->username, 'biography' => $this->biography];
     }
 }

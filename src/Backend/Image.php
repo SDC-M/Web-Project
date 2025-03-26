@@ -132,7 +132,7 @@ class Image implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner->id, "description" => $this->description];
+        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner, "description" => $this->description];
     }
 }
 
