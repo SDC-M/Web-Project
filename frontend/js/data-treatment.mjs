@@ -138,3 +138,17 @@ export async function setDescription() {
         console.error(error.message);
     }
 }
+
+export async function getBiography() {
+    const url = "/user/me";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+        const json = await response.json();
+        return json.biography;
+    } catch (error) {
+        console.error(error.message);
+    }
+}

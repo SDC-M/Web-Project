@@ -1,4 +1,4 @@
-const { getActualUsername, getUserId } = await import("./data-treatment.mjs");
+const { getActualUsername, getUserId, getBiography } = await import("./data-treatment.mjs");
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
@@ -67,6 +67,15 @@ async function setUserUsername() {
     $("#username").html($username);
 }
 
+/**
+ * Tente d'afficher la biography de l'utilisateur connecté dans l'element
+ *  d'id bio en cas d'échec renvoie l'erreur associé.
+ */
+async function setBiography() {
+    const $biography = getBiography();
+    $("#bio").html($biography);
+}
+
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -75,4 +84,5 @@ $(document).ready(function () {
     getPictures();
     getNb();
     setUserUsername();
+    setBiography();
 });
