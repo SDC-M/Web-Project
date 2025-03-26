@@ -17,7 +17,7 @@ class AppHandler extends Handler
 
     private function showConnectedPage(): void
     {
-        $this->response = new Response(200, "Connected");
+        $this->response = new Response(200, file_get_contents(FileConstant::FEED));
     }
 
     public function handle(Request $req): void

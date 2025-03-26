@@ -200,9 +200,8 @@ async function setAnnotations() {
         const json = await response.json();
 
         $.each(json, async function (_, annotation) {
-            let $userName = await getUsername();
             let $desc = annotation.description;
-            let $an = $("<p>").html($userName).append("</br>").append($desc);
+            let $an = $("<p>").html(annotation.user_id).append("</br>").append($desc);
             let $div = $("<div>").attr("class", "comment").attr("id", `${annotation.id}`);
             $div.data("annotation", annotation);
             $div.append($an);
@@ -218,8 +217,7 @@ async function setAnnotations() {
                 unFocusDiv();
                 displayAnnotations(json);
             });
-
-            if (isMindAnnotation(annotation.user_id)) {
+            if (await isMindAnnotation(annotation.user_id)) {
                 let $del_annotation = $("<div>").addClass("delannotation").html("X");
                 $("#annot-content").append($del_annotation);
                 $del_annotation.on("click", async function () {
@@ -259,19 +257,11 @@ async function setDeleteImage() {
  *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
  */
 async function setIsMindImage() {
+    const path = getPathName();
+    const userImg = path[2];
     const userId = await getUserId();
-    const url = "/user/me";
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        if (parseInt(json.id) == userId) {
-            $("#del").css("display", "block");
-        }
-    } catch (error) {
-        console.error(error.message);
+    if (userId == parseInt(userImg)) {
+        $("#del").css("display", "block");
     }
 }
 
@@ -284,17 +274,7 @@ async function setIsMindImage() {
  */
 async function isMindAnnotation(id) {
     const userId = await getUserId();
-    const url = "/user/me";
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        return json.id == id;
-    } catch (error) {
-        console.error(error.message);
-    }
+    return id == userId;
 }
 
 /* --------------------------------------------------------------------- */
@@ -306,8 +286,8 @@ $(document).ready(async function () {
     const json = await setAnnotations();
     setNav();
     setDeleteImage();
-    setIsMindImage();
     setDescription();
+    setIsMindImage();
 
     $(window).resize(function () {
         resizeCanvas();

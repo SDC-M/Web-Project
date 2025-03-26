@@ -36,6 +36,7 @@ class App
             ->get('/register', new FileHandler('../frontend/register.html'))
             ->get('/login', new FileHandler('../frontend/login.html'))
             ->get('/profile', new FileHandler('../frontend/profile.html'))
+            ->get('/profile/{user_id}', new FileHandler('../frontend/profile.html'))
             ->get('/recovery', new FileHandler('../frontend/recovery-password.html'))
             ->get('/frontend/{path:+}', new FolderHandler('../frontend/'))
             ->get('/test_image', new FileHandler('../frontend/file.html'))

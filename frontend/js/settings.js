@@ -49,9 +49,8 @@ async function setActualBio() {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status} `);
         }
-
         const json = await response.json();
-        $("#biography").val(json.bio);
+        $("#biography").val(json.biography);
     } catch (error) {
         console.error(error.message);
     }
