@@ -24,6 +24,7 @@ use Kuva\Handler\RegisterHandler;
 use Kuva\Handler\UserIdHandler;
 use Kuva\Handler\User\GetUserHandler;
 use Kuva\Handler\Feed\Get as FeedHandler;
+use Kuva\Handler\User\PostBiographyHandler;
 use Kuva\Utils\Router;
 
 class App
@@ -53,6 +54,7 @@ class App
             ->post('/user/login', new LoginHandler())
             ->get('/user/{id}', new GetUserHandler())
             ->get('/user/{id}/images', new ImagesGet())
+            ->post('/user/update', new PostBiographyHandler())
             ->post('/user/recovery', new RecoveryHandler())
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())

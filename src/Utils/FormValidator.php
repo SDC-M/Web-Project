@@ -6,7 +6,7 @@ class FormValidator
 {
     private array $fields = [];
 
-    public static function fileValidator(string $name): ?array
+    private static function fileValidator(string $name): ?array
     {
         if (!isset($_FILES[$name])) {
             return null;
@@ -16,7 +16,7 @@ class FormValidator
     }
 
 
-    public static function textValidator(string $name): ?string
+    private static function textValidator(string $name): ?string
     {
         if (!isset($_POST[$name])) {
             return null;
@@ -26,7 +26,7 @@ class FormValidator
     }
 
 
-    public static function checkboxValidator(string $name): bool
+    private static function checkboxValidator(string $name): bool
     {
         return array_key_exists($name, $_POST);
     }
@@ -34,7 +34,7 @@ class FormValidator
     /**
      * @param callable(): mixed $validator
      */
-    public function addCustomValidatorField(string $name, callable $validator): void
+    private function addCustomValidatorField(string $name, callable $validator): void
     {
         $this->fields[$name] = $validator;
     }
@@ -94,6 +94,7 @@ class FormValidator
         foreach ($this->fields as $key => $validator) {
             $value = $validator($key);
             if ($value === null) {
+                echo "{$key} is unvalid";
                 return false;
             }
             $array[$key] = $value;

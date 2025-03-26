@@ -95,6 +95,7 @@ class User
         return User::getById($id);
     }
 
+
     public function updatePassword(string $password): bool
     {
         $db = new Database();
@@ -108,6 +109,62 @@ class User
 
             return false;
         }
+    }
+
+    public function updateUsername(string $username): bool
+    {
+        $db = new Database();
+        $q = $db->db->prepare('UPDATE users SET username = :username WHERE id = :id');
+        $q->bindParam('username', $username);
+        $q->bindParam('id', $this->id);
+        try {
+            if ($q->execute()) {
+                $this->username = $username;
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            var_dump($ex);
+
+            return false;
+        }
+    }
+
+
+    public function updateBiography(string $biography): bool
+    {
+        $db = new Database();
+        $q = $db->db->prepare('UPDATE users SET biography = :biography WHERE id = :id');
+        $q->bindParam('biography', $biography);
+        $q->bindParam('id', $this->id);
+        try {
+            if ($q->execute()) {
+                $this->biography = $biography;
+                return true;
+            }
+            return false;
+        } catch (Exception $ex) {
+            var_dump($ex);
+
+            return false;
+        }
+    }
+
+    public function verifyPassword(string $password): bool
+    {
+        $db = new Database();
+        $q = $db->db->prepare('SELECT password FROM users WHERE id = :id');
+        $q->bindParam('id', $this->id);
+        try {
+            if ($q->execute() === false) {
+                return false;
+            }
+        } catch (Exception $ex) {
+            return false;
+        }
+        $c = $q->fetch(PDO::FETCH_ASSOC);
+        return $c["password"] == $password;
+
     }
 
     public function jsonify(): string
