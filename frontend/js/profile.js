@@ -72,7 +72,7 @@ async function setUserUsername() {
  *  d'id bio en cas d'échec renvoie l'erreur associé.
  */
 async function setBiography() {
-    const $biography = getBiography();
+    const $biography = await getBiography();
     $("#bio").html($biography);
 }
 

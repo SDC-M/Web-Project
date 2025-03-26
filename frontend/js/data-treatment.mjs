@@ -139,6 +139,10 @@ export async function setDescription() {
     }
 }
 
+/**
+ * @returns Tente de retourner la biographie de l'utilisateur connecté,
+ *  retourne l'erreur associée en cas d'échec.
+ */
 export async function getBiography() {
     const url = "/user/me";
     try {
