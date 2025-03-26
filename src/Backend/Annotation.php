@@ -122,6 +122,6 @@ class Annotation implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         $points = [["x" => $this->x1, "y" => $this->y1], ["x" => $this->x2, "y" => $this->y2]];
-        return ["id" => $this->id, "image_id" => $this->image->getId(), "user_id" => $this->user->id, "description" => $this->description, "points" => $points];
+        return ["id" => $this->id, "image_id" => $this->image->getId(), "user" => $this->user, "description" => $this->description, "points" => $points];
     }
 }
