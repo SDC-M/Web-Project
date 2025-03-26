@@ -149,6 +149,11 @@ async function deleteImage(id) {
 
 }
 
+/**
+ * @param id
+ *  Tente de supprimer l'annotation d'id passée en paramètre, en cas de succè
+ *  la supprime sinon renvoie le message d'erreur correspondant.
+ */
 async function deleteAnnotation(id) {
     const url = `/annotation/${id}`;
     try {
