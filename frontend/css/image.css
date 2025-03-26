@@ -9,7 +9,7 @@
     border-radius: 5px;
 }
 
-.comment:not(:last-child) {
+.delannotation:not(:last-child) {
     border-bottom: solid 1px black;
 }
 
@@ -40,4 +40,8 @@
 
 #image-description {
     margin-top: 1rem;
+}
+
+#delannotation {
+    padding: 0.5rem;
 }
