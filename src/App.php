@@ -23,6 +23,7 @@ use Kuva\Handler\RecoveryHandler;
 use Kuva\Handler\RegisterHandler;
 use Kuva\Handler\UserIdHandler;
 use Kuva\Handler\User\GetUserHandler;
+use Kuva\Handler\Feed\Get as FeedHandler;
 use Kuva\Utils\Router;
 
 class App
@@ -56,6 +57,7 @@ class App
             ->get('/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/annotation/{annotation_id}', new DeleteAnnotationHandler())
+            ->get("/feed", new FeedHandler())
             ->handleCurrent();
     }
 }
