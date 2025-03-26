@@ -149,6 +149,20 @@ async function deleteImage(id) {
 
 }
 
+async function deleteAnnotation(id) {
+    const url = `/annotation/${id}`;
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -199,6 +213,19 @@ async function setAnnotations() {
                 unFocusDiv();
                 displayAnnotations(json);
             });
+
+            if (isMindAnnotation(annotation.user_id)) {
+                let $del_annotation = $("<div>").addClass("delannotation").html("X");
+                $("#annot-content").append($del_annotation);
+                $del_annotation.on("click", async function () {
+                    const confirmation = window.confirm("Are you sure to delete it ?");
+                    if (confirmation) {
+                        const userId = await getUserId();
+                        await deleteAnnotation(annotation.id);
+                        window.location.href = `/annotations/${userId}/${imageId}`;
+                    }
+                });
+            }
         });
 
         displayAnnotations(json);
@@ -211,7 +238,7 @@ async function setAnnotations() {
 /**
  * Initialise le comportement du boutton permettant de supprimer une image.
  */
-function setDeleteImage() {
+async function setDeleteImage() {
     $("#del").on("click", async function () {
         const imageId = getImageId(getPathName());
         const confirmation = window.confirm("Are you sure to delete it ?");
@@ -228,7 +255,7 @@ function setDeleteImage() {
  */
 async function setIsMindImage() {
     const userId = await getUserId();
-    const url = "/user/me"
+    const url = "/user/me";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -238,6 +265,28 @@ async function setIsMindImage() {
         if (parseInt(json.id) == userId) {
             $("#del").css("display", "block");
         }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+/**
+ * 
+ * @param id 
+ * @returns Tente de retourner vrai si l'id passé en paramètre correspond à 
+ *  l'id de l'utilisateur connecté sinon renvoie faux. En cas d'échec renvoie
+ *  l'erreur correspondante. 
+ */
+async function isMindAnnotation(id) {
+    const userId = await getUserId();
+    const url = "/user/me";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        return json.id == id;
     } catch (error) {
         console.error(error.message);
     }
