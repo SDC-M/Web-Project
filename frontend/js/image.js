@@ -91,26 +91,6 @@ function focusAnnotation(annotation) {
 }
 
 /**
- * 
- * @returns En cas de succès renvoie le pseudo de l'utilisateur 
- *  stockée dans l'url. Sinon l'erreur correspondante.
- */
-async function getUsername() {
-    const userId = await getUserId();
-    const url = `/user/${userId}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        return json.username;
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-/**
  * Supprime la classe selected de tous les elements si aucun ne 
  *  la possède, sans effet.
  */
@@ -201,7 +181,7 @@ async function setAnnotations() {
 
         $.each(json, async function (_, annotation) {
             let $desc = annotation.description;
-            let $an = $("<p>").html(annotation.user_id).append("</br>").append($desc);
+            let $an = $("<p>").html(annotation.user.username).append("</br>").append($desc);
             let $div = $("<div>").attr("class", "comment").attr("id", `${annotation.id}`);
             $div.data("annotation", annotation);
             $div.append($an);
@@ -217,7 +197,7 @@ async function setAnnotations() {
                 unFocusDiv();
                 displayAnnotations(json);
             });
-            if (await isMindAnnotation(annotation.user_id)) {
+            if (await isMindAnnotation(annotation.user.id)) {
                 let $del_annotation = $("<div>").addClass("delannotation").html("X");
                 $("#annot-content").append($del_annotation);
                 $del_annotation.on("click", async function () {

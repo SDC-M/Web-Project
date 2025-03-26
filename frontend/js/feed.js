@@ -15,7 +15,7 @@ async function getPictures() {
 
         let json = await response.json();
         $.each(json.image, function (_, picture) {
-            let $link = $("<a>").attr("href", `/annotations/${picture.user}/${picture.id}`);
+            let $link = $("<a>").attr("href", `/annotations/${picture.user.id}/${picture.id}`);
             let $img = $("<img>").attr("src", `/images/${picture.id}`);
             $link.append($img);
             $('#img-container').append($link);
