@@ -80,15 +80,14 @@ textarea {
     color: var(--light-grey-color);
 
     a {
-        color: white;
+        color: white !important;
     }
 
     * {
         border-color: white !important;
     }
 
-    textarea,
-    button {
+    textarea {
         color: black !important;
     }
 
