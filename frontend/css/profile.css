@@ -43,6 +43,11 @@ a {
     border-radius: 5px;
 }
 
+img:hover {
+    transform: scale(1.05);
+    border: black 2px solid;
+}
+
 figcaption {
     margin: 0px;
     padding: 0px;
