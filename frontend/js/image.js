@@ -153,7 +153,7 @@ async function deleteAnnotation(id) {
  *  lié à l'url est celui de l'utilisateur connecté, dans ce cas retourne vrai, sinon
  *  retourne faux. En cas d'échec renvoie l'erreur correspondante. 
  */
-async function isMindImage() {
+async function isMyImage() {
     const path = getPathName();
     const userImg = path[3];
     const userId = await getUserId();
@@ -209,7 +209,7 @@ async function setAnnotations() {
                 unFocusDiv();
                 displayAnnotations(json);
             });
-            if (await isMindAnnotation(annotation.user.id) || await isMindImage()) {
+            if (await isMyAnnotation(annotation.user.id) || await isMyImage()) {
                 let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="far fa-window-close"></i>`);
                 $(`#${annotation.id}`).append($del_annotation);
                 $del_annotation.on("click", async function () {
@@ -247,8 +247,8 @@ async function setDeleteImage() {
  * Vérifie que l'image est bien à l'utilisateur connecté, dans ce cas affiche
  *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
  */
-async function setIsMindImage() {
-    if (await isMindImage()) {
+async function setIsMyImage() {
+    if (await isMyImage()) {
         $("#del").css("display", "block");
     }
 }
@@ -260,7 +260,7 @@ async function setIsMindImage() {
  *  l'id de l'utilisateur connecté sinon renvoie faux. En cas d'échec renvoie
  *  l'erreur correspondante. 
  */
-async function isMindAnnotation(id) {
+async function isMyAnnotation(id) {
     const userId = await getUserId();
     return id == userId;
 }
@@ -275,7 +275,7 @@ $(document).ready(async function () {
     setNav();
     setDeleteImage();
     setDescription();
-    setIsMindImage();
+    setIsMyImage();
 
     $(window).resize(function () {
         resizeCanvas();
