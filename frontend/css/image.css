@@ -9,18 +9,19 @@
     border-radius: 5px;
 }
 
-.delannotation:not(:last-child) {
-    border-bottom: solid 1px black;
-}
-
 .comment:not(:first-child) {
     padding-top: 0.5rem;
+}
+
+p:not(#image-description) {
+    border-bottom: solid 1px black;
 }
 
 .comment {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    border-bottom: solid 1px black;
 }
 
 .selected {

@@ -33,12 +33,14 @@ a {
     width: 100%;
     height: auto;
     margin-bottom: 80px;
+    border-radius: 5px;
 }
 
 #img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 figcaption {
@@ -162,7 +164,8 @@ figcaption {
         font-size: var(--small-font-size);
     }
 
-    #container {
+    #container,
+    #feed-container {
         width: 100vw;
         padding: 0 !important;
     }

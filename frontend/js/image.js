@@ -148,6 +148,18 @@ async function deleteAnnotation(id) {
     }
 }
 
+/**
+ * @returns Tente de retourner si l'image d'id stockée à l'indice 3 dans le tableau 
+ *  lié à l'url est celui de l'utilisateur connecté, dans ce cas retourne vrai, sinon
+ *  retourne faux. En cas d'échec renvoie l'erreur correspondante. 
+ */
+async function isMindImage() {
+    const path = getPathName();
+    const userImg = path[3];
+    const userId = await getUserId();
+    return userId == parseInt(userImg);
+}
+
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -197,15 +209,14 @@ async function setAnnotations() {
                 unFocusDiv();
                 displayAnnotations(json);
             });
-            if (await isMindAnnotation(annotation.user.id)) {
-                let $del_annotation = $("<div>").addClass("delannotation").html("X");
-                $("#annot-content").append($del_annotation);
+            if (await isMindAnnotation(annotation.user.id) || await isMindImage()) {
+                let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="far fa-window-close"></i>`);
+                $(`#${annotation.id}`).append($del_annotation);
                 $del_annotation.on("click", async function () {
                     const confirmation = window.confirm("Are you sure to delete it ?");
                     if (confirmation) {
-                        const userId = await getUserId();
                         await deleteAnnotation(annotation.id);
-                        window.location.href = `/annotations/${userId}/${imageId}`;
+                        window.location.href = `/annotations/${annotation.user.id}/${imageId}`;
                     }
                 });
             }
@@ -237,10 +248,7 @@ async function setDeleteImage() {
  *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
  */
 async function setIsMindImage() {
-    const path = getPathName();
-    const userImg = path[2];
-    const userId = await getUserId();
-    if (userId == parseInt(userImg)) {
+    if (await isMindImage()) {
         $("#del").css("display", "block");
     }
 }

@@ -19,6 +19,7 @@ function setDarkTheme() {
     $("#dark-light-mode-button").removeClass(["fa-solid", "fa-sun"]).addClass(["fa-regular", "fa-sun"]);
     $("#name").attr("src", "/frontend/img/name-light.png");
     $("#container").addClass("dark-mode");
+    $("#feed-container").addClass("dark-mode");
     $("body, html").css("background-color", "rgb(128, 128, 128)");
     $('#login').css('background-image', 'url("/frontend/img/login_dark_logo.png")');
     $('#register').css('background-image', 'url("/frontend/img/register_dark_logo.png")');

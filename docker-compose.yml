@@ -16,5 +16,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - './.db_value/:/var/lib/mysql'
       - "./migration/:/migration"
+      - "mariadb_data:/var/lib/mysql"
+volumes:
+  mariadb_data:

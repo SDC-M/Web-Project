@@ -31,4 +31,12 @@
     #navbar {
         background-color: var(--purple-color);
     }
+
+    button {
+        background-color: var(--purple-color);
+    }
+
+    #search-bar-container {
+        background-color: var(--purple-color);
+    }
 }
