@@ -17,8 +17,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - "./migration/:/migration"
-      # If not working create a .env with MARIADB_VOLUME=value
-      - ${MARIADB_VOLUME}:/var/lib/mysql
+      - ${MARIADB_VOLUME:-mariadb_data}:/var/lib/mysql
 
 volumes:
   mariadb_data:
