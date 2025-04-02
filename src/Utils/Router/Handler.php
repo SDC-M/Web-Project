@@ -2,6 +2,8 @@
 
 namespace Kuva\Utils\Router;
 
+use Kuva\Backend\Middleware\MiddlewareException;
+
 abstract class Handler
 {
     public ?Response $response = null;
@@ -10,7 +12,12 @@ abstract class Handler
     {
 
         ob_start();
-        $this->handle($req);
+        try {
+         $this->handle($req);           
+        } catch (MiddlewareException $e) {
+            ob_clean();
+            return $e->response;
+        }
         $b = ob_get_clean();
 
         if ($this->response == null) {

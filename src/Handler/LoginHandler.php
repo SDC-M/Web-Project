@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler;
 
+use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
@@ -14,15 +15,9 @@ class LoginHandler extends Handler
     public function handle(Request $req): void
     {
 
-        $this->response = new Response(400);
-        $form_values = (new FormValidator())
+        $form_values = FormMiddleware::validate((new FormValidator())
                             ->addTextField("username")
-                            ->addTextField("password")
-                            ->validate();
-
-        if ($form_values === false) {
-            return;
-        }
+                            ->addTextField("password"));
 
         $login = User::getByNameAndPassword($form_values['username'], $form_values['password']);
         if ($login == null) {

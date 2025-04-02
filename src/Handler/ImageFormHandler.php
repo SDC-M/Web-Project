@@ -3,39 +3,24 @@
 namespace Kuva\Handler;
 
 use Kuva\Backend\Image;
-use Kuva\Backend\User;
+use Kuva\Backend\Middleware\FormMiddleware;
+use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
-use Kuva\Utils\SessionVariable;
 
 class ImageFormHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        // Set by default, error response
-        $this->response = new Response(400);
-
-        $form = (new FormValidator())
+        $form = FormMiddleware::validate((new FormValidator())
             ->addFileField("image")
             ->addOptionalTextField("description")
-            ->addCheckBoxField("is_public")
-            ->validate();
+            ->addCheckBoxField("is_public"));
+        
+        $user = UserMiddleware::getFromSession();
 
-        if ($form === false) {
-            $this->response = new Response(400, "Bad form");
-            return;
-        }
-
-
-        $user_id = (new SessionVariable())->getUserId() ?? -1;
-        $user = User::getById($user_id);
-
-        if ($user == null) {
-            $this->response = new Response(401, "Connect you plz");
-            return;
-        }
         if ($form["image"]["error"] != 0) {
             $this->response = new Response(413, "Problem when handling image (Probably too large)");
             return;

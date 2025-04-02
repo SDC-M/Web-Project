@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler;
 
+use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
@@ -15,16 +16,12 @@ class RecoveryHandler extends Handler
 
         $this->response = new Response(400);
 
-        $form_value = (new FormValidator())
+        $form_value = FormMiddleware::validate((new FormValidator())
                         ->addTextField("username")
                         ->addTextField("password")
-                        ->addTextField("recovery_answer")
-                        ->validate();
+                        ->addTextField("recovery_answer"));
 
-        if ($form_value === false) {
-            return;
-        }
-
+        
         // TODO: Verify input
         $login = User::getByNameAndRecoverykey($form_value['username'], $form_value['recovery_answer']);
 
