@@ -25,6 +25,9 @@ use Kuva\Handler\UserIdHandler;
 use Kuva\Handler\User\GetUserHandler;
 use Kuva\Handler\Feed\Get as FeedHandler;
 use Kuva\Handler\User\PostBiographyHandler;
+use Kuva\Handler\Image\Likes\Delete as DeleteLikeImageHandler;
+use Kuva\Handler\Image\Likes\Get as GetLikeImageHandler;
+use Kuva\Handler\Image\Likes\Post as PostLikeImageHandler;
 use Kuva\Utils\Router;
 
 class App
@@ -44,9 +47,17 @@ class App
             ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/image.html'))
             ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/settings', new FileHandler('../frontend/settings.html'))
+            /*
+                Backend routes should probably be prefix by api to make that clearer but anyways.
+                If I do that I'll be fuck by Seb. So even if I want it to happen, I not ready for the moment.
+                If you are not Seb, forget what is written above. :)
+            */
             ->get('/images/{image_id}', new GetImageHandler())
+            ->delete('/images/{image_id}', new DeleteImageHandler())            
             ->get('/images/{image_id}/description', new GetDescriptionOfImageHandler())
-            ->delete('/images/{image_id}', new DeleteImageHandler())
+            ->get('/images/{image_id}/likes', new GetLikeImageHandler())                                    
+            ->post('/images/{image_id}/likes', new PostLikeImageHandler())                        
+            ->delete('/images/{image_id}/likes', new DeleteLikeImageHandler())                                    
             ->get('/images', new ListUserImageHandler())
             ->post('/images', new ImageFormHandler())
             ->get('/user', new UserIdHandler())

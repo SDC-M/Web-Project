@@ -53,11 +53,10 @@ CREATE TABLE `followers` (
   FOREIGN KEY (`id_follower`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `like` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `likes` (
   `image_id` int(10) unsigned NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
-  PRIMARY KEY (`id`, `image_id`, `user_id`),
+  PRIMARY KEY (`image_id`, `user_id`),
   FOREIGN KEY (`image_id`) REFERENCES `images`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
