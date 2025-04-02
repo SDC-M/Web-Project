@@ -130,6 +130,10 @@ class Image implements JsonSerializable
         return true;
     }
 
+    public function isOwnedBy(User $user): bool {
+        return $this->owner->id == $user->id;
+    }
+
     public function jsonSerialize(): mixed
     {
         return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner, "description" => $this->description];
