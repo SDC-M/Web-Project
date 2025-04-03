@@ -13,7 +13,6 @@ form {
     margin-top: 20px;
 }
 
-
 a {
     font-size: var(--enormous-font-size);
 }
@@ -43,7 +42,7 @@ a {
     border-radius: 5px;
 }
 
-img:hover {
+img:hover:not(#logo) {
     transform: scale(1.05);
     border: black 2px solid;
 }

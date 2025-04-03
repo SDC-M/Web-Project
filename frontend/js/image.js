@@ -205,7 +205,8 @@ async function setAnnotations() {
 
         $.each(json, async function (_, annotation) {
             let $desc = annotation.description;
-            let $an = $("<p>").html(annotation.user.username).append("</br>").append($desc);
+            let $span = $("<span>").addClass("username").html(annotation.user.username);
+            let $an = $("<p>").html($span).append("</br>").append($desc);
             let $div = $("<div>").attr("class", "comment").attr("id", `${annotation.id}`);
             $div.data("annotation", annotation);
             $div.append($an);
@@ -222,7 +223,7 @@ async function setAnnotations() {
                 displayAnnotations(json);
             });
             if (await isMyAnnotation(annotation.user.id) || await isMyImage()) {
-                let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="far fa-window-close"></i>`);
+                let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="fas fa-trash-alt"></i>`);
                 $(`#${annotation.id}`).append($del_annotation);
                 $del_annotation.on("click", async function () {
                     const confirmation = window.confirm("Are you sure to delete it ?");

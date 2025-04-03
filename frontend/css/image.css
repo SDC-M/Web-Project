@@ -9,18 +9,14 @@
     border-radius: 5px;
 }
 
-.comment:not(:first-child) {
-    padding-top: 0.5rem;
-}
-
-p:not(#image-description) {
-    border-bottom: solid 1px black;
-}
-
 .comment {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.comment:not(:last-child) {
     border-bottom: solid 1px black;
 }
 
@@ -43,6 +39,18 @@ p:not(#image-description) {
     margin-top: 1rem;
 }
 
-#delannotation {
-    padding: 0.5rem;
+.delannotation {
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    height: 100%;
+    border-left: solid 1px black;
+}
+
+.username {
+    font-style: italic;
+    font-weight: var(--big-font-weight);
 }

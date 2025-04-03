@@ -4,7 +4,7 @@
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     background-color: var(--beige-color);
-    margin-top: 100px;
+    margin-top: 130px;
     height: auto;
 }
 
@@ -16,7 +16,7 @@
     position: fixed;
     top: 0px;
     width: 60%;
-    height: 10%;
+    height: 12%;
     background-color: var(--beige-color);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 5px 5px;
@@ -47,8 +47,18 @@ button {
     margin-left: 5px;
 }
 
+#logo:hover {
+    transition: all 1s;
+    transform: rotate(360deg);
+}
+
 @media screen and (max-width: 940px) {
     #search-bar-container {
         width: 100%;
+    }
+
+    #logo {
+        width: 50px;
+        height: 50px;
     }
 }

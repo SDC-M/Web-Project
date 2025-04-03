@@ -5,6 +5,7 @@
     --general-font-family: Roboto, sans-serif;
     --logo-font-family: Galindo;
     --normal-font-weight: 400;
+    --big-font-weight: 900;
     --small-font-size: 0.95rem;
     --normal-font-size: 1.05rem;
     --big-font-size: 1.3rem;
@@ -28,7 +29,6 @@
 
 * {
     font-family: var(--general-font-family);
-    font-weight: var(--general-font-family);
     font-size: var(--normal-font-size);
     margin: 0;
 }
