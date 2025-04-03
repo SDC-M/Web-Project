@@ -4,7 +4,8 @@ namespace Kuva\Handler\Annotation;
 
 use Kuva\Backend\Annotation;
 use Kuva\Backend\Image;
-use Kuva\Backend\User;
+use Kuva\Backend\Middleware\FormMiddleware;
+use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
@@ -22,21 +23,13 @@ class AnnotationFormHandler extends Handler
             return;
         }
 
-        $form = (new FormValidator())->addTextField("description")
+        $form = FormMiddleware::validate((new FormValidator())->addTextField("description")
             ->addTextField("x1")
             ->addTextField("x2")
             ->addTextField("y1")
-            ->addTextField("y2")
-            ->validate();
+            ->addTextField("y2"));
 
-        if ($form === false) {
-            return;
-        }
-
-        $user = User::getFromSession();
-        if ($user === null) {
-            return;
-        }
+        $user = UserMiddleware::getFromSession();
 
         $annotation = Annotation::createWithUserAndImage($image, $user);
         $annotation->setDescription($form["description"]);
