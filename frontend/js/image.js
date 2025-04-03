@@ -160,6 +160,18 @@ async function isMyImage() {
     return userId == parseInt(userImg);
 }
 
+/**
+ * 
+ * @param id 
+ * @returns Tente de retourner vrai si l'id passé en paramètre correspond à 
+ *  l'id de l'utilisateur connecté sinon renvoie faux. En cas d'échec renvoie
+ *  l'erreur correspondante. 
+ */
+async function isMyAnnotation(id) {
+    const userId = await getUserId();
+    return id == userId;
+}
+
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -254,15 +266,94 @@ async function setIsMyImage() {
 }
 
 /**
- * 
- * @param id 
- * @returns Tente de retourner vrai si l'id passé en paramètre correspond à 
- *  l'id de l'utilisateur connecté sinon renvoie faux. En cas d'échec renvoie
- *  l'erreur correspondante. 
+ * Tente d'afficher dans l'elément d'id likes-cptr le nombre de likes relatifs
+ *  à la photo, en cas d'échec renvoie l'erreur correspondante.
  */
-async function isMyAnnotation(id) {
-    const userId = await getUserId();
-    return id == userId;
+async function setCptrLikes() {
+    let $imageId = await getImageId(getPathName());
+    const url = `/images/${$imageId}/likes`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+        const json = await response.json();
+        let $cptr = 0;
+        json.forEach(_ => {
+            $cptr += 1;
+        });
+        $("#likes-cptr").html(` ${$cptr}`);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+/**
+ * Tente d'afficher si l'utilisateur connecté a liké la photo sur laquelle il se trouve,
+ *  en cas d'échec renvoie l'erreur correspondante.
+ */
+async function setIsLiked() {
+    let $userId = await getUserId();
+    let $imageId = await getImageId(getPathName());
+    const url = `/images/${$imageId}/likes`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+        let isin = false;
+        const json = await response.json();
+        json.forEach(element => {
+            if (element.id == $userId) {
+                isin = true;
+            }
+            if (isin == true) {
+                $("#likes-cptr").removeClass("far").addClass("fas");
+            }
+        });
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+/**
+ * Tente d'initialiser le comportement de l'élément d'id likes-cptr,
+ *  si l'utilisateur a déjà liké la photo alors tente d'envoyer une requête
+ *  pour enlever le like inversement dans le cas contraire. En cas d'échec
+ *  renvoie l'erreur correspondante.
+ */
+async function setAddAndDeleteLike() {
+    let $imageId = await getImageId(getPathName());
+    $("#likes-cptr").on("click", async function () {
+        if ($("#likes-cptr").hasClass("fas")) {
+            const url = `/images/${$imageId}/likes`;
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                $("#likes-cptr").addClass("far").removeClass("fas");
+            } catch (error) {
+                console.error(error.message);
+            }
+        } else {
+            const url = `/images/${$imageId}/likes`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                });
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                $("#likes-cptr").removeClass("far").addClass("fas");
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+        setCptrLikes();
+    });
 }
 
 /* --------------------------------------------------------------------- */
@@ -276,6 +367,9 @@ $(document).ready(async function () {
     setDeleteImage();
     setDescription();
     setIsMyImage();
+    setCptrLikes();
+    setIsLiked();
+    setAddAndDeleteLike();
 
     $(window).resize(function () {
         resizeCanvas();
