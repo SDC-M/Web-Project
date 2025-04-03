@@ -2,9 +2,9 @@
 
 namespace Kuva\Handler\Image\Likes;
 
-use Kuva\Backend\Image;
 use Kuva\Backend\Likes;
-use Kuva\Backend\User;
+use Kuva\Backend\Middleware\ImageMiddleware;
+use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -12,15 +12,10 @@ use Kuva\Utils\Router\Response;
 class Delete extends Handler {
     public function handle(Request $req): void
     {
-        $image_id = $req->extracts["image_id"];
-        $user = User::getFromSession();
+        $user = UserMiddleware::getFromSession();
+        $image = ImageMiddleware::getFromUrl($req);
 
-        if ($user == null) {
-            $this->response = new Response(403);
-            return;
-        }
-
-        Likes::get($user, Image::getById($image_id))->delete();
+        Likes::get($user, $image)->delete();
         $this->response = new Response(200);
     }
 }
