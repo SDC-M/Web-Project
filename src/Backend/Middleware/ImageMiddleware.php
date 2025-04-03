@@ -18,5 +18,7 @@ class ImageMiddleware {
         if ($image == null) {
             throw new MiddlewareException(new Response(403, "Bad request")); 
         }
+
+        return $image;
     }
 }
