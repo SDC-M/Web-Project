@@ -155,7 +155,7 @@ async function deleteAnnotation(id) {
  */
 async function isMyImage() {
     const path = getPathName();
-    const userImg = path[3];
+    const userImg = path[2];
     const userId = await getUserId();
     return userId == parseInt(userImg);
 }
