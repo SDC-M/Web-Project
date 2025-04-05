@@ -17,6 +17,7 @@ use Kuva\Handler\Image\GetByHandler as ImagesGet;
 use Kuva\Handler\Image\GetDescriptionOfImageHandler;
 use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\Image\ListUserImageHandler;
+use Kuva\Handler\Image\PutPermissionHandler;
 use Kuva\Handler\User\DisconnectHandler;
 use Kuva\Handler\User\LoginHandler;
 use Kuva\Handler\User\RecoveryHandler;
@@ -54,6 +55,7 @@ class App
             */
             ->get('/images/{image_id}', new GetImageHandler())
             ->delete('/images/{image_id}', new DeleteImageHandler())
+            ->put('/images/{image_id}/permission', new PutPermissionHandler())
             ->get('/images/{image_id}/description', new GetDescriptionOfImageHandler())
             ->get('/images/{image_id}/likes', new GetLikeImageHandler())
             ->post('/images/{image_id}/likes', new PostLikeImageHandler())

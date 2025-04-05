@@ -38,7 +38,11 @@ class Router
             $path = new Path($p);
             if ($path->resolve($req->path)) {
                 $req->extracts = $path->extract($req->path);
-
+                if ($req->method == "PUT") {
+                    /* $_POST should be use only when POST method but I take the
+                        entire responsability of this action */
+                    parse_str(file_get_contents("php://input"),$_POST);
+                }
                 return $h->handleAndResponse($req);
             }
         }

@@ -111,6 +111,21 @@ class Image implements JsonSerializable
         $q->execute();
     }
 
+    private function setVisibility(bool $is_public): bool {
+        $db = new Database();
+        $q = $db->db->prepare("UPDATE images SET is_public=:visibility WHERE id=:id");
+        return $q->execute(["visibility" => $is_public ? 1 : 0, "id" => $this->getId()]);
+    }
+
+    public function makePrivate(): bool {
+        return $this->setVisibility(false);
+    }
+
+    public function makePublic(): bool {
+        return $this->setVisibility(true);       
+    }
+    
+
     public function delete(): bool
     {
         $db = new Database();
