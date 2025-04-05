@@ -63,6 +63,32 @@ img:hover {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
+.img-bloc {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    background-color: var(--grey-color);
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.img-bloc:hover {
+    transform: scale(1.05);
+    border: black 2px solid;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.img-bloc a {
+    margin-top: 0;
+}
+
+.img-bloc p {
+    padding: 0.25rem;
+    margin-left: 0.25rem;
+}
+
 @media screen and (max-width: 940px) {
     #search-bar-container {
         width: 100%;
