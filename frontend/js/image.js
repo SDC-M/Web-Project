@@ -262,9 +262,32 @@ async function setDeleteImage() {
  */
 async function setIsMyImage() {
     if (await isMyImage()) {
+        setDeleteImage();
         $("#del").css("display", "block");
     }
 }
+
+async function setSwitchPrivacyImage() {
+    let isVisible;
+    let $imageId = await getImageId(getPathName());
+    const url = `/images/${$imageId}/permission`;
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ is_public: isVisible })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
 
 /**
  * Tente d'afficher dans l'elément d'id likes-cptr le nombre de likes relatifs
@@ -365,7 +388,6 @@ $(document).ready(async function () {
     displayImage();
     const json = await setAnnotations();
     setNav();
-    setDeleteImage();
     setDescription();
     setIsMyImage();
     setCptrLikes();
