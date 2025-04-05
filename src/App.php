@@ -12,6 +12,7 @@ use Kuva\Handler\AppHandler;
 use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
 use Kuva\Handler\Image\DeleteImageHandler;
+use Kuva\Handler\Image\GetDetailsHandler;
 use Kuva\Handler\Image\ImageFormHandler;
 use Kuva\Handler\Image\GetByHandler as ImagesGet;
 use Kuva\Handler\Image\GetDescriptionOfImageHandler;
@@ -56,7 +57,9 @@ class App
             ->get('/images/{image_id}', new GetImageHandler())
             ->delete('/images/{image_id}', new DeleteImageHandler())
             ->put('/images/{image_id}/permission', new PutPermissionHandler())
+            /* /description should be delete cause it's */
             ->get('/images/{image_id}/description', new GetDescriptionOfImageHandler())
+            ->get('/images/{image_id}/details', new GetDetailsHandler())            
             ->get('/images/{image_id}/likes', new GetLikeImageHandler())
             ->post('/images/{image_id}/likes', new PostLikeImageHandler())
             ->delete('/images/{image_id}/likes', new DeleteLikeImageHandler())

@@ -23,4 +23,16 @@ class ImageMiddleware
 
         return $image;
     }
+
+    
+    public static function getFromUrlAndCheckVisibilityForUser(Request $req): Image {
+        $image = self::getFromUrl($req);
+        $user = UserMiddleware::getFromSession();
+
+        if (!$image->is_public && $image->owner->id != $user->id) {
+            throw new MiddlewareException(new Response(404, "Image not found"));
+        }
+
+        return $image;
+    }
 }
