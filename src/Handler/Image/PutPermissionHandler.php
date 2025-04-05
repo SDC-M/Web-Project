@@ -8,7 +8,8 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class PutPermissionHandler extends Handler {
+class PutPermissionHandler extends Handler
+{
     public function handle(Request $req): void
     {
         $user = UserMiddleware::getFromSession();
