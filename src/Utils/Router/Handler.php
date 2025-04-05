@@ -13,7 +13,7 @@ abstract class Handler
 
         ob_start();
         try {
-         $this->handle($req);           
+            $this->handle($req);
         } catch (MiddlewareException $e) {
             ob_clean();
             return $e->response;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuva\Handler;
+namespace Kuva\Handler\Image;
 
 use Kuva\Backend\Image;
 use Kuva\Backend\Middleware\FormMiddleware;
@@ -18,7 +18,7 @@ class ImageFormHandler extends Handler
             ->addFileField("image")
             ->addOptionalTextField("description")
             ->addCheckBoxField("is_public"));
-        
+
         $user = UserMiddleware::getFromSession();
 
         if ($form["image"]["error"] != 0) {

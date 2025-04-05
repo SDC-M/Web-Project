@@ -6,7 +6,8 @@ use Kuva\Backend\User;
 use Kuva\Utils\Router\Response;
 use Kuva\Utils\SessionVariable;
 
-class UserMiddleware {    
+class UserMiddleware
+{
     public static function getFromSession(): User
     {
         $session = new SessionVariable();

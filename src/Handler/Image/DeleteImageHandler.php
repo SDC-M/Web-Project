@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuva\Handler;
+namespace Kuva\Handler\Image;
 
 use Kuva\Backend\Image;
 use Kuva\Backend\User;

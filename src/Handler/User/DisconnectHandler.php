@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuva\Handler;
+namespace Kuva\Handler\User;
 
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;

@@ -5,16 +5,19 @@ namespace Kuva\Backend;
 use JsonSerializable;
 use PDO;
 
-class Likes implements JsonSerializable {
+class Likes implements JsonSerializable
+{
     private function __construct(public User $user, private Image $image)
     {
     }
 
-    private static function fromRow(array $d): static {
+    private static function fromRow(array $d): static
+    {
         return new static(User::getById($d["user_id"]), Image::getById($d["image_id"]));
     }
 
-    public static function get(User $user, Image $image): ?static {
+    public static function get(User $user, Image $image): ?static
+    {
         $db = (new Database())->db;
 
         $q = $db->prepare("SELECT image_id, user_id FROM likes WHERE image_id = ? AND user_id = ?");
@@ -34,7 +37,8 @@ class Likes implements JsonSerializable {
     }
 
 
-    public static function getAllOfUser(User $user): array {
+    public static function getAllOfUser(User $user): array
+    {
         $db = (new Database())->db;
 
         $q = $db->prepare("SELECT image_id, user_id FROM likes WHERE user_id = ?");
@@ -46,12 +50,13 @@ class Likes implements JsonSerializable {
 
         $d = $q->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(fn($d): static => static::fromRow($d), $d);
-        
+        return array_map(fn ($d): static => static::fromRow($d), $d);
+
     }
 
 
-    public static function getAllOfImage(Image $image): array {
+    public static function getAllOfImage(Image $image): array
+    {
         $db = (new Database())->db;
 
         $q = $db->prepare("SELECT image_id, user_id FROM likes WHERE image_id = ?");
@@ -63,10 +68,11 @@ class Likes implements JsonSerializable {
 
         $d = $q->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(fn($d): static => static::fromRow($d), $d);
-    }    
+        return array_map(fn ($d): static => static::fromRow($d), $d);
+    }
 
-    public function delete(): bool {
+    public function delete(): bool
+    {
         $db = (new Database())->db;
 
         $q = $db->prepare("DELETE FROM kuva.likes WHERE image_id= ? AND user_id= ?");
@@ -77,9 +83,10 @@ class Likes implements JsonSerializable {
         }
 
         return true;
-    }    
+    }
 
-    public static function create(User $user, Image $image): bool {
+    public static function create(User $user, Image $image): bool
+    {
         $db = (new Database())->db;
 
         $q = $db->prepare("INSERT INTO kuva.likes(image_id, user_id) VALUES(?, ?)");
@@ -90,7 +97,7 @@ class Likes implements JsonSerializable {
         }
 
         return true;
-    
+
     }
 
     public function jsonSerialize(): mixed
