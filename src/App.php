@@ -57,7 +57,7 @@ class App
             ->get('/images/{image_id}', new GetImageHandler())
             ->delete('/images/{image_id}', new DeleteImageHandler())
             ->put('/images/{image_id}/permission', new PutPermissionHandler())
-            /* /description should be delete cause it's */
+            /* /description should be delete cause it's redundant */
             ->get('/images/{image_id}/description', new GetDescriptionOfImageHandler())
             ->get('/images/{image_id}/details', new GetDetailsHandler())            
             ->get('/images/{image_id}/likes', new GetLikeImageHandler())
