@@ -52,6 +52,17 @@ button {
     transform: rotate(360deg);
 }
 
+#logo {
+    border-radius: 50%;
+}
+
+#logo,
+input,
+button,
+img:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
 @media screen and (max-width: 940px) {
     #search-bar-container {
         width: 100%;

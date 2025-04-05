@@ -16,6 +16,10 @@
     justify-content: space-evenly;
 }
 
+.comment p {
+    margin-right: 4rem;
+}
+
 .comment:not(:last-child) {
     border-bottom: solid 1px black;
 }
