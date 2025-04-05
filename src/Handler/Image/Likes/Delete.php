@@ -9,7 +9,8 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class Delete extends Handler {
+class Delete extends Handler
+{
     public function handle(Request $req): void
     {
         $user = UserMiddleware::getFromSession();

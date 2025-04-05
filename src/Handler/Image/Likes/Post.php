@@ -9,7 +9,8 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class Post extends Handler {
+class Post extends Handler
+{
     public function handle(Request $req): void
     {
         $user = UserMiddleware::getFromSession();
@@ -21,7 +22,7 @@ class Post extends Handler {
         }
 
         if (!Likes::create($user, $image)) {
-            $this->response = new Response(500);   
+            $this->response = new Response(500);
         }
 
         $this->response = new Response(200);

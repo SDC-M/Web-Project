@@ -10,7 +10,8 @@ use Kuva\Utils\Router\JsonResponse;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class Get extends Handler {
+class Get extends Handler
+{
     public function handle(Request $req): void
     {
 

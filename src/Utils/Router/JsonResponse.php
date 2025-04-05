@@ -2,7 +2,8 @@
 
 namespace Kuva\Utils\Router;
 
-class JsonResponse extends Response {
+class JsonResponse extends Response
+{
     public function __construct(
         int $status = 200,
         mixed $body = null,

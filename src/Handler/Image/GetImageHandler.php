@@ -19,7 +19,7 @@ class GetImageHandler extends Handler
             $user = User::getFromSession();
             if ($user == null || $user->id != $image->owner->id) {
                 $req = new Response(404);
-                return;               
+                return;
             }
         }
 

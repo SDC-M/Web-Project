@@ -18,7 +18,7 @@ class ImageFormHandler extends Handler
             ->addFileField("image")
             ->addOptionalTextField("description")
             ->addCheckBoxField("is_public"));
-        
+
         $user = UserMiddleware::getFromSession();
 
         if ($form["image"]["error"] != 0) {

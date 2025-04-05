@@ -5,7 +5,8 @@ namespace Kuva\Backend\Middleware;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Response;
 
-class FormMiddleware {
+class FormMiddleware
+{
     /**
      * @return array<string, mixed>
      */
