@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuva\Handler;
+namespace Kuva\Handler\User;
 
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
