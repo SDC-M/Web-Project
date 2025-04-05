@@ -9,19 +9,20 @@ use Kuva\Handler\Annotation\AnnotationFormHandler;
 use Kuva\Handler\Annotation\DeleteAnnotationHandler;
 use Kuva\Handler\Annotation\GetAnnotationHandler;
 use Kuva\Handler\AppHandler;
-use Kuva\Handler\DeleteImageHandler;
-use Kuva\Handler\DisconnectHandler;
 use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
-use Kuva\Handler\ImageFormHandler;
+use Kuva\Handler\Image\DeleteImageHandler;
+use Kuva\Handler\Image\ImageFormHandler;
 use Kuva\Handler\Image\GetByHandler as ImagesGet;
 use Kuva\Handler\Image\GetDescriptionOfImageHandler;
 use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\Image\ListUserImageHandler;
-use Kuva\Handler\LoginHandler;
-use Kuva\Handler\RecoveryHandler;
-use Kuva\Handler\RegisterHandler;
-use Kuva\Handler\UserIdHandler;
+use Kuva\Handler\Image\PutPermissionHandler;
+use Kuva\Handler\User\DisconnectHandler;
+use Kuva\Handler\User\LoginHandler;
+use Kuva\Handler\User\RecoveryHandler;
+use Kuva\Handler\User\RegisterHandler;
+use Kuva\Handler\User\UserIdHandler;
 use Kuva\Handler\User\GetUserHandler;
 use Kuva\Handler\Feed\Get as FeedHandler;
 use Kuva\Handler\User\PostBiographyHandler;
@@ -53,11 +54,12 @@ class App
                 If you are not Seb, forget what is written above. :)
             */
             ->get('/images/{image_id}', new GetImageHandler())
-            ->delete('/images/{image_id}', new DeleteImageHandler())            
+            ->delete('/images/{image_id}', new DeleteImageHandler())
+            ->put('/images/{image_id}/permission', new PutPermissionHandler())
             ->get('/images/{image_id}/description', new GetDescriptionOfImageHandler())
-            ->get('/images/{image_id}/likes', new GetLikeImageHandler())                                    
-            ->post('/images/{image_id}/likes', new PostLikeImageHandler())                        
-            ->delete('/images/{image_id}/likes', new DeleteLikeImageHandler())                                    
+            ->get('/images/{image_id}/likes', new GetLikeImageHandler())
+            ->post('/images/{image_id}/likes', new PostLikeImageHandler())
+            ->delete('/images/{image_id}/likes', new DeleteLikeImageHandler())
             ->get('/images', new ListUserImageHandler())
             ->post('/images', new ImageFormHandler())
             ->get('/user', new UserIdHandler())

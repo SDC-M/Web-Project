@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuva\Handler;
+namespace Kuva\Handler\User;
 
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
@@ -21,7 +21,7 @@ class RecoveryHandler extends Handler
                         ->addTextField("password")
                         ->addTextField("recovery_answer"));
 
-        
+
         // TODO: Verify input
         $login = User::getByNameAndRecoverykey($form_value['username'], $form_value['recovery_answer']);
 

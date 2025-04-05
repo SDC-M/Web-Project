@@ -1,6 +1,6 @@
 <?php
 
-namespace Kuva\Handler;
+namespace Kuva\Handler\User;
 
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
