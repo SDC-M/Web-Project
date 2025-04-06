@@ -263,12 +263,20 @@ async function setDeleteImage() {
 async function setIsMyImage() {
     if (await isMyImage()) {
         setDeleteImage();
+        setSwitchPrivacyImage();
         $("#del").css("display", "block");
+        $("#privacy").css("display", "block");
     }
 }
 
-async function setSwitchPrivacyImage() {
-    let isVisible;
+function setSwitchPrivacyImage() {
+    $("#privacy").on("click", function () {
+        switchPrivacyImage();
+    });
+}
+
+async function switchPrivacyImage() {
+    let isVisible = '';
     let $imageId = await getImageId(getPathName());
     const url = `/images/${$imageId}/permission`;
     try {
