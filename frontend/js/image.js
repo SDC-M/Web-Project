@@ -276,7 +276,9 @@ function setSwitchPrivacyImage() {
 }
 
 async function switchPrivacyImage() {
-    let isVisible = true;
+    // to know wich value the variable isVisible should take we need a specific route
+    let isVisible = false;
+    //-------------------------------------------------------------------------------
     let $imageId = await getImageId(getPathName());
     const url = `/images/${$imageId}/permission`;
     try {
