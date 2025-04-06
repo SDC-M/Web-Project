@@ -258,7 +258,8 @@ async function setDeleteImage() {
 
 /**
  * Vérifie que l'image est bien à l'utilisateur connecté, dans ce cas affiche
- *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
+ *  un element pour pouvoir acceder à la suppression de l'image et pour changer
+ *  la visibilité de l'image n'affiche rien sinon.
  */
 async function setIsMyImage() {
     if (await isMyImage()) {
@@ -269,6 +270,9 @@ async function setIsMyImage() {
     }
 }
 
+/**
+ * Affiche un element d'id privacy permettant de changer la visibilité d'une image.
+ */
 function setSwitchPrivacyImage() {
     $("#privacy").on("click", function () {
         switchPrivacyImage();
