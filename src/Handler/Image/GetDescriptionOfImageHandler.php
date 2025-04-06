@@ -16,7 +16,7 @@ class GetDescriptionOfImageHandler extends Handler
         $image = ImageMiddleware::getFromUrl($req);
         $user = UserMiddleware::getFromSession();
 
-        if (!$image->is_public && $user != $image->owner->id) {
+        if ($image->is_public === 1 && $user != $image->owner->id) {
             $this->response = new Response(404);
             return;
         }
