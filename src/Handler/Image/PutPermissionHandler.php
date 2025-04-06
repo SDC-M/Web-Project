@@ -19,8 +19,7 @@ class PutPermissionHandler extends Handler
             $this->response = new Response(403, "You are not owner of this image");
         }
 
-        $data = json_decode(file_get_contents("php://input"), true);
-        $is_public = isset($data['is_public']) && $data['is_public'] === true;
+        $is_public = ($_POST["is_public"] ?? '') == 'true';
         $is_public ? $image->makePublic() : $image->makePrivate();
     }
 }

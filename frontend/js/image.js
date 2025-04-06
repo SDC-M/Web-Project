@@ -285,13 +285,12 @@ async function switchPrivacyImage() {
     //-------------------------------------------------------------------------------
     let $imageId = await getImageId(getPathName());
     const url = `/images/${$imageId}/permission`;
+    const bodyData = new URLSearchParams();
+    bodyData.append("is_public", isVisible);
     try {
         const response = await fetch(url, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ is_public: isVisible })
+            body: bodyData
         });
 
         if (!response.ok) {
