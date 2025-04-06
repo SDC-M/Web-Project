@@ -32,7 +32,9 @@ async function getPictures() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
-    getPictures();
+    await getPictures();
+    $("#global-loader").hide();
 });

@@ -79,10 +79,12 @@ async function setBiography() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
-    getPictures();
-    getNb();
-    setUserUsername();
-    setBiography();
+    await getPictures();
+    await getNb();
+    await setUserUsername();
+    await setBiography();
+    $("#global-loader").hide();
 });
