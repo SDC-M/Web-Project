@@ -258,17 +258,31 @@ async function setDeleteImage() {
 
 /**
  * Vérifie que l'image est bien à l'utilisateur connecté, dans ce cas affiche
- *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
+ *  un element pour pouvoir acceder à la suppression de l'image et pour changer
+ *  la visibilité de l'image n'affiche rien sinon.
  */
 async function setIsMyImage() {
     if (await isMyImage()) {
         setDeleteImage();
+        setSwitchPrivacyImage();
         $("#del").css("display", "block");
+        $("#privacy").css("display", "block");
     }
 }
 
-async function setSwitchPrivacyImage() {
-    let isVisible;
+/**
+ * Affiche un element d'id privacy permettant de changer la visibilité d'une image.
+ */
+function setSwitchPrivacyImage() {
+    $("#privacy").on("click", function () {
+        switchPrivacyImage();
+    });
+}
+
+async function switchPrivacyImage() {
+    // to know wich value the variable isVisible should take we need a specific route
+    let isVisible = false;
+    //-------------------------------------------------------------------------------
     let $imageId = await getImageId(getPathName());
     const url = `/images/${$imageId}/permission`;
     try {
