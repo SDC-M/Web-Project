@@ -113,14 +113,15 @@ function setCanvas() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
     setFormAction();
     displayImage();
     setCanvas();
-    setNav();
-
+    await setNav();
     $(window).resize(function () {
         resizeCanvas();
     });
+    $("#global-loader").hide();
 });

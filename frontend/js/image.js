@@ -398,18 +398,19 @@ async function setAddAndDeleteLike() {
 /* --------------------------------------------------------------------- */
 
 $(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
     displayImage();
     const json = await setAnnotations();
-    setNav();
-    setDescription();
-    setIsMyImage();
-    setCptrLikes();
-    setIsLiked();
-    setAddAndDeleteLike();
-
-    $(window).resize(function () {
+    await setNav();
+    await setDescription();
+    await setIsMyImage();
+    await setCptrLikes();
+    await setIsLiked();
+    await setAddAndDeleteLike();
+    $("#global-loader").hide();
+    $(window).resize(async function () {
         resizeCanvas();
-        displayAnnotations(json);
+        await displayAnnotations(json);
     });
 });

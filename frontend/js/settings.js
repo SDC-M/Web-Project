@@ -69,12 +69,14 @@ async function setActualUsername() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    $("#global-loader").show();
     setNav();
     setFileUploadPreview();
-    setActualBio();
-    setActualUsername();
+    await setActualBio();
+    await setActualUsername();
     setHelpValidator();
     setLocalStorageTheme();
     setButtonSwitchTheme();
+    $("#global-loader").hide();
 });
