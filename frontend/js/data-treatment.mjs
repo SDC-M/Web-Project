@@ -119,6 +119,21 @@ export async function getActualUsername() {
     }
 }
 
+function transformDate (atomDate){
+    const date = new Date(atomDate);
+    const formattedDate = date.toLocaleString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: 'numeric', 
+        minute: 'numeric', 
+        second: 'numeric' 
+    });
+
+    return formattedDate;
+}
+
 /**
  * Tente d'afficher la description de l'image courrante dans le paragraphe
  *  d'id image-description, en cas d'échec renvoie l'erreur associée.
@@ -133,7 +148,9 @@ export async function setDescription() {
             throw new Error(`Response status: ${response.status} `);
         }
         const json = await response.json();
-        $("#image-description").html(json.description);
+        $("#image-description").append(json.user.username + "<br>");
+        $("#image-description").append(json.description + "<br>");
+        $("#image-description").append(transformDate(json.creation_date));
     } catch (error) {
         console.error(error.message);
     }

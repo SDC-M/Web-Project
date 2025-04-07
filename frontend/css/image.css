@@ -108,3 +108,7 @@ input:checked+.slider:before {
 #privacy {
     display: none;
 }
+
+p {
+    line-height: 2rem;
+}
