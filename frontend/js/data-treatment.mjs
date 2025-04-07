@@ -154,7 +154,9 @@ export async function setDescription() {
         }
         const json = await response.json();
         $("#image-description").append(json.user.username + "<br>");
-        $("#image-description").append(json.description + "<br>");
+        if (json.description !== ""){
+            $("#image-description").append(json.description + "<br>");
+        }
         $("#image-description").append(transformDate(json.creation_date));
     } catch (error) {
         console.error(error.message);
