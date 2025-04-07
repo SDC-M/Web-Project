@@ -156,3 +156,46 @@ export async function getBiography() {
         console.error(error.message);
     }
 }
+
+/**
+ * @param id 
+ * @returns Tente de renvoyer la visibilité de l'image d'id passé en paramètre
+ *  en cas d'échec renvoie l'erreur correspondante.
+ */
+export async function getVisibilityImage(id){
+    let UrlisVisible = `/api/image/${id}/details`;
+    try {
+        const response = await fetch(UrlisVisible);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+        const json = await response.json();
+        return json.is_public;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+/**
+ * @param id 
+ * Tente de changer la visibilité de l'image d'id passé en paramètre,
+ *  en cas d'échec renvoie l'erreur correspondante.
+ */
+export async function switchVisibilityImage(id) {
+    let isVisible = await getVisibilityImage(id);
+    const url = `/api/image/${id}/permission`;
+    const bodyData = new URLSearchParams();
+    bodyData.append("is_public", !isVisible);
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: bodyData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        location.reload();
+    } catch (error) {
+        console.error(error.message);
+    }
+}
