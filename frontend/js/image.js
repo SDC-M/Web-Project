@@ -4,7 +4,9 @@ const { getPathName,
         convertPoint, 
         displayImage, 
         resizeCanvas, 
-        setDescription } = await import("./data-treatment.mjs");
+        setDescription,
+        getVisibilityImage,
+        switchVisibilityImage } = await import("./data-treatment.mjs");
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
@@ -270,7 +272,7 @@ async function setDeleteImage() {
 async function setIsMyImage() {
     if (await isMyImage()) {
         setDeleteImage();
-        setSwitchPrivacyImage();
+        setSwitchVisibilityImage();
         $("#del").css("display", "block");
         $("#privacy").css("display", "block");
     }
@@ -279,33 +281,18 @@ async function setIsMyImage() {
 /**
  * Affiche un element d'id privacy permettant de changer la visibilité d'une image.
  */
-function setSwitchPrivacyImage() {
-    $("#privacy").on("click", function () {
-        switchPrivacyImage();
+async function setSwitchVisibilityImage() {
+    let imageId = await getImageId(getPathName());
+    if (await getVisibilityImage(getImageId(getPathName()))){
+        $("#privacy").html(`<i class="fas fa-eye"></i>`);
+    } else {
+        $("#privacy").html(`<i class="fas fa-eye-slash"></i>`);
+    }
+    $("#privacy").on("click",async function () {
+        await switchVisibilityImage(imageId);
     });
 }
 
-async function switchPrivacyImage() {
-    // to know wich value the variable isVisible should take we need a specific route
-    let isVisible = false;
-    //-------------------------------------------------------------------------------
-    let $imageId = await getImageId(getPathName());
-    const url = `/api/image/${$imageId}/permission`;
-    const bodyData = new URLSearchParams();
-    bodyData.append("is_public", isVisible);
-    try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            body: bodyData
-        });
-
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-    } catch (error) {
-        console.error(error.message);
-    }
-}
 
 
 /**
