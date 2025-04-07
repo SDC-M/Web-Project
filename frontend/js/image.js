@@ -115,7 +115,7 @@ function focusDiv(id) {
  *  la supprime sinon renvoie le message d'erreur correspondant.
  */
 async function deleteImage(id) {
-    const url = `/images/${id}`;
+    const url = `/api/images/${id}`;
     try {
         const response = await fetch(url, {
             method: 'DELETE',
@@ -258,26 +258,39 @@ async function setDeleteImage() {
 
 /**
  * Vérifie que l'image est bien à l'utilisateur connecté, dans ce cas affiche
- *  un element pour pouvoir acceder à la suppression de l'image n'affiche rien sinon.
+ *  un element pour pouvoir acceder à la suppression de l'image et pour changer
+ *  la visibilité de l'image n'affiche rien sinon.
  */
 async function setIsMyImage() {
     if (await isMyImage()) {
         setDeleteImage();
+        setSwitchPrivacyImage();
         $("#del").css("display", "block");
+        $("#privacy").css("display", "block");
     }
 }
 
-async function setSwitchPrivacyImage() {
-    let isVisible;
+/**
+ * Affiche un element d'id privacy permettant de changer la visibilité d'une image.
+ */
+function setSwitchPrivacyImage() {
+    $("#privacy").on("click", function () {
+        switchPrivacyImage();
+    });
+}
+
+async function switchPrivacyImage() {
+    // to know wich value the variable isVisible should take we need a specific route
+    let isVisible = false;
+    //-------------------------------------------------------------------------------
     let $imageId = await getImageId(getPathName());
-    const url = `/images/${$imageId}/permission`;
+    const url = `/api/image/${$imageId}/permission`;
+    const bodyData = new URLSearchParams();
+    bodyData.append("is_public", isVisible);
     try {
         const response = await fetch(url, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ is_public: isVisible })
+            body: bodyData
         });
 
         if (!response.ok) {
@@ -295,7 +308,7 @@ async function setSwitchPrivacyImage() {
  */
 async function setCptrLikes() {
     let $imageId = await getImageId(getPathName());
-    const url = `/images/${$imageId}/likes`;
+    const url = `/api/image/${$imageId}/likes`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -319,7 +332,7 @@ async function setCptrLikes() {
 async function setIsLiked() {
     let $userId = await getUserId();
     let $imageId = await getImageId(getPathName());
-    const url = `/images/${$imageId}/likes`;
+    const url = `/api/image/${$imageId}/likes`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -350,7 +363,7 @@ async function setAddAndDeleteLike() {
     let $imageId = await getImageId(getPathName());
     $("#likes-cptr").on("click", async function () {
         if ($("#likes-cptr").hasClass("fas")) {
-            const url = `/images/${$imageId}/likes`;
+            const url = `/api/image/${$imageId}/likes`;
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
@@ -363,7 +376,7 @@ async function setAddAndDeleteLike() {
                 console.error(error.message);
             }
         } else {
-            const url = `/images/${$imageId}/likes`;
+            const url = `/api/image/${$imageId}/likes`;
             try {
                 const response = await fetch(url, {
                     method: 'POST',
@@ -384,18 +397,19 @@ async function setAddAndDeleteLike() {
 /* --------------------------------------------------------------------- */
 
 $(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
     displayImage();
     const json = await setAnnotations();
-    setNav();
-    setDescription();
-    setIsMyImage();
-    setCptrLikes();
-    setIsLiked();
-    setAddAndDeleteLike();
-
-    $(window).resize(function () {
+    await setNav();
+    await setDescription();
+    await setIsMyImage();
+    await setCptrLikes();
+    await setIsLiked();
+    await setAddAndDeleteLike();
+    $("#global-loader").hide();
+    $(window).resize(async function () {
         resizeCanvas();
-        displayAnnotations(json);
+        await displayAnnotations(json);
     });
 });

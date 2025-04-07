@@ -20,6 +20,7 @@
     background-color: var(--beige-color);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 5px 5px;
+    z-index: 50;
 }
 
 #search-bar {
@@ -61,6 +62,34 @@ input,
 button,
 img:hover {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.img-bloc {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    background-color: var(--grey-color);
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.img-bloc:hover {
+    transform: scale(1.05);
+    border: black 2px solid;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.img-bloc a {
+    margin-top: 0;
+}
+
+.img-bloc p {
+    padding: 0.25rem;
+    margin-left: 0.25rem;
+    overflow-x: hidden !important;
 }
 
 @media screen and (max-width: 940px) {

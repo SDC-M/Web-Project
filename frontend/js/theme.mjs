@@ -34,6 +34,8 @@ export function setLightTheme() {
     $("#dark-light-mode-button").removeClass(["fa-solid", "fa-sun"]).addClass(["fa-regular", "fa-moon"]);
     $("body, html").css("background-color", "#fefefe");
     $("#name").attr("src", "/frontend/img/name.png");
+    $("#global-loader").css("background-color", "var(--beige-color)");
+    $(".spinner").css("border-top", "4px solid var(--dark-purple-color)");
 }
 
 export function setButtonSwitchTheme() {

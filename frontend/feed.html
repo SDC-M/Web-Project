@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/frontend/css/feed.css">
     <link rel="stylesheet" href="/frontend/css/common.css">
     <link rel="stylesheet" href="/frontend/css/profile.css">
@@ -14,6 +13,9 @@
 </head>
 
 <body>
+    <div id="global-loader" style="display: none;">
+        <div class="spinner"></div>
+    </div>
     <div id="feed-container">
         <div id="search-bar-container">
             <div id="search-bar">
@@ -35,6 +37,7 @@
         </div>
         <div id="img-container"></div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module" src="/frontend/js/data-treatment.mjs"></script>
     <script type="module" src="/frontend/js/theme.mjs"></script>
     <script type="module" src="/frontend/js/feed.js"></script>

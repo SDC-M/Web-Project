@@ -6,7 +6,7 @@ import { setLocalStorageTheme } from "./theme.mjs";
  *  En cas d'échec retourne l'erreur correspondante.
  */
 async function getPictures() {
-    const url = "/feed";
+    const url = "/api/feed";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -15,10 +15,14 @@ async function getPictures() {
 
         let json = await response.json();
         $.each(json.image, function (_, picture) {
+            let $contain = $("<div>").addClass("img-bloc");
+            let $username = $("<p>").html(picture.user.username).css("border-bottom", 'solid 1px black').append(" : ");
+            let $desc = $("<p>").html(picture.description);
             let $link = $("<a>").attr("href", `/annotations/${picture.user.id}/${picture.id}`);
-            let $img = $("<img>").attr("src", `/images/${picture.id}`);
+            let $img = $("<img>").attr("src", `/api/image/${picture.id}`);
             $link.append($img);
-            $('#img-container').append($link);
+            $contain.append($link).append($username).append($desc);
+            $('#img-container').append($contain);
         });
     } catch (error) {
         console.error(error.message);
@@ -28,7 +32,9 @@ async function getPictures() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
-    getPictures();
+    await getPictures();
+    $("#global-loader").hide();
 });

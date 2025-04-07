@@ -39,4 +39,8 @@
     #search-bar-container {
         background-color: var(--purple-color);
     }
+
+    .img-bloc {
+        background-color: var(--dark-grey-color);
+    }
 }

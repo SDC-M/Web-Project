@@ -22,7 +22,7 @@ export function getImageId(pathname) {
  *  En cas d'échec l'erreur correspondante.
  */
 export async function getUserId() {
-    const url = "/user/me"
+    const url = "/api/user/me"
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -58,7 +58,7 @@ export function displayImage() {
     const path = getPathName();
     const imageId = getImageId(path);
 
-    const imageUrl = `/images/${imageId}`;
+    const imageUrl = `/api/image/${imageId}`;
 
     let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
     $("#img-container").html($img);
@@ -106,7 +106,7 @@ export function setFileUploadPreview() {
  *  En cas d'échec renvoie l'erreur correspondante.
  */
 export async function getActualUsername() {
-    const url = "/user/me";
+    const url = "/api/user/me";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -126,7 +126,7 @@ export async function getActualUsername() {
 export async function setDescription() {
     const path = getPathName();
     const imageId = getImageId(path);
-    const url = `/images/${imageId}/description`
+    const url = `/api/image/${imageId}/details`
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -144,7 +144,7 @@ export async function setDescription() {
  *  retourne l'erreur associée en cas d'échec.
  */
 export async function getBiography() {
-    const url = "/user/me";
+    const url = "/api/user/me";
     try {
         const response = await fetch(url);
         if (!response.ok) {

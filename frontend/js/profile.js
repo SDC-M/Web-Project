@@ -7,7 +7,7 @@ import { setLocalStorageTheme } from "./theme.mjs";
  */
 async function getPictures() {
     const userId = await getUserId();
-    const url = `/user/${userId}/images`;
+    const url = `/api/user/${userId}/images`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -17,7 +17,7 @@ async function getPictures() {
         const json = await response.json();
         $.each(json, function (_, picture) {
             let $link = $("<a>").attr("href", `/annotations/${userId}/${picture.id}`);
-            let $img = $("<img>").attr("src", `/images/${picture.id}`);
+            let $img = $("<img>").attr("src", `/api/image/${picture.id}`);
             $link.append($img);
             $('#img-container').append($link);
         });
@@ -32,7 +32,7 @@ async function getPictures() {
  */
 async function getNb() {
     const userId = await getUserId();
-    const url = `/user/${userId}/images`;
+    const url = `/api/user/${userId}/images`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -79,10 +79,12 @@ async function setBiography() {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-$(document).ready(function () {
+$(document).ready(async function () {
+    $("#global-loader").show();
     setLocalStorageTheme();
-    getPictures();
-    getNb();
-    setUserUsername();
-    setBiography();
+    await getPictures();
+    await getNb();
+    await setUserUsername();
+    await setBiography();
+    $("#global-loader").hide();
 });
