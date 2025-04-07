@@ -135,7 +135,7 @@ async function deleteImage(id) {
  *  la supprime sinon renvoie le message d'erreur correspondant.
  */
 async function deleteAnnotation(id) {
-    const url = `/annotation/${id}`;
+    const url = `/api/annotation/${id}`;
     try {
         const response = await fetch(url, {
             method: 'DELETE',
@@ -194,7 +194,7 @@ async function setNav() {
 async function setAnnotations() {
     const path = getPathName();
     const imageId = getImageId(path);
-    const url = `/annotation/${imageId}`;
+    const url = `/api/annotation/${imageId}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -229,7 +229,7 @@ async function setAnnotations() {
                     const confirmation = window.confirm("Are you sure to delete it ?");
                     if (confirmation) {
                         await deleteAnnotation(annotation.id);
-                        window.location.href = `/annotations/${annotation.user.id}/${imageId}`;
+                        window.location.href = `/api/annotations/${annotation.user.id}/${imageId}`;
                     }
                 });
             }
