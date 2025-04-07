@@ -1,4 +1,10 @@
-const { getPathName, getImageId, getUserId, convertPoint, displayImage, resizeCanvas, setDescription } = await import("./data-treatment.mjs");
+const { getPathName, 
+        getImageId, 
+        getUserId, 
+        convertPoint, 
+        displayImage, 
+        resizeCanvas, 
+        setDescription } = await import("./data-treatment.mjs");
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
