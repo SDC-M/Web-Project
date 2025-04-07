@@ -21,12 +21,16 @@ class User implements JsonSerializable
     public static function getByNameAndPassword(string $name, string $password): ?static
     {
         $db = new Database();
-        $q = $db->db->prepare('SELECT id, email, recovery_key, biography FROM users WHERE username = :username and password = :pass');
+        $q = $db->db->prepare('SELECT id, email, recovery_key, biography, password FROM users WHERE username = :username');
         $q->bindParam('username', $name);
-        $q->bindParam('pass', $password);
         $q->execute();
         $values = $q->fetch(PDO::FETCH_ASSOC);
+
         if ($values === false) {
+            return null;
+        }
+
+        if(!password_verify($password, $values["password"])) {
             return null;
         }
 
@@ -39,7 +43,7 @@ class User implements JsonSerializable
         $q = $db->db->prepare('INSERT INTO users(username, email, password, recovery_key) VALUES (:name, :email, :password, :answer)');
         $q->bindParam('name', $name);
         $q->bindParam('email', $email);
-        $q->bindParam('password', $password);
+        $q->bindParam('password', password_hash($password, PASSWORD_ARGON2ID));
         $q->bindParam('answer', $recovery_answer);
         try {
             return $q->execute();
@@ -101,7 +105,7 @@ class User implements JsonSerializable
     {
         $db = new Database();
         $q = $db->db->prepare('UPDATE users SET password = :password WHERE id = :id');
-        $q->bindParam('password', $password);
+        $q->bindParam('password', password_hash($password, PASSWORD_ARGON2ID));
         $q->bindParam('id', $this->id);
         try {
             return $q->execute();
@@ -164,7 +168,7 @@ class User implements JsonSerializable
             return false;
         }
         $c = $q->fetch(PDO::FETCH_ASSOC);
-        return $c["password"] == $password;
+        return password_verify($c["password"], $password);
 
     }
 

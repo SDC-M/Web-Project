@@ -31,7 +31,7 @@ class Image implements JsonSerializable
 
     public static function fromBytes(string $bytes): static
     {
-        return new static(null, generateRandomString(), true, "", null, $bytes);
+        return new static(null, generateRandomString(), true, "", new DateTime(), null, $bytes);
     }
 
     public static function fromFile(string $tmpfile): static
