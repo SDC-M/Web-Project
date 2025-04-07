@@ -6,7 +6,7 @@ import { setLocalStorageTheme } from "./theme.mjs";
  *  En cas d'échec retourne l'erreur correspondante.
  */
 async function getPictures() {
-    const url = "/feed";
+    const url = "/api/feed";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -19,7 +19,7 @@ async function getPictures() {
             let $username = $("<p>").html(picture.user.username).css("border-bottom", 'solid 1px black').append(" : ");
             let $desc = $("<p>").html(picture.description);
             let $link = $("<a>").attr("href", `/annotations/${picture.user.id}/${picture.id}`);
-            let $img = $("<img>").attr("src", `/api/images/${picture.id}`);
+            let $img = $("<img>").attr("src", `/api/image/${picture.id}`);
             $link.append($img);
             $contain.append($link).append($username).append($desc);
             $('#img-container').append($contain);

@@ -22,7 +22,7 @@ export function getImageId(pathname) {
  *  En cas d'échec l'erreur correspondante.
  */
 export async function getUserId() {
-    const url = "/user/me"
+    const url = "/api/user/me"
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -106,7 +106,7 @@ export function setFileUploadPreview() {
  *  En cas d'échec renvoie l'erreur correspondante.
  */
 export async function getActualUsername() {
-    const url = "/user/me";
+    const url = "/api/user/me";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -144,7 +144,7 @@ export async function setDescription() {
  *  retourne l'erreur associée en cas d'échec.
  */
 export async function getBiography() {
-    const url = "/user/me";
+    const url = "/api/user/me";
     try {
         const response = await fetch(url);
         if (!response.ok) {
