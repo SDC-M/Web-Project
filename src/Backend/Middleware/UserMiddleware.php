@@ -35,7 +35,7 @@ class UserMiddleware
         if ($user_id === "me") {
             return UserMiddleware::getFromSession();
         }
-        
+
         $user = User::getById($user_id);
 
         if ($user === null) {
@@ -44,5 +44,5 @@ class UserMiddleware
 
         return $user;
     }
-    
+
 }

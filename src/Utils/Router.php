@@ -23,7 +23,7 @@ class Router
         if ($_SERVER['REQUEST_METHOD'] == "PUT") {
             [$_POST, $_FILES] = request_parse_body();
         }
-        
+
         $req = $this->handleRequest(Request::fromCurrentRequest());
         http_response_code($req->status);
         foreach ($req->headers as $key => $value) {

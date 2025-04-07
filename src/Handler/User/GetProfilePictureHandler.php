@@ -2,9 +2,7 @@
 
 namespace Kuva\Handler\User;
 
-
 use Kuva\Backend\Middleware\UserMiddleware;
-use Kuva\Backend\User;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -22,6 +20,6 @@ class GetProfilePictureHandler extends Handler
         }
 
 
-       $this->response = new Response(200, $bytes, ["Content-Type" => "image/png"]);        
+        $this->response = new Response(200, $bytes, ["Content-Type" => "image/png"]);
     }
 }

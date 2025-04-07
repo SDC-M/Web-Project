@@ -30,7 +30,7 @@ class User implements JsonSerializable
             return null;
         }
 
-        if(!password_verify($password, $values["password"])) {
+        if (!password_verify($password, $values["password"])) {
             return null;
         }
 
@@ -104,15 +104,18 @@ class User implements JsonSerializable
         return User::getById($id);
     }
 
-    private function getProfilePicturePath(): string {
+    private function getProfilePicturePath(): string
+    {
         return  "../profilepicture/" . $this->username;
     }
 
-    public function getProfilePicture(): string|false {
+    public function getProfilePicture(): string|false
+    {
         return file_get_contents($this->getProfilePicturePath());
     }
 
-    public function setProfilePicture(string $image): bool {
+    public function setProfilePicture(string $image): bool
+    {
         return file_put_contents($this->getProfilePicturePath(), $image) !== false;
     }
 
