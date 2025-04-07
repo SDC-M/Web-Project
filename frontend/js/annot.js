@@ -65,7 +65,7 @@ async function setNav() {
 function setFormAction() {
   const path = getPathName();
   const imageId = getImageId(path);
-  $("#annot").attr("action", `/annotation/${imageId}`);
+  $("#annot").attr("action", `/api/annotation/${imageId}`);
 }
 
 /**
