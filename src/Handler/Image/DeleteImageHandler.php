@@ -2,8 +2,8 @@
 
 namespace Kuva\Handler\Image;
 
-use Kuva\Backend\Image;
-use Kuva\Backend\User;
+use Kuva\Backend\Middleware\ImageMiddleware;
+use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -12,23 +12,15 @@ class DeleteImageHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        $this->response = new Response(400);
+        $user = UserMiddleware::getFromSession();
+        $image = ImageMiddleware::getFromUrl($req);
 
-        $image_id = $req->extracts["image_id"];
-
-        $img = Image::getById($image_id);
-
-        if ($img === null) {
+        if ($image->owner->id != $user->id) {
+            $this->response = new Response(403, "Not enough permission");
             return;
         }
 
-        $user_id = User::getFromSession()?->id;
-
-        if ($user_id === null || $img->owner->id != $user_id) {
-            return;
-        }
-
-        if ($img->delete() === true) {
+        if ($image->delete() === true) {
             $this->response = new Response(200);
         }
 
