@@ -47,7 +47,7 @@ function setNav() {
  *  pour l'utilisateur courrant. En cas d'échec renvoie l'erreur correspondante.
  */
 async function setActualBio() {
-  const url = "/user/me";
+  const url = "/api/user/me";
   try {
     const response = await fetch(url);
     if (!response.ok) {

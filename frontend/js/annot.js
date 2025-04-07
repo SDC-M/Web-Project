@@ -1,7 +1,7 @@
 const {
   getPathName,
   getImageId,
-  getUserId,
+  getOwnerImageId,
   convertPoint,
   displayImage,
   resizeCanvas,
@@ -54,8 +54,8 @@ function updateCoords(x1, y1, x2, y2) {
  */
 async function setNav() {
   const path = getPathName();
-  const userId = await getUserId();
   const imageId = getImageId(path);
+  const userId = await getOwnerImageId(imageId);
   $("#goto-image").attr("href", `/annotations/${userId}/${imageId}`);
 }
 

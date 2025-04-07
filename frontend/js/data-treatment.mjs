@@ -223,3 +223,22 @@ export async function switchVisibilityImage(id) {
     console.error(error.message);
   }
 }
+
+/**
+ * @param id 
+ * @returns Tente de retourner l'id de l'utilisateur à qui appartient
+ *  l'image d'id passé en paramètre, en cas d'échec renvoie une erreur.
+ */
+export async function getOwnerImageId (id){
+  const url = `/api/image/${id}/details`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status} `);
+    }
+    const json = await response.json();
+    return json.user.id;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
