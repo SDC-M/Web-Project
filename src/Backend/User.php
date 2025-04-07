@@ -105,8 +105,8 @@ class User implements JsonSerializable
     {
         $db = new Database();
         $q = $db->db->prepare('UPDATE users SET password = :password WHERE id = :id');
-        $q->bindParam('password', password_hash($password, PASSWORD_ARGON2ID));
-        $q->bindParam('id', $this->id);
+        $q->bindValue('password', password_hash($password, PASSWORD_ARGON2ID));
+        $q->bindValue('id', $this->id);
         try {
             return $q->execute();
         } catch (Exception $ex) {

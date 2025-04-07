@@ -34,6 +34,8 @@ class RecoveryHandler extends Handler
             $this->response = new Response(400, headers: ['Location' => '/login']);
             return;
         }
+
         $login->updatePassword($form_value['password']);
+        $this->response = new Response(301, headers: ["Location" => "/"]);
     }
 }
