@@ -31,6 +31,8 @@ use Kuva\Handler\User\PostBiographyHandler;
 use Kuva\Handler\Image\Likes\Delete as DeleteLikeImageHandler;
 use Kuva\Handler\Image\Likes\Get as GetLikeImageHandler;
 use Kuva\Handler\Image\Likes\Post as PostLikeImageHandler;
+use Kuva\Handler\User\GetProfilePictureHandler;
+use Kuva\Handler\User\PutProfilePictureHandler;
 use Kuva\Utils\Router;
 
 class App
@@ -55,8 +57,8 @@ class App
             ->put('/api/image/{image_id}/permission', new PutPermissionHandler())
             /* /description should be delete cause it's redundant */
             ->get('/api/image/{image_id}/description', new GetDescriptionOfImageHandler())
-            ->put('/api/image/{image_id}/description', new PutDescriptionOfImageHandler())            
-            ->get('/api/image/{image_id}/details', new GetDetailsHandler())   
+            ->put('/api/image/{image_id}/description', new PutDescriptionOfImageHandler())
+            ->get('/api/image/{image_id}/details', new GetDetailsHandler())
             ->get('/api/image/{image_id}/likes', new GetLikeImageHandler())
             ->post('/api/image/{image_id}/likes', new PostLikeImageHandler())
             ->delete('/api/image/{image_id}/likes', new DeleteLikeImageHandler())
@@ -68,6 +70,8 @@ class App
             ->post('/api/user/login', new LoginHandler())
             ->get('/api/user/{id}', new GetUserHandler())
             ->get('/api/user/{id}/images', new ImagesGet())
+            ->get('/api/user/{user_id}/picture', new GetProfilePictureHandler())
+            ->put('/api/user/me/picture', new PutProfilePictureHandler())
             ->post('/api/user/update', new PostBiographyHandler())
             ->post('/api/user/recovery', new RecoveryHandler())
             ->get('/api/annotation/{image_id}', new GetAnnotationHandler())

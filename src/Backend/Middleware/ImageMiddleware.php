@@ -24,8 +24,9 @@ class ImageMiddleware
         return $image;
     }
 
-    
-    public static function getFromUrlAndCheckVisibilityForUser(Request $req): Image {
+
+    public static function getFromUrlAndCheckVisibilityForUser(Request $req): Image
+    {
         $image = self::getFromUrl($req);
         $user = UserMiddleware::getFromSession();
 
