@@ -3,6 +3,8 @@
 namespace Kuva\Backend;
 
 use AssertionError;
+use DateTime;
+use DateTimeInterface;
 use Exception;
 use JsonSerializable;
 use PDO;
@@ -16,6 +18,7 @@ class Image implements JsonSerializable
         public readonly ?string $name,
         public bool $is_public,
         public string $description,
+        public DateTime $creation_date,
         public ?User $owner,
         public ?string $bytes
     ) {
@@ -48,7 +51,7 @@ class Image implements JsonSerializable
             return null;
         }
 
-        return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], User::getById($values["user_id"]), "");
+        return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], new DateTime($values['image_date']), User::getById($values["user_id"]), "");
     }
 
     public function getPath(): string
@@ -111,23 +114,20 @@ class Image implements JsonSerializable
         $q->execute();
     }
 
-    private function setVisibility(bool $is_public): bool
-    {
+    private function setVisibility(bool $is_public): bool {
         $db = new Database();
         $q = $db->db->prepare("UPDATE images SET is_public=:visibility WHERE id=:id");
         return $q->execute(["visibility" => $is_public ? 1 : 0, "id" => $this->getId()]);
     }
 
-    public function makePrivate(): bool
-    {
+    public function makePrivate(): bool {
         return $this->setVisibility(false);
     }
 
-    public function makePublic(): bool
-    {
-        return $this->setVisibility(true);
+    public function makePublic(): bool {
+        return $this->setVisibility(true);       
     }
-
+    
 
     public function delete(): bool
     {
@@ -155,7 +155,7 @@ class Image implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner, "description" => $this->description];
+        return ["id" => $this->id, "is_public" => $this->is_public, "user" => $this->owner, "description" => $this->description, "creation_date" => $this->creation_date->format(DateTimeInterface::ATOM)];
     }
 }
 
