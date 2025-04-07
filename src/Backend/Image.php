@@ -114,6 +114,22 @@ class Image implements JsonSerializable
         $q->execute();
     }
 
+    private function updateDescription(string $description): bool {
+        $db = new Database();
+        $q = $db->db->prepare("UPDATE images SET description=:description WHERE id=:id");
+        return $q->execute(["description" => $description, "id" => $this->getId()]);
+    }
+
+
+    public function setDescription(string $description): bool {
+        $q = $this->updateDescription($description);
+        if ($q) {
+            $this->description = $description;
+        }
+
+        return $q;
+    }
+
     private function setVisibility(bool $is_public): bool {
         $db = new Database();
         $q = $db->db->prepare("UPDATE images SET is_public=:visibility WHERE id=:id");
