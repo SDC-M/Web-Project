@@ -18,6 +18,7 @@ use Kuva\Handler\Image\GetByHandler as ImagesGet;
 use Kuva\Handler\Image\GetDescriptionOfImageHandler;
 use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\Image\ListUserImageHandler;
+use Kuva\Handler\Image\PutDescriptionOfImageHandler;
 use Kuva\Handler\Image\PutPermissionHandler;
 use Kuva\Handler\User\DisconnectHandler;
 use Kuva\Handler\User\LoginHandler;
@@ -54,6 +55,7 @@ class App
             ->put('/api/image/{image_id}/permission', new PutPermissionHandler())
             /* /description should be delete cause it's redundant */
             ->get('/api/image/{image_id}/description', new GetDescriptionOfImageHandler())
+            ->put('/api/image/{image_id}/description', new PutDescriptionOfImageHandler())            
             ->get('/api/image/{image_id}/details', new GetDetailsHandler())   
             ->get('/api/image/{image_id}/likes', new GetLikeImageHandler())
             ->post('/api/image/{image_id}/likes', new PostLikeImageHandler())
