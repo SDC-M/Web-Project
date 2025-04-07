@@ -20,6 +20,10 @@ class Router
 
     public function handleCurrent(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+            [$_POST, $_FILES] = request_parse_body();
+        }
+        
         $req = $this->handleRequest(Request::fromCurrentRequest());
         http_response_code($req->status);
         foreach ($req->headers as $key => $value) {
@@ -30,19 +34,12 @@ class Router
 
     private function handleRequest(Request $req): Response
     {
-        if (! array_key_exists($req->method, $this->path)) {
-            return $this->fallback->handleAndResponse($req);
-        }
+
 
         foreach ($this->path[$req->method] as $p => $h) {
             $path = new Path($p);
             if ($path->resolve($req->path)) {
                 $req->extracts = $path->extract($req->path);
-                if ($req->method == "PUT") {
-                    /* $_POST should be use only when POST method but I take the
-                        entire responsability of this action */
-                    parse_str(file_get_contents("php://input"), $_POST);
-                }
                 return $h->handleAndResponse($req);
             }
         }
