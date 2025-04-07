@@ -9,6 +9,7 @@ const {
   getVisibilityImage,
   switchVisibilityImage,
 } = await import("./data-treatment.mjs");
+import { getOwnerImageId } from "./data-treatment.mjs";
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
@@ -255,7 +256,8 @@ async function setAnnotations() {
           const confirmation = window.confirm("Are you sure to delete it ?");
           if (confirmation) {
             await deleteAnnotation(annotation.id);
-            window.location.href = `/annotations/${annotation.user.id}/${imageId}`;
+            const ownerIdImage = await getOwnerImageId(imageId);
+            window.location.href = `/annotations/${ownerIdImage}/${imageId}`;
           }
         });
       }

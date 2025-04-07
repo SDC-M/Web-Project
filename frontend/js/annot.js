@@ -55,8 +55,8 @@ function updateCoords(x1, y1, x2, y2) {
 async function setNav() {
   const path = getPathName();
   const imageId = getImageId(path);
-  const userId = await getOwnerImageId(imageId);
-  $("#goto-image").attr("href", `/annotations/${userId}/${imageId}`);
+  const ownerIdImage = await getOwnerImageId(imageId);
+  $("#goto-image").attr("href", `/annotations/${ownerIdImage}/${imageId}`);
 }
 
 /**
