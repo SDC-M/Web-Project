@@ -80,7 +80,7 @@ enum ArgsType
     case LongVariable;
 }
 
-class UrlArg
+final class UrlArg
 {
     public function __construct(public string $name, public string $value, public ArgsType $type)
     {
@@ -108,7 +108,7 @@ class UrlArg
     }
 }
 
-class UrlArgs
+final class UrlArgs
 {
     /**
      * @param array<int,UrlArg> $parts

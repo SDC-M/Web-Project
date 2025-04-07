@@ -45,7 +45,7 @@ class Likes implements JsonSerializable
         $q->execute([$user->id]);
 
         if ($q === false) {
-            return null;
+            return [];
         }
 
         $d = $q->fetchAll(PDO::FETCH_ASSOC);
@@ -63,7 +63,7 @@ class Likes implements JsonSerializable
         $q->execute([$image->getId()]);
 
         if ($q === false) {
-            return null;
+            return [];
         }
 
         $d = $q->fetchAll(PDO::FETCH_ASSOC);
@@ -79,7 +79,7 @@ class Likes implements JsonSerializable
         $q->execute([$this->image->getId(), $this->user->id]);
 
         if ($q === false) {
-            return null;
+            return false;
         }
 
         return true;
@@ -93,7 +93,7 @@ class Likes implements JsonSerializable
         $q->execute([$image->getId(), $user->id]);
 
         if ($q === false) {
-            return null;
+            return false;
         }
 
         return true;
