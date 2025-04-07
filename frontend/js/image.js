@@ -255,7 +255,7 @@ async function setAnnotations() {
           const confirmation = window.confirm("Are you sure to delete it ?");
           if (confirmation) {
             await deleteAnnotation(annotation.id);
-            window.location.href = `/api/annotations/${annotation.user.id}/${imageId}`;
+            window.location.href = `/annotations/${annotation.user.id}/${imageId}`;
           }
         });
       }
