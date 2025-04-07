@@ -58,7 +58,7 @@ export function displayImage() {
     const path = getPathName();
     const imageId = getImageId(path);
 
-    const imageUrl = `/images/${imageId}`;
+    const imageUrl = `/api/image/${imageId}`;
 
     let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
     $("#img-container").html($img);
@@ -126,7 +126,7 @@ export async function getActualUsername() {
 export async function setDescription() {
     const path = getPathName();
     const imageId = getImageId(path);
-    const url = `/images/${imageId}/description`
+    const url = `/api/image/${imageId}/details`
     try {
         const response = await fetch(url);
         if (!response.ok) {

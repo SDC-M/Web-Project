@@ -115,7 +115,7 @@ function focusDiv(id) {
  *  la supprime sinon renvoie le message d'erreur correspondant.
  */
 async function deleteImage(id) {
-    const url = `/images/${id}`;
+    const url = `/api/images/${id}`;
     try {
         const response = await fetch(url, {
             method: 'DELETE',
@@ -284,7 +284,7 @@ async function switchPrivacyImage() {
     let isVisible = false;
     //-------------------------------------------------------------------------------
     let $imageId = await getImageId(getPathName());
-    const url = `/images/${$imageId}/permission`;
+    const url = `/api/image/${$imageId}/permission`;
     const bodyData = new URLSearchParams();
     bodyData.append("is_public", isVisible);
     try {
@@ -308,7 +308,7 @@ async function switchPrivacyImage() {
  */
 async function setCptrLikes() {
     let $imageId = await getImageId(getPathName());
-    const url = `/images/${$imageId}/likes`;
+    const url = `/api/image/${$imageId}/likes`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -332,7 +332,7 @@ async function setCptrLikes() {
 async function setIsLiked() {
     let $userId = await getUserId();
     let $imageId = await getImageId(getPathName());
-    const url = `/images/${$imageId}/likes`;
+    const url = `/api/image/${$imageId}/likes`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -363,7 +363,7 @@ async function setAddAndDeleteLike() {
     let $imageId = await getImageId(getPathName());
     $("#likes-cptr").on("click", async function () {
         if ($("#likes-cptr").hasClass("fas")) {
-            const url = `/images/${$imageId}/likes`;
+            const url = `/api/image/${$imageId}/likes`;
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
@@ -376,7 +376,7 @@ async function setAddAndDeleteLike() {
                 console.error(error.message);
             }
         } else {
-            const url = `/images/${$imageId}/likes`;
+            const url = `/api/image/${$imageId}/likes`;
             try {
                 const response = await fetch(url, {
                     method: 'POST',

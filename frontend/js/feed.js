@@ -19,7 +19,7 @@ async function getPictures() {
             let $username = $("<p>").html(picture.user.username).css("border-bottom", 'solid 1px black').append(" : ");
             let $desc = $("<p>").html(picture.description);
             let $link = $("<a>").attr("href", `/annotations/${picture.user.id}/${picture.id}`);
-            let $img = $("<img>").attr("src", `/images/${picture.id}`);
+            let $img = $("<img>").attr("src", `/api/images/${picture.id}`);
             $link.append($img);
             $contain.append($link).append($username).append($desc);
             $('#img-container').append($contain);
