@@ -1,37 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="/frontend/css/common.css">
-    <link rel="stylesheet" href="/frontend/css/annotations.css">
+    <link rel="stylesheet" href="/frontend/css/common.css" />
+    <link rel="stylesheet" href="/frontend/css/annotations.css" />
     <link rel="icon" href="/frontend/img/logo.png" />
     <title>Annotation</title>
-</head>
+  </head>
 
-<body>
-    <div id="global-loader" style="display: none;">
-        <div class="spinner"></div>
+  <body>
+    <div id="global-loader" style="display: none">
+      <div class="spinner"></div>
     </div>
     <div id="page-container">
-        <div id="img-container"></div>
-        <canvas id="canvas"></canvas>
-        <div id="link">
-            <a href="#" id="reset">reset</a>
-            <a href="#" id="goto-image">cancel</a>
-        </div>
-        <form id="annot" action="" method="post">
-            <input type="number" name="x1" id="x1Coord" placeholder="X1" readonly>
-            <input type="number" name="y1" id="y1Coord" placeholder="Y1" readonly>
-            <input type="number" name="x2" id="x2Coord" placeholder="X2" readonly>
-            <input type="number" name="y2" id="y2Coord" placeholder="Y2" readonly>
-            <textarea name="description" id="description" placeholder="What is it?" maxlength="30"></textarea>
-            <button type="submit">Send it</button>
-        </form>
+      <div id="img-container"></div>
+      <canvas id="canvas"></canvas>
+      <div id="link">
+        <a href="#" id="reset">reset</a>
+        <a href="#" id="goto-image">cancel</a>
+      </div>
+      <form id="annot" action="" method="post">
+        <input type="number" name="x1" id="x1Coord" placeholder="X1" readonly />
+        <input type="number" name="y1" id="y1Coord" placeholder="Y1" readonly />
+        <input type="number" name="x2" id="x2Coord" placeholder="X2" readonly />
+        <input type="number" name="y2" id="y2Coord" placeholder="Y2" readonly />
+        <textarea
+          name="description"
+          id="description"
+          placeholder="What is it?"
+          maxlength="30"
+        ></textarea>
+        <button type="submit">Send it</button>
+      </form>
     </div>
     <script type="module" src="/frontend/js/data-treatment.mjs"></script>
     <script type="module" src="/frontend/js/theme.mjs"></script>
     <script type="module" src="/frontend/js/annot.js"></script>
-</body>
+  </body>
+</html>

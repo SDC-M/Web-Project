@@ -1,38 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="/frontend/css/upload-file.css">
+    <link rel="stylesheet" href="/frontend/css/upload-file.css" />
     <link rel="icon" href="/frontend/img/logo.png" />
     <title>Upload</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="page">
-        <div id="container">
-            <form action="/api/images" method="post" enctype="multipart/form-data" id="form">
-                <input type="file" name="image" accept="image/png, image/jpeg" id="file-upload">
-                <textarea name="description" id="description" placeholder="Short description ?"
-                    maxlength="100"></textarea>
-                <textarea name="category" id="category" placeholder="Category" maxlength="50"></textarea>
-                <div id="check-box">
-                    <input type="checkbox" name="is_public">
-                    <a>Is it a public image ?</a>
-                </div>
-                <button type="submit">Post</button>
-                <a href="/profile">Cancel</a>
-            </form>
-            <div id="preview-container">
-                <img src="#" alt="" id="file-preview">
-            </div>
+      <div id="container">
+        <form
+          action="/api/images"
+          method="post"
+          enctype="multipart/form-data"
+          id="form"
+        >
+          <input
+            type="file"
+            name="image"
+            accept="image/png, image/jpeg"
+            id="file-upload"
+          />
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Short description ?"
+            maxlength="100"
+          ></textarea>
+          <textarea
+            name="category"
+            id="category"
+            placeholder="Category"
+            maxlength="50"
+          ></textarea>
+          <div id="check-box">
+            <input type="checkbox" name="is_public" />
+            <a>Is it a public image ?</a>
+          </div>
+          <button type="submit">Post</button>
+          <a href="/profile">Cancel</a>
+        </form>
+        <div id="preview-container">
+          <img src="#" alt="" id="file-preview" />
         </div>
+      </div>
     </div>
-</body>
-<script type="module" src="/frontend/js/theme.mjs"></script>
-<script type="module" src="/frontend/js/data-treatment.mjs"></script>
-<script type="module" src="/frontend/js/upload-file.js"></script>
-
+  </body>
+  <script type="module" src="/frontend/js/theme.mjs"></script>
+  <script type="module" src="/frontend/js/data-treatment.mjs"></script>
+  <script type="module" src="/frontend/js/upload-file.js"></script>
 </html>

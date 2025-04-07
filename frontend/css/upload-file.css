@@ -1,135 +1,135 @@
-@import url('/frontend/css/root.css');
+@import url("/frontend/css/root.css");
 
 html,
 body {
-    height: 100vh;
+  height: 100vh;
 }
 
 #page {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    animation: slideIn 1s ease-out;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: slideIn 1s ease-out;
 }
 
 #container {
-    width: 50vw;
-    height: 50vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: var(--light-grey-color);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: var(--light-grey-color);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 #preview-container {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: 1px dashed black;
-    background-color: var(--light-grey-color);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px dashed black;
+  background-color: var(--light-grey-color);
 }
 
 #file-preview {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 form {
-    width: 60%;
-    height: 100%;
-    background-color: var(--beige-color);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
+  width: 60%;
+  height: 100%;
+  background-color: var(--beige-color);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
 }
 
 textarea {
-    height: 100%;
-    resize: none;
-    box-sizing: border-box;
-    border-radius: 5px;
+  height: 100%;
+  resize: none;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
 
 input {
-    margin: 1rem;
+  margin: 1rem;
 }
 
 .dark-mode {
-    background-color: var(--purple-color) !important;
+  background-color: var(--purple-color) !important;
 
-    * {
-        color: white;
-        border-color: white !important;
-    }
+  * {
+    color: white;
+    border-color: white !important;
+  }
 
-    textarea {
-        color: black;
-    }
+  textarea {
+    color: black;
+  }
 
-    #preview-container {
-        background-color: var(--grey-color);
-    }
+  #preview-container {
+    background-color: var(--grey-color);
+  }
 
-    form {
-        background-color: var(--purple-color);
-    }
+  form {
+    background-color: var(--purple-color);
+  }
 
-    button {
-        background-color: var(--grey-color);
-        color: black;
-    }
+  button {
+    background-color: var(--grey-color);
+    color: black;
+  }
 }
 
 a {
-    margin-top: 1rem;
-    text-decoration: none;
-    color: black;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: black;
 }
 
 @keyframes slideIn {
-    0% {
-        transform: translateX(100%);
-        opacity: 0;
-    }
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    #container {
-        width: 100vw;
-        height: auto;
-        flex-direction: column;
-    }
+  #container {
+    width: 100vw;
+    height: auto;
+    flex-direction: column;
+  }
 
-    form {
-        width: 100%;
-        height: auto;
-    }
+  form {
+    width: 100%;
+    height: auto;
+  }
 
-    #preview-container {
-        width: 100%;
-        min-height: 200px;
-        margin-top: 1rem;
-    }
+  #preview-container {
+    width: 100%;
+    min-height: 200px;
+    margin-top: 1rem;
+  }
 
-    #file-preview {
-        width: 100%;
-        height: auto;
-    }
+  #file-preview {
+    width: 100%;
+    height: auto;
+  }
 
-    textarea {
-        min-height: 150px;
-    }
+  textarea {
+    min-height: 150px;
+  }
 }

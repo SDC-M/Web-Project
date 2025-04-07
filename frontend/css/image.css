@@ -1,114 +1,114 @@
-@import url('/frontend/css/root.css');
+@import url("/frontend/css/root.css");
 
 #annot-content {
-    width: 100%;
-    margin-top: 1rem;
-    max-height: 200px;
-    overflow-y: auto;
-    background-color: var(--light-grey-color);
-    border-radius: 5px;
+  width: 100%;
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--light-grey-color);
+  border-radius: 5px;
 }
 
 .comment {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .comment p {
-    margin-right: 4rem;
+  margin-right: 4rem;
 }
 
 .comment:not(:last-child) {
-    border-bottom: solid 1px black;
+  border-bottom: solid 1px black;
 }
 
 .selected {
-    background-color: var(--light-red-color);
-    color: white;
+  background-color: var(--light-red-color);
+  color: white;
 }
 
 .dark-mode {
-    #annot-content {
-        background-color: var(--dark-grey-color);
-    }
+  #annot-content {
+    background-color: var(--dark-grey-color);
+  }
 }
 
 #del {
-    display: none;
+  display: none;
 }
 
 #image-description {
-    margin-top: 1rem;
-    max-width: 100%;
+  margin-top: 1rem;
+  max-width: 100%;
 }
 
 .delannotation {
-    position: absolute;
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 1rem;
-    height: 100%;
-    border-left: solid 1px black;
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+  height: 100%;
+  border-left: solid 1px black;
 }
 
 .username {
-    font-style: italic;
-    font-weight: var(--big-font-weight);
+  font-style: italic;
+  font-weight: var(--big-font-weight);
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 43px;
-    height: 22px;
+  position: relative;
+  display: inline-block;
+  width: 43px;
+  height: 22px;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--beige-color);
-    transition: 0.4s;
-    border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--beige-color);
+  transition: 0.4s;
+  border-radius: 34px;
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
 }
 
-input:checked+.slider {
-    background-color: var(--dark-grey-color);
+input:checked + .slider {
+  background-color: var(--dark-grey-color);
 }
 
-input:checked+.slider:before {
-    transform: translateX(20px);
+input:checked + .slider:before {
+  transform: translateX(20px);
 }
 
 #privacy {
-    display: none;
+  display: none;
 }
 
 p {
-    line-height: 2rem;
+  line-height: 2rem;
 }

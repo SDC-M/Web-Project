@@ -1,46 +1,45 @@
 #link {
-    display: flex;
-    align-items: center;
-    align-content: space-around;
-
+  display: flex;
+  align-items: center;
+  align-content: space-around;
 }
 
 #link a:not(:last-child) {
-    border-right: solid 1px black;
+  border-right: solid 1px black;
 }
 
 #link a {
-    margin-left: 1rem;
-    padding-right: 1rem;
+  margin-left: 1rem;
+  padding-right: 1rem;
 }
 
 .dark-mode {
-    background-color: var(--purple-color) !important;
-    color: var(--light-grey-color);
+  background-color: var(--purple-color) !important;
+  color: var(--light-grey-color);
 
-    *:not(.without) {
-        color: white;
-        border-color: white !important;
-    }
+  *:not(.without) {
+    color: white;
+    border-color: white !important;
+  }
 
-    li:hover {
-        background-color: var(--dark-grey-color) !important;
-        color: white;
-    }
+  li:hover {
+    background-color: var(--dark-grey-color) !important;
+    color: white;
+  }
 
-    #navbar {
-        background-color: var(--purple-color);
-    }
+  #navbar {
+    background-color: var(--purple-color);
+  }
 
-    button {
-        background-color: var(--purple-color);
-    }
+  button {
+    background-color: var(--purple-color);
+  }
 
-    #search-bar-container {
-        background-color: var(--purple-color);
-    }
+  #search-bar-container {
+    background-color: var(--purple-color);
+  }
 
-    .img-bloc {
-        background-color: var(--dark-grey-color);
-    }
+  .img-bloc {
+    background-color: var(--dark-grey-color);
+  }
 }

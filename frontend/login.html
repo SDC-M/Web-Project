@@ -1,35 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/css/login-register.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/frontend/css/login-register.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="icon" href="/frontend/img/logo.png" />
     <title>Login</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="page-container" class="session">
-        <div class="left" id="login"></div>
-        <form action="/api/user/login" method="post" class="log-in" autocomplete="off">
-            <h4>Bienvenue sur <span>Kuva</span></h4>
-            <input class="text" placeholder="Username" type="text" name="username" id="username" autocomplete="off"
-                required="required">
-            <input placeholder="Password" type="password" name="password" id="password" autocomplete="off"
-                required="required">
-            <a id="forgottenp" href="recovery">
-                forgotten password
-            </a>
-            <button id="mateoLeCon2LeRetour" class="dark-button" type="submit">Log in</button>
-            <a href="register">
-                Register
-            </a>
-        </form>
+      <div class="left" id="login"></div>
+      <form
+        action="/api/user/login"
+        method="post"
+        class="log-in"
+        autocomplete="off"
+      >
+        <h4>Bienvenue sur <span>Kuva</span></h4>
+        <input
+          class="text"
+          placeholder="Username"
+          type="text"
+          name="username"
+          id="username"
+          autocomplete="off"
+          required="required"
+        />
+        <input
+          placeholder="Password"
+          type="password"
+          name="password"
+          id="password"
+          autocomplete="off"
+          required="required"
+        />
+        <a id="forgottenp" href="recovery"> forgotten password </a>
+        <button id="mateoLeCon2LeRetour" class="dark-button" type="submit">
+          Log in
+        </button>
+        <a href="register"> Register </a>
+      </form>
     </div>
     <script type="module" src="/frontend/js/theme.mjs"></script>
     <script type="module" src="/frontend/js/dark-login-register.js"></script>
-</body>
-
+  </body>
 </html>

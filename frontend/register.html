@@ -1,49 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/css/login-register.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/frontend/css/login-register.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="icon" href="/frontend/img/logo.png" />
     <title>Register</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="page-container" class="session">
-        <div class="left" id="register"></div>
-        <form action="/api/user" method="post" class="log-in" autocomplete="off">
-            <h4>Bienvenue sur <span>Kuva</span></h4>
-            <input placeholder="Username" type="text" name="username" id="username" autocomplete="off"
-                required="required">
-            <input placeholder="Email" type="email" name="email" id="email" autocomplete="off" required="required"
-                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
-            <div class="password-container">
-                <input placeholder="Password" type="password" name="password" id="x-password" autocomplete="off"
-                    required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                <div class="popup">
-                    <p>1 capital</p>
-                    <p>1 lowercase</p>
-                    <p>1 number</p>
-                    <p>8 chars min</b></p>
-                </div>
-            </div>
-            <input placeholder="Recovery key" type="text" name="recovery_answer" id="text" autocomplete="off"
-                required="required">
-            <div class="cond">
-                <input class="check" type="checkbox" name="checkbox" id="checkbox" autocomplete="off"
-                    required="required">
-                <pre id="conditions">J'ai lu et j'accepte les conditions générales</pre>
-            </div>
-            <button type="submit">Register</button>
-            <a href="login">
-                Log in
-            </a>
-        </form>
+      <div class="left" id="register"></div>
+      <form action="/api/user" method="post" class="log-in" autocomplete="off">
+        <h4>Bienvenue sur <span>Kuva</span></h4>
+        <input
+          placeholder="Username"
+          type="text"
+          name="username"
+          id="username"
+          autocomplete="off"
+          required="required"
+        />
+        <input
+          placeholder="Email"
+          type="email"
+          name="email"
+          id="email"
+          autocomplete="off"
+          required="required"
+          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+        />
+        <div class="password-container">
+          <input
+            placeholder="Password"
+            type="password"
+            name="password"
+            id="x-password"
+            autocomplete="off"
+            required="required"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          />
+          <div class="popup">
+            <p>1 capital</p>
+            <p>1 lowercase</p>
+            <p>1 number</p>
+            <p>8 chars min</p>
+          </div>
+        </div>
+        <input
+          placeholder="Recovery key"
+          type="text"
+          name="recovery_answer"
+          id="text"
+          autocomplete="off"
+          required="required"
+        />
+        <div class="cond">
+          <input
+            class="check"
+            type="checkbox"
+            name="checkbox"
+            id="checkbox"
+            autocomplete="off"
+            required="required"
+          />
+          <pre id="conditions">
+J'ai lu et j'accepte les conditions générales</pre
+          >
+        </div>
+        <button type="submit">Register</button>
+        <a href="login"> Log in </a>
+      </form>
     </div>
     <script type="module" src="/frontend/js/theme.mjs"></script>
     <script type="module" src="/frontend/js/dark-login-register.js"></script>
-</body>
-
+  </body>
 </html>

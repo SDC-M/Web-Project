@@ -1,38 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="/frontend/css/common.css">
-    <link rel="stylesheet" href="/frontend/css/annotations.css">
-    <link rel="stylesheet" href="/frontend/css/image.css">
+    <link rel="stylesheet" href="/frontend/css/common.css" />
+    <link rel="stylesheet" href="/frontend/css/annotations.css" />
+    <link rel="stylesheet" href="/frontend/css/image.css" />
     <link rel="icon" href="/frontend/img/logo.png" />
     <title>View</title>
-</head>
+  </head>
 
-<body>
-    <div id="global-loader" style="display: none;">
-        <div class="spinner"></div>
+  <body>
+    <div id="global-loader" style="display: none">
+      <div class="spinner"></div>
     </div>
     <div id="page-container">
-        <div id="img-container"></div>
-        <canvas id="canvas"></canvas>
-        <div id="description-container">
-            <p id="image-description"></p>
-        </div>
-        <div id="annot-content"></div>
-        <div id="link">
-            <a href="#" id="privacy"></a>
-            <a href="#" id="del"><i class="fa-solid fa-trash"></i></a>
-            <a href="#" id="goto-ping"><i class="fa-solid fa-map-pin"></i></a>
-            <a href="/" id="goto-feed"><i class="fas fa-undo"></i></a>
-            <a href="#" id="like-form"><i class="far fa-heart" id="likes-cptr"></i></a>
-        </div>
+      <div id="img-container"></div>
+      <canvas id="canvas"></canvas>
+      <div id="description-container">
+        <p id="image-description"></p>
+      </div>
+      <div id="annot-content"></div>
+      <div id="link">
+        <a href="#" id="privacy"></a>
+        <a href="#" id="del"><i class="fa-solid fa-trash"></i></a>
+        <a href="#" id="goto-ping"><i class="fa-solid fa-map-pin"></i></a>
+        <a href="/" id="goto-feed"><i class="fas fa-undo"></i></a>
+        <a href="#" id="like-form"
+          ><i class="far fa-heart" id="likes-cptr"></i
+        ></a>
+      </div>
     </div>
     <script type="module" src="/frontend/js/theme.mjs"></script>
     <script type="module" src="/frontend/js/data-treatment.mjs"></script>
     <script type="module" src="/frontend/js/image.js"></script>
-</body>
+  </body>
+</html>
