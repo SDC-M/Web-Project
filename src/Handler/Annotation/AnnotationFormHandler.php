@@ -3,6 +3,7 @@
 namespace Kuva\Handler\Annotation;
 
 use Kuva\Backend\Annotation;
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\Middleware\ImageMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
@@ -31,6 +32,8 @@ class AnnotationFormHandler extends Handler
         if ($annotation->addToDatabase() === false) {
             $this->response = new Response(500);
         }
+
+        Logs::create_with("User {$user->id} created an annotation on image({$image->getId()}", $user);
 
         $this->response = new Response(200, headers: ["Location" => "/annotations/{$image->owner->id}/{$image->getId()}"]);
     }

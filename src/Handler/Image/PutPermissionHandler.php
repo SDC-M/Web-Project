@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\Image;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\ImageMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\Router\Handler;
@@ -21,5 +22,11 @@ class PutPermissionHandler extends Handler
 
         $is_public = ($_POST["is_public"] ?? '') == 'true';
         $is_public ? $image->makePublic() : $image->makePrivate();
+
+        if ($is_public) {
+            Logs::create_with("User {$user->id} set visibility of image({$image->getId()}) to public", $user);
+        } else {
+            Logs::create_with("User {$user->id} set visibility of image({$image->getId()}) to private", $user);
+        }
     }
 }

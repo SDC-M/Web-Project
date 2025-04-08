@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\Image;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\ImageMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\Router\Handler;
@@ -20,9 +21,11 @@ class DeleteImageHandler extends Handler
             return;
         }
 
-        if ($image->delete() === true) {
-            $this->response = new Response(200);
+        if ($image->delete() === false) {
+            $this->response = new Response(500);
+            return;
         }
 
+        Logs::create_with("User {$user->id} deleted an image ({$image->getId()}", $user);
     }
 }

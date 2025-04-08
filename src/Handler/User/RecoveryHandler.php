@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\User;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
@@ -36,6 +37,9 @@ class RecoveryHandler extends Handler
         }
 
         $login->updatePassword($form_value['password']);
+        
+        Logs::create_with("User {$login->id} change his password", $user);
+
         $this->response = new Response(301, headers: ["Location" => "/"]);
     }
 }
