@@ -14,7 +14,7 @@ html{
     height: 100%;
 }
 
-#tablecontainer{
+#table-container{
     width: 70%;
     max-height: 70vh;
     overflow-y: scroll;
@@ -46,7 +46,7 @@ html{
 }
 
 .form-container,
-#tablecontainer{
+#table-container{
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -105,7 +105,7 @@ select{
 }
 
 #pages-container,
-#tablecontainer,
+#table-container,
 .form-container {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
@@ -120,7 +120,7 @@ select{
     #dash-table td{
         padding: 0;
     }
-    #tablecontainer,
+    #table-container,
     .form-container{
         width: 95%;
     }
