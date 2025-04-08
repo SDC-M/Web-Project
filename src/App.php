@@ -20,6 +20,7 @@ use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\Image\ListUserImageHandler;
 use Kuva\Handler\Image\PutDescriptionOfImageHandler;
 use Kuva\Handler\Image\PutPermissionHandler;
+use Kuva\Handler\Logs\GetLogs;
 use Kuva\Handler\User\DisconnectHandler;
 use Kuva\Handler\User\LoginHandler;
 use Kuva\Handler\User\RecoveryHandler;
@@ -78,6 +79,7 @@ class App
             ->post('/api/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/api/annotation/{annotation_id}', new DeleteAnnotationHandler())
             ->get('/api/feed', new FeedHandler())
+            ->get('/api/logs', new GetLogs)
             ->handleCurrent();
     }
 }

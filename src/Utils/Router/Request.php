@@ -14,7 +14,8 @@ class Request
         public readonly string $uri,
         public readonly string $path,
         public readonly string $body,
-        public array $extracts = []
+        public array $extracts = [],
+        public array $uri_queries = [],
     ) {
     }
 
@@ -32,10 +33,16 @@ class Request
 
     public static function fromCurrentRequest(): static
     {
+        $urlquery = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        $queries = [];
+
+        parse_str($urlquery ?? '', $queries);
         return new self(self::getHeaders(),
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI'],
             parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
-            file_get_contents('php://input'));
+            file_get_contents('php://input'),
+            [], $queries
+            );
     }
 }
