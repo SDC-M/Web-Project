@@ -3,6 +3,7 @@
 namespace Kuva\Handler\Image;
 
 use Kuva\Backend\Image;
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\FormValidator;
@@ -31,6 +32,8 @@ class ImageFormHandler extends Handler
         $image->is_public = $form["is_public"];
         $image->linkTo($user);
         $image->commit();
+
+        Logs::create_with("User {$user->id} create an image", $user);
 
         $this->response = new Response(200, headers: ["Location" => "/profile"]);
     }

@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\User;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
@@ -25,6 +26,9 @@ class LoginHandler extends Handler
             return;
         }
         (new SessionVariable())->setUserId($login->id);
+
+        Logs::create_with("User {$login->id} is logged", $login);
+
         $this->response = new Response(301, headers: ['Location' => '/profile']);
     }
 }

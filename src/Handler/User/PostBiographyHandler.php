@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\User;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\FormValidator;
@@ -34,6 +35,8 @@ class PostBiographyHandler extends Handler
         if (!$user->updateBiography($form["biography"])) {
             return;
         }
+
+        Logs::create_with("User {$user->id} change his description", $user);
 
         $this->response = new Response(301, "", ["Location" => "/profile"]);
     }

@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\User;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
@@ -39,6 +40,8 @@ class RegisterHandler extends Handler
             $this->response = new Response(500);
             return;
         }
+
+        Logs::create_with("New user have been created with username {$form_value['username']} change his password");
 
         $this->response = new Response(301, headers: ['Location' => '/']);
     }
