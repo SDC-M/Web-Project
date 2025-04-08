@@ -31,7 +31,9 @@ async function getLogs(afterId) {
             $row.append($id).append($desc).append($date).append($owner);
             $("#tbody").append($row);
         });
-        updatePagination(json.at(-1).id);
+        if (json.length > 0) {
+            updatePagination(json[json.length - 1].id);
+        }
     } catch (error) {
         console.error(error.message);
     }
