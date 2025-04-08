@@ -79,7 +79,7 @@ class App
             ->post('/api/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/api/annotation/{annotation_id}', new DeleteAnnotationHandler())
             ->get('/api/feed', new FeedHandler())
-            ->get('/api/logs', new GetLogs)
+            ->get('/api/logs', new GetLogs())
             ->handleCurrent();
     }
 }

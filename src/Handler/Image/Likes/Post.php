@@ -27,7 +27,7 @@ class Post extends Handler
         }
 
         Logs::create_with("User {$user->id} a like to {$image->getId()}", $user);
-        
+
         $this->response = new Response(200);
     }
 }

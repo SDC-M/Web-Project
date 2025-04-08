@@ -8,7 +8,8 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\JsonResponse;
 use Kuva\Utils\Router\Request;
 
-class GetLogs extends Handler {
+class GetLogs extends Handler
+{
     public function handle(Request $req): void
     {
         $user = UserMiddleware::getFromSession();
@@ -21,11 +22,11 @@ class GetLogs extends Handler {
         if (isset($req->uri_queries["after"])) {
             $after_id = $req->uri_queries["after"];
 
-           $logs = Logs::getLogsAfter($after_id);            
-           $this->response = new JsonResponse(200, $logs);
+            $logs = Logs::getLogsAfter($after_id);
+            $this->response = new JsonResponse(200, $logs);
         };
 
         $logs = Logs::getFirstsLogs();
-        $this->response = new JsonResponse(200, $logs);        
+        $this->response = new JsonResponse(200, $logs);
     }
 }

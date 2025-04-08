@@ -28,7 +28,7 @@ class LoginHandler extends Handler
         (new SessionVariable())->setUserId($login->id);
 
         Logs::create_with("User {$login->id} is logged", $login);
-        
+
         $this->response = new Response(301, headers: ['Location' => '/profile']);
     }
 }

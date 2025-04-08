@@ -37,12 +37,14 @@ class Request
         $queries = [];
 
         parse_str($urlquery ?? '', $queries);
-        return new self(self::getHeaders(),
+        return new self(
+            self::getHeaders(),
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI'],
             parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
             file_get_contents('php://input'),
-            [], $queries
-            );
+            [],
+            $queries
+        );
     }
 }
