@@ -8,8 +8,8 @@ const {
   setDescription,
   getVisibilityImage,
   switchVisibilityImage,
+  getOwnerImageId
 } = await import("./data-treatment.mjs");
-import { getOwnerImageId } from "./data-treatment.mjs";
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**

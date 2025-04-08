@@ -124,7 +124,7 @@ export async function getActualUsername() {
  * @param atomDate
  * @returns Trasforme la date au format atomDate en une date classique.
  */
-function transformDate(atomDate) {
+export function transformDate(atomDate) {
   const date = new Date(atomDate);
   const formattedDate = date.toLocaleString("en-US", {
     weekday: "long",
