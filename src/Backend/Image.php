@@ -114,14 +114,16 @@ class Image implements JsonSerializable
         $q->execute();
     }
 
-    private function updateDescription(string $description): bool {
+    private function updateDescription(string $description): bool
+    {
         $db = new Database();
         $q = $db->db->prepare("UPDATE images SET description=:description WHERE id=:id");
         return $q->execute(["description" => $description, "id" => $this->getId()]);
     }
 
 
-    public function setDescription(string $description): bool {
+    public function setDescription(string $description): bool
+    {
         $q = $this->updateDescription($description);
         if ($q) {
             $this->description = $description;
@@ -130,20 +132,23 @@ class Image implements JsonSerializable
         return $q;
     }
 
-    private function setVisibility(bool $is_public): bool {
+    private function setVisibility(bool $is_public): bool
+    {
         $db = new Database();
         $q = $db->db->prepare("UPDATE images SET is_public=:visibility WHERE id=:id");
         return $q->execute(["visibility" => $is_public ? 1 : 0, "id" => $this->getId()]);
     }
 
-    public function makePrivate(): bool {
+    public function makePrivate(): bool
+    {
         return $this->setVisibility(false);
     }
 
-    public function makePublic(): bool {
-        return $this->setVisibility(true);       
+    public function makePublic(): bool
+    {
+        return $this->setVisibility(true);
     }
-    
+
 
     public function delete(): bool
     {

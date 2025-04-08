@@ -30,7 +30,7 @@ class User implements JsonSerializable
             return null;
         }
 
-        if(!password_verify($password, $values["password"])) {
+        if (!password_verify($password, $values["password"])) {
             return null;
         }
 
@@ -41,12 +41,16 @@ class User implements JsonSerializable
     {
         $db = new Database();
         $q = $db->db->prepare('INSERT INTO users(username, email, password, recovery_key) VALUES (:name, :email, :password, :answer)');
-        $q->bindParam('name', $name);
-        $q->bindParam('email', $email);
-        $q->bindParam('password', password_hash($password, PASSWORD_ARGON2ID));
-        $q->bindParam('answer', $recovery_answer);
+        $q->bindValue('name', $name);
+        $q->bindValue('email', $email);
+        $q->bindValue('password', password_hash($password, PASSWORD_ARGON2ID));
+        $q->bindValue('answer', $recovery_answer);
         try {
-            return $q->execute();
+            $res = $q->execute();
+            if (!$res) {
+                return false;
+            }
+            return file_put_contents("../profilepicture/" . $name, file_get_contents('../src/Assets/default_pp.jpg')) !== false;
         } catch (Exception $ex) {
             var_dump($ex);
 
@@ -100,6 +104,20 @@ class User implements JsonSerializable
         return User::getById($id);
     }
 
+    private function getProfilePicturePath(): string
+    {
+        return  "../profilepicture/" . $this->username;
+    }
+
+    public function getProfilePicture(): string|false
+    {
+        return file_get_contents($this->getProfilePicturePath());
+    }
+
+    public function setProfilePicture(string $image): bool
+    {
+        return file_put_contents($this->getProfilePicturePath(), $image) !== false;
+    }
 
     public function updatePassword(string $password): bool
     {

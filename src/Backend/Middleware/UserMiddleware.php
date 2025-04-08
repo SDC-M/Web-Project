@@ -3,6 +3,7 @@
 namespace Kuva\Backend\Middleware;
 
 use Kuva\Backend\User;
+use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 use Kuva\Utils\SessionVariable;
 
@@ -26,4 +27,22 @@ class UserMiddleware
 
         return $user;
     }
+
+
+    public static function getFromUrl(Request $req): User
+    {
+        $user_id = $req->extracts["user_id"] ?? -1;
+        if ($user_id === "me") {
+            return UserMiddleware::getFromSession();
+        }
+
+        $user = User::getById($user_id);
+
+        if ($user === null) {
+            throw new MiddlewareException(new Response(404, "This user doesn't exists"));
+        }
+
+        return $user;
+    }
+
 }

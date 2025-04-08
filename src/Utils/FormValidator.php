@@ -8,7 +8,7 @@ class FormValidator
 
     private static function fileValidator(string $name): ?array
     {
-        if (!isset($_FILES[$name])) {
+        if (!isset($_FILES[$name]) || $_FILES[$name]['error'] != UPLOAD_ERR_OK) {
             return null;
         }
 

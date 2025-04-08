@@ -32,7 +32,7 @@ class Request
 
     public static function fromCurrentRequest(): static
     {
-        return new static(self::getHeaders(),
+        return new self(self::getHeaders(),
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI'],
             parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
