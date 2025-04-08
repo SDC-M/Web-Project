@@ -34,7 +34,7 @@ class Logs implements JsonSerializable
 
     private static function fromRow(array $row): ?static
     {
-        return new Logs($row['id'], $row['description'], new DateTime($row['creation_date']), User::getById($row['executed_by']));
+        return new Logs($row['id'], $row['description'], new DateTime($row['creation_date']), User::getById($row['executed_by'] ?? -1));
     }
 
     public static function getFirstsLogs(): array
@@ -58,7 +58,7 @@ class Logs implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return ["id" => $this->id, "description" => $this->description, "creation_date" => $this->datetime->format(DATE_ATOM), "executed_by" => $this->user->id];
+        return ["id" => $this->id, "description" => $this->description, "creation_date" => $this->datetime->format(DATE_ATOM), "executed_by" => $this->user?->id];
     }
 
 }
