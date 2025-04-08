@@ -53,8 +53,6 @@ class App
             ->get('/api/image/{image_id}', new GetImageHandler())
             ->delete('/api/image/{image_id}', new DeleteImageHandler())
             ->put('/api/image/{image_id}/permission', new PutPermissionHandler())
-            /* /description should be delete cause it's redundant */
-            ->get('/api/image/{image_id}/description', new GetDescriptionOfImageHandler())
             ->put('/api/image/{image_id}/description', new PutDescriptionOfImageHandler())            
             ->get('/api/image/{image_id}/details', new GetDetailsHandler())   
             ->get('/api/image/{image_id}/likes', new GetLikeImageHandler())
