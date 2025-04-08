@@ -1,0 +1,55 @@
+@import url("/frontend/css/root.css");
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#tablecontainer{
+    margin-top: 2rem;
+    width: 70%;
+    max-height: 90vh;
+    overflow-y: scroll;
+}
+
+#dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-y: auto;
+}
+
+#dash-table th,
+#dash-table td {
+    text-align: center;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border: 1px solid var(--dark-grey-color);
+    width: auto;
+}
+
+#dash-table th {
+    background-color: var(--purple-color);
+    color: white; 
+}
+
+#dash-table tbody tr:hover {
+    background-color: var(--purple-color);
+    color: white;
+}
+
+
+@media (max-width: 768px) {
+    #dash-table td:nth-child(1),
+    #dash-table th:nth-child(1),
+    #dash-table td:nth-child(4),
+    #dash-table th:nth-child(4) {
+        display: none;
+    }
+
+    #dash-table th,
+    #dash-table td{
+        padding: 0;
+    }
+}

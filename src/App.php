@@ -52,6 +52,9 @@ class App
             ->get('/annotations/{user_id}/{image_id}', new FileHandler('../frontend/image.html'))
             ->get('/new_annotations/{user_id}/{image_id}', new FileHandler('../frontend/annotations.html'))
             ->get('/settings', new FileHandler('../frontend/settings.html'))
+
+            ->get('/ad', new FileHandler('../frontend/admin-dashbord.html'))
+
             ->get('/api/image/{image_id}', new GetImageHandler())
             ->delete('/api/image/{image_id}', new DeleteImageHandler())
             ->put('/api/image/{image_id}/permission', new PutPermissionHandler())
