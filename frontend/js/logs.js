@@ -10,7 +10,10 @@ const { transformDate } = await import("./data-treatment.mjs");
  *   correspondante.
  */
 async function getLogs(afterId) {
-    const url = `/api/logs?after=${afterId}`;
+    let url = `/api/logs?before=${afterId}`;
+    if (afterId == null) {
+        url = `/api/logs`;
+    }
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -19,9 +22,7 @@ async function getLogs(afterId) {
         const json = await response.json();
         console.log(json);
         $("#tbody").empty();
-        let cptr = 0;
         $.each(json, function (_, log) {
-            cptr += 1;
             let $row = $("<tr>");
             let $id = $("<td>").append(log.id);
             let $desc = $("<td>").append(log.description);
@@ -30,8 +31,7 @@ async function getLogs(afterId) {
             $row.append($id).append($desc).append($date).append($owner);
             $("#tbody").append($row);
         });
-        let newAfterId = afterId + cptr;
-        updatePagination(newAfterId);
+        updatePagination(json.at(-1).id);
     } catch (error) {
         console.error(error.message);
     }
@@ -58,6 +58,6 @@ function updatePagination(afterId) {
 
 $(document).ready(async function () {
     $("#global-loader").show();
-    await getLogs(0);
+    await getLogs();
     $("#global-loader").hide();
 });
