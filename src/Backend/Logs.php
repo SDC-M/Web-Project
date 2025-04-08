@@ -17,7 +17,7 @@ class Logs implements JsonSerializable
     ) {
     }
 
-    public static function create_with(string $description, User $user): bool
+    public static function create_with(string $description, ?User $user = null): bool
     {
         $db = new Database();
         $q = $db->db->prepare("INSERT INTO logs (description,creation_date,executed_by)

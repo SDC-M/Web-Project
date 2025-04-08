@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\Image;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\Middleware\ImageMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
@@ -33,6 +34,8 @@ class PutDescriptionOfImageHandler extends Handler
             $this->response = new Response(500);
             return;
         }
+
+        Logs::create_with("User {$user->id} updated description of image({$image->getId()})", $user);
 
         $this->response = new Response(200);
     }

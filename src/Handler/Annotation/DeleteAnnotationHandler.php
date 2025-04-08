@@ -3,6 +3,7 @@
 namespace Kuva\Handler\Annotation;
 
 use Kuva\Backend\Annotation;
+use Kuva\Backend\Logs;
 use Kuva\Backend\User;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
@@ -37,6 +38,9 @@ class DeleteAnnotationHandler extends Handler
             $this->response = new Response(500, "Cannot delete");
             return;
         }
+
+        Logs::create_with("User {$user->id} deleted an annotation ({$annotation->id}", $user);
+
         $this->response = new Response(200);
     }
 }

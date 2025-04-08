@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\User;
 
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\FormValidator;
@@ -22,5 +23,6 @@ class PutProfilePictureHandler extends Handler
         }
 
         $this->response = new Response(200);
+        Logs::create_with("User {$user->id} change his profile picture", $user);
     }
 }
