@@ -137,7 +137,7 @@ function focusDiv(id) {
  *  la supprime sinon renvoie le message d'erreur correspondant.
  */
 async function deleteImage(id) {
-  const url = `/api/images/${id}`;
+  const url = `/api/image/${id}`;
   try {
     const response = await fetch(url, {
       method: "DELETE",
