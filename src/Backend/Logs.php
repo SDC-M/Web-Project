@@ -39,14 +39,21 @@ class Logs implements JsonSerializable
 
     public static function getFirstsLogs(): array
     {
-        return self::getLogsAfter(0);
+        $db = new Database();
+        $q = $db->db->prepare("SELECT * FROM kuva.logs ORDER BY kuva.logs.id DESC LIMIT 50;");
+        try {
+            $q->execute();
+            return array_map(fn ($r) => self::fromRow($r), $q->fetchAll(PDO::FETCH_ASSOC));
+        } catch (Exception $e) {
+            return [];
+        }
     }
 
 
-    public static function getLogsAfter(int $id): array
+    public static function getLogsBefore(int $id): array
     {
         $db = new Database();
-        $q = $db->db->prepare("SELECT * FROM kuva.logs WHERE id IN (SELECT id FROM kuva.logs WHERE id > :id ORDER BY kuva.logs.id ASC) ORDER BY  kuva.logs.creation_date DESC LIMIT 10;");
+        $q = $db->db->prepare("SELECT * FROM kuva.logs WHERE id < :id ORDER BY kuva.logs.id DESC LIMIT 50;");
         $q->bindValue("id", $id);
         try {
             $q->execute();

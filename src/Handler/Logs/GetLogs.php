@@ -19,10 +19,10 @@ class GetLogs extends Handler
             return;
         }
 
-        if (isset($req->uri_queries["after"])) {
-            $after_id = $req->uri_queries["after"];
+        if (isset($req->uri_queries['before'])) {
+            $before_id = $req->uri_queries["before"];
 
-            $logs = Logs::getLogsAfter($after_id);
+            $logs = Logs::getLogsBefore($before_id);
             $this->response = new JsonResponse(200, $logs);
             return;
         };
