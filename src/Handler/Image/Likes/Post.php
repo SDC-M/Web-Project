@@ -3,6 +3,7 @@
 namespace Kuva\Handler\Image\Likes;
 
 use Kuva\Backend\Likes;
+use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\ImageMiddleware;
 use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\Router\Handler;
@@ -25,6 +26,8 @@ class Post extends Handler
             $this->response = new Response(500);
         }
 
+        Logs::create_with("User {$user->id} a like to {$image->getId()}", $user);
+        
         $this->response = new Response(200);
     }
 }
