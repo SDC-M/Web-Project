@@ -144,7 +144,8 @@ select{
     }
 
     button,
-    select {
-        width: 100%;
+    select,
+    #pages-container {
+        width: 99%;
     }
 }

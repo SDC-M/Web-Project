@@ -78,6 +78,10 @@ async function setBiography() {
   $("#bio").html($biography);
 }
 
+async function setProfilePicture () {
+  $("#profile-picture").attr("src", `/api/user/${await getUserId()}/picture`);
+}
+
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -88,5 +92,6 @@ $(document).ready(async function () {
   await getNb();
   await setUserUsername();
   await setBiography();
+  await setProfilePicture();
   $("#global-loader").hide();
 });
