@@ -24,6 +24,7 @@ class GetLogs extends Handler
 
             $logs = Logs::getLogsAfter($after_id);
             $this->response = new JsonResponse(200, $logs);
+            return;
         };
 
         $logs = Logs::getFirstsLogs();
