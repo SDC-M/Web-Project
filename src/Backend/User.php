@@ -77,6 +77,25 @@ class User implements JsonSerializable
         return new static($id, $values["username"], $values["email"], $values["recovery_key"], $values["biography"]);
     }
 
+    public static function getByName(string $username): ?static
+    {
+        $db = new Database();
+        $q = $db->db->prepare('SELECT id, username, email, recovery_key, biography FROM users WHERE username = :username');
+        $q->bindParam(":username", $username);
+        try {
+            $q->execute();
+        } catch (Exception $ex) {
+            return null;
+        }
+        $values = $q->fetch(PDO::FETCH_ASSOC);
+        // TODO: Add recovery key
+        if ($values === false) {
+            return null;
+        }
+
+        return new static($values['id'], $values["username"], $values["email"], $values["recovery_key"], $values["biography"]);
+    }
+
     public static function getByNameAndRecoverykey(string $name, string $recovery): ?static
     {
         $db = new Database();

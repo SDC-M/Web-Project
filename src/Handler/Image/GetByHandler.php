@@ -15,7 +15,7 @@ class GetByHandler extends Handler
         $user_id = User::getById($req->extracts["id"]);
 
         if ($user_id == null) {
-            $this->response = new Response(400, "The targeted user doesn't exists");
+            $this->response = new Response(400, "The targeted user doesn't exist");
             return;
         }
 

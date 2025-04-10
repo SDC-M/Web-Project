@@ -18,7 +18,7 @@ class DeleteAnnotationHandler extends Handler
         $annotation_id = $req->extracts['annotation_id'] ?? -1;
         $annotation = Annotation::getById($annotation_id);
         if ($annotation == null) {
-            $this->response->body = "This annotation doesn't exists";
+            $this->response->body = "This annotation doesn't exist";
             return;
         }
 

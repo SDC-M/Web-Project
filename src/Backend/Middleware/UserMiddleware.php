@@ -39,7 +39,7 @@ class UserMiddleware
         $user = User::getById($user_id);
 
         if ($user === null) {
-            throw new MiddlewareException(new Response(404, "This user doesn't exists"));
+            throw new MiddlewareException(new Response(404, "This user doesn't exist"));
         }
 
         return $user;

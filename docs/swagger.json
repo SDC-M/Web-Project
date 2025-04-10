@@ -197,7 +197,7 @@
             "description": "return id of the annotation"
           },
           "404": {
-            "description": "Bad image_id or not enought permission to see the image or annotation doesn't exists"
+            "description": "Bad image_id or not enought permission to see the image or annotation doesn't exist"
           }
         }
       },
@@ -228,7 +228,7 @@
             "description": "Remove the specified annotation"
           },
           "404": {
-            "description": "Bad image_id or not enought permission to see the image or annotation doesn't exists"
+            "description": "Bad image_id or not enought permission to see the image or annotation doesn't exist"
           }
         }
       }

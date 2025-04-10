@@ -63,6 +63,34 @@ class Logs implements JsonSerializable
         }
     }
 
+    public static function getFirstsLogsByExecutor(User $user): array
+    {
+        $db = new Database();
+        $q = $db->db->prepare("SELECT * FROM kuva.logs WHERE executed_by = :user ORDER BY kuva.logs.id DESC LIMIT 5;");
+        $q->bindValue("user", $user->id);
+        try {
+            $q->execute();
+            return array_map(fn ($r) => self::fromRow($r), $q->fetchAll(PDO::FETCH_ASSOC));
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+
+    public static function getLogsByExecutorBefore(int $id, User $user): array
+    {
+        $db = new Database();
+        $q = $db->db->prepare("SELECT * FROM kuva.logs WHERE id < :id AND executed_by = :user ORDER BY kuva.logs.id DESC LIMIT 5;");
+        $q->bindValue("id", $id);
+        $q->bindValue("user", $user->id);
+        try {
+            $q->execute();
+            return array_map(fn ($r) => self::fromRow($r), $q->fetchAll(PDO::FETCH_ASSOC));
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+
+
     public function jsonSerialize(): mixed
     {
         return ["id" => $this->id, "description" => $this->description, "creation_date" => $this->datetime->format(DATE_ATOM), "executed_by" => $this->user?->id];
