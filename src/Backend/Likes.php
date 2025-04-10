@@ -55,6 +55,26 @@ class Likes implements JsonSerializable
     }
 
 
+    public static function getAnyLikesOf(User $user): array
+    {
+        $db = (new Database())->db;
+
+        $q = $db->prepare("SELECT likes.image_id, likes.user_id 
+                           FROM likes
+                           WHERE likes.user_id = :user_id");
+        $q->execute(["user_id" => $user->id]);
+
+        if ($q === false) {
+            return [];
+        }
+
+        $d = $q->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(fn ($d): static => static::fromRow($d), $d);
+
+    }
+
+
     public static function getAllOfImage(Image $image): array
     {
         $db = (new Database())->db;
@@ -102,6 +122,6 @@ class Likes implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return $this->user;
+        return ["user" => $this->user, "image" => $this->image];
     }
 }

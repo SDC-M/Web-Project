@@ -57,6 +57,25 @@ async function getNb() {
   }
 }
 
+/**
+ * Tente de mettre dans l'élément d'id nb-likes le nombre de like de l'utilisateur
+ *  connecté, en cas d'échec renvoie l'erreur correspondante. 
+ */
+async function setNbLikes() {
+  const userId = await getUserId();
+  const url = `/api/user/${userId}/likes`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    $("#nb-likes").html(json.nb_likes);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
@@ -78,6 +97,10 @@ async function setBiography() {
   $("#bio").html($biography);
 }
 
+/**
+ * Tente d'afficher la photo de profile dans l'image d'if profile-picture,
+ *  en cas d'échec renvoie l'erreur correspondante.
+ */
 async function setProfilePicture () {
   $("#profile-picture").attr("src", `/api/user/${await getUserId()}/picture`);
 }
@@ -93,5 +116,6 @@ $(document).ready(async function () {
   await setUserUsername();
   await setBiography();
   await setProfilePicture();
+  await setNbLikes();
   $("#global-loader").hide();
 });
