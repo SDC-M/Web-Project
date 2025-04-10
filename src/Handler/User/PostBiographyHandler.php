@@ -15,10 +15,10 @@ class PostBiographyHandler extends Handler
     public function handle(Request $req): void
     {
         $form = FormMiddleware::validate((new FormValidator())
-            ->addFileField("image")
             ->addTextField("username")
             ->addTextField("biography")
-            ->addTextField("password"));
+            ->addTextField("password")
+            ->addFileField("profile_picture"));
 
         $user = UserMiddleware::getFromSession();
 
@@ -36,6 +36,11 @@ class PostBiographyHandler extends Handler
             return;
         }
 
+        if (!$user->setProfilePicture(file_get_contents($form["profile_picture"]["tmp_name"]))) {
+            return;
+        }        
+
+        Logs::create_with("User {$user->id} change his profile picture", $user);
         Logs::create_with("User {$user->id} change his description", $user);
 
         $this->response = new Response(301, "", ["Location" => "/profile"]);

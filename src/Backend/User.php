@@ -186,7 +186,7 @@ class User implements JsonSerializable
             return false;
         }
         $c = $q->fetch(PDO::FETCH_ASSOC);
-        return password_verify($c["password"], $password);
+        return password_verify($password, $c["password"]);
 
     }
 
