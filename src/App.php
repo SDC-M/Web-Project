@@ -5,7 +5,6 @@ namespace Kuva;
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-use Kuva\Backend\Categories;
 use Kuva\Handler\Annotation\AnnotationFormHandler;
 use Kuva\Handler\Annotation\DeleteAnnotationHandler;
 use Kuva\Handler\Annotation\GetAnnotationHandler;
@@ -19,7 +18,6 @@ use Kuva\Handler\Image\GetCategorieOfImageHandler;
 use Kuva\Handler\Image\GetDetailsHandler;
 use Kuva\Handler\Image\ImageFormHandler;
 use Kuva\Handler\Image\GetByHandler as ImagesGet;
-use Kuva\Handler\Image\GetDescriptionOfImageHandler;
 use Kuva\Handler\Image\GetImageHandler;
 use Kuva\Handler\Image\ListUserImageHandler;
 use Kuva\Handler\Image\PutDescriptionOfImageHandler;
@@ -84,8 +82,8 @@ class App
             ->get('/api/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/api/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/api/annotation/{annotation_id}', new DeleteAnnotationHandler())
-            ->get("/api/categorie/{categorie_name}", new GetCategories())
-            ->get("/api/categorie/{categorie_name}/images", new GetImagesOfCategories())
+            ->get("/api/category/{category_name}", new GetCategories())
+            ->get("/api/category/{category_name}/images", new GetImagesOfCategories())
             ->get('/api/feed', new FeedHandler())
             ->get('/api/logs', new GetLogs())
             ->handleCurrent();

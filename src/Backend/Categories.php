@@ -4,7 +4,6 @@ namespace Kuva\Backend;
 
 use DateTime;
 use DateTimeInterface;
-use Exception;
 use JsonSerializable;
 use PDO;
 
@@ -79,11 +78,11 @@ class Categories implements JsonSerializable {
     }
 
     public static function createOrGetIfAlreadyExists(string $name): static {
-        $categorie = self::getByName($name);
-        if ($categorie == null) {
+        $category = self::getByName($name);
+        if ($category == null) {
             return self::create($name);
         }
-        return $categorie;
+        return $category;
     }
 
     public function linkImage(Image $image): bool {

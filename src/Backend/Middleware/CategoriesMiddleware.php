@@ -9,13 +9,13 @@ use Kuva\Utils\Router\Response;
 class CategoriesMiddleware {   
     public static function getFromUrl(Request $req): Categories
     {
-        $categorie_name = $req->extracts["categorie_name"] ?? -1;
-        $categorie = Categories::getByName($categorie_name);
+        $category_name = $req->extracts["category_name"] ?? '';
+        $category = Categories::getByName($category_name);
 
-        if ($categorie === null) {
-            throw new MiddlewareException(new Response(404, "This categorie doesn't exist"));
+        if ($category === null) {
+            throw new MiddlewareException(new Response(404, "This category doesn't exist"));
         }
 
-        return $categorie;
+        return $category;
     }
 }
