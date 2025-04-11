@@ -36,6 +36,7 @@ function setPictureLoop (json){
  */
 async function getPictures() {
   const url = "/api/feed";
+  $("#nfound").empty();
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -60,7 +61,7 @@ async function getPicturesByCategory(category) {
     const response = await fetch(url);
     if (!response.ok){
       if (response.status == 404) {;
-        let $para = $("<p>").html("No posts yet 😢");
+        let $para = $("<p>").attr("id", "nfound").html("No posts yet 😢");
         $("#feed-container").append($para);
         return;
       }
