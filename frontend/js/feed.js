@@ -3,8 +3,16 @@ import { setLocalStorageTheme } from "./theme.mjs";
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
+let category = "";
+
+/**
+ * @param json 
+*   Tente de mettre à jour la grille avec les images renvoyés par la requête
+ *   passée en paramètre, si le tableau est vide affiche un message sinon
+ *   met à jour la page. En cas d'échec renvoie l'erreur correspondante.
+ */
 function setPictureLoop (json){
-  $.each(json.image, function (_, picture) {
+  $.each(json, function (_, picture) {
     let $contain = $("<div>").addClass("img-bloc");
     let $username = $("<p>")
       .html(picture.user.username)
@@ -23,7 +31,7 @@ function setPictureLoop (json){
 }
 
 /**
- * Tente d'afficher les images de l'utilisateur connecté sur le profile.
+ * Tente d'afficher les images de tous les utilisateurs syr le feed.
  *  En cas d'échec retourne l'erreur correspondante.
  */
 async function getPictures() {
@@ -35,17 +43,27 @@ async function getPictures() {
     }
 
     let json = await response.json();
-    setPictureLoop(json);
+    setPictureLoop(json.image);
   } catch (error) {
     console.error(error.message);
   }
 }
 
+/**
+ * Tente d'afficher les images de tous les utilisateurs syr le feed.
+ *  Selon la categorie prise en paramètres. En cas d'échec retourne
+ *  l'erreur correspondante.
+ */
 async function getPicturesByCategory(category) {
   const url = `/api/category/${category}/images`;
   try {
     const response = await fetch(url);
     if (!response.ok){
+      if (response.status == 404) {;
+        let $para = $("<p>").html("No posts yet 😢");
+        $("#feed-container").append($para);
+        return;
+      }
       throw new Error(`Response status: ${response.status}`);
     }
 
@@ -59,10 +77,17 @@ async function getPicturesByCategory(category) {
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
+/**
+ *  Initialise le champ de recherche pour filtrer les photos par catégories.
+ *   Lorsqu'une catégorie est sélectionnée, les images correspondantes sont affichées.
+ *   Si aucune catégorie n'est sélectionnée, tous les images sont affichées.
+ *   En cas d'échec renvoie l'erreur correspondante.
+ */
 async function setSearchCategories() {
   $("#search").on("change",async function () {
     category = $(this).val();
-    if (category == "all") {
+    $("#img-container").empty();
+    if (category == "") {
       await getPictures();
     } else {
       await getPicturesByCategory(category);
