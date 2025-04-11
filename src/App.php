@@ -84,8 +84,8 @@ class App
             ->get('/api/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/api/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/api/annotation/{annotation_id}', new DeleteAnnotationHandler())
-            ->get("/api/categorie/{categorie_id}", new GetCategories())
-            ->get("/api/categorie/{categorie_id}/images", new GetImagesOfCategories())
+            ->get("/api/categorie/{categorie_name}", new GetCategories())
+            ->get("/api/categorie/{categorie_name}/images", new GetImagesOfCategories())
             ->get('/api/feed', new FeedHandler())
             ->get('/api/logs', new GetLogs())
             ->handleCurrent();
