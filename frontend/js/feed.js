@@ -35,7 +35,7 @@ async function getPictures() {
     }
 
     let json = await response.json();
-    setPictureLoop();
+    setPictureLoop(json);
   } catch (error) {
     console.error(error.message);
   }
@@ -50,7 +50,7 @@ async function getPicturesByCategory(category) {
     }
 
     let json = await response.json();
-    setPictureLoop();
+    setPictureLoop(json);
   } catch (error) {
     console.error(error.message);
   }
