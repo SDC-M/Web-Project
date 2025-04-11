@@ -37,7 +37,7 @@ function setDarkTheme() {
  * Applique la classe light-mode et retire dark-mode, gère le background-color
  *  du body et de l'html et stocke une valeur significative dans le local storage.
  */
-export function setLightTheme() {
+function setLightTheme() {
   $("#container").removeClass("dark-mode").addClass("light-mode");
   $("#dark-light-mode-button")
     .removeClass(["fa-solid", "fa-sun"])
