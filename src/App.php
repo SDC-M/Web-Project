@@ -5,13 +5,17 @@ namespace Kuva;
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
+use Kuva\Backend\Categories;
 use Kuva\Handler\Annotation\AnnotationFormHandler;
 use Kuva\Handler\Annotation\DeleteAnnotationHandler;
 use Kuva\Handler\Annotation\GetAnnotationHandler;
 use Kuva\Handler\AppHandler;
+use Kuva\Handler\Categories\GetCategories;
+use Kuva\Handler\Categories\GetImagesOfCategories;
 use Kuva\Handler\FileHandler;
 use Kuva\Handler\FolderHandler;
 use Kuva\Handler\Image\DeleteImageHandler;
+use Kuva\Handler\Image\GetCategorieOfImageHandler;
 use Kuva\Handler\Image\GetDetailsHandler;
 use Kuva\Handler\Image\ImageFormHandler;
 use Kuva\Handler\Image\GetByHandler as ImagesGet;
@@ -60,6 +64,7 @@ class App
             ->put('/api/image/{image_id}/permission', new PutPermissionHandler())
             ->put('/api/image/{image_id}/description', new PutDescriptionOfImageHandler())
             ->get('/api/image/{image_id}/details', new GetDetailsHandler())
+            ->get('/api/image/{image_id}/categories', new GetCategorieOfImageHandler())
             ->get('/api/image/{image_id}/likes', new GetLikeImageHandler())
             ->post('/api/image/{image_id}/likes', new PostLikeImageHandler())
             ->delete('/api/image/{image_id}/likes', new DeleteLikeImageHandler())
@@ -79,6 +84,8 @@ class App
             ->get('/api/annotation/{image_id}', new GetAnnotationHandler())
             ->post('/api/annotation/{image_id}', new AnnotationFormHandler())
             ->delete('/api/annotation/{annotation_id}', new DeleteAnnotationHandler())
+            ->get("/api/categorie/{categorie_id}", new GetCategories())
+            ->get("/api/categorie/{categorie_id}/images", new GetImagesOfCategories())
             ->get('/api/feed', new FeedHandler())
             ->get('/api/logs', new GetLogs())
             ->handleCurrent();
