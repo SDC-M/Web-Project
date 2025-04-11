@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler\Image;
 
+use Kuva\Backend\Categories;
 use Kuva\Backend\Image;
 use Kuva\Backend\Logs;
 use Kuva\Backend\Middleware\FormMiddleware;
@@ -32,6 +33,8 @@ class ImageFormHandler extends Handler
         $image->is_public = $form["is_public"];
         $image->linkTo($user);
         $image->commit();
+
+        Categories::setFromDescription($image, $form["description"]);
 
         Logs::create_with("User {$user->id} create an image", $user);
 

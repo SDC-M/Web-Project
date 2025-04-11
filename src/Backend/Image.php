@@ -14,7 +14,7 @@ class Image implements JsonSerializable
     public const IMAGE_FOLDER = "../images/";
 
     private function __construct(
-        private readonly ?int $id,
+        private ?int $id,
         public readonly ?string $name,
         public bool $is_public,
         public string $description,
@@ -53,6 +53,22 @@ class Image implements JsonSerializable
 
         return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], new DateTime($values['image_date']), User::getById($values["user_id"]), "");
     }
+
+
+    private static function getByPath(string $path): ?static
+    {
+        $db = new Database();
+        $q = $db->db->prepare("SELECT * FROM images WHERE file_path = :path");
+        $q->bindValue("path", $path);
+        $q->execute();
+        $values = $q->fetch();
+
+        if ($values === false) {
+            return null;
+        }
+
+        return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], new DateTime($values['image_date']), User::getById($values["user_id"]), "");
+    }    
 
     public function getPath(): string
     {
@@ -112,6 +128,8 @@ class Image implements JsonSerializable
         $q->bindValue(":owner_id", $this->owner->id);
 
         $q->execute();
+
+        $this->id = self::getByPath($this->name)?->id;
     }
 
     private function updateDescription(string $description): bool
@@ -124,6 +142,7 @@ class Image implements JsonSerializable
 
     public function setDescription(string $description): bool
     {
+        Categories::setFromDescription($this, $description);
         $q = $this->updateDescription($description);
         if ($q) {
             $this->description = $description;

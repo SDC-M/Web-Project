@@ -12,13 +12,13 @@ class ImageMiddleware
     {
         $image_id = $req->extracts["image_id"];
         if (!isset($req->extracts["image_id"])) {
-            throw new MiddlewareException(new Response(403, "Bad request"));
+            throw new MiddlewareException(new Response(500, "Badly implemented"));
         }
 
         $image = Image::getById($image_id);
 
         if ($image == null) {
-            throw new MiddlewareException(new Response(403, "Bad request"));
+            throw new MiddlewareException(new Response(404, "Image not found"));
         }
 
         return $image;
