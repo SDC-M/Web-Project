@@ -352,7 +352,7 @@ async function setIsLiked() {
     let isin = false;
     const json = await response.json();
     json.forEach((element) => {
-      if (element.id == $userId) {
+      if (element.user.id == $userId) {
         isin = true;
       }
       if (isin == true) {
