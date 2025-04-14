@@ -12,6 +12,7 @@ let category = "";
  *   met à jour la page. En cas d'échec renvoie l'erreur correspondante.
  */
 function setPictureLoop (json){
+  $("#nfound").html("");
   $.each(json, function (_, picture) {
     let $contain = $("<div>").addClass("img-bloc");
     let $username = $("<p>")
@@ -36,7 +37,6 @@ function setPictureLoop (json){
  */
 async function getPictures() {
   const url = "/api/feed";
-  $("#nfound").empty();
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -61,7 +61,6 @@ async function getPicturesByCategory(category) {
     const response = await fetch(url);
     if (!response.ok){
       if (response.status == 404) {;
-        console.log($("#nfound"));
         if ($("#nfound").length == 0){
           let $para = $("<p>").attr("id", "nfound").html("No posts yet 😢");
           $("#feed-container").append($para);
