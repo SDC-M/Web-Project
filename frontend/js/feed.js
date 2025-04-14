@@ -6,12 +6,12 @@ import { setLocalStorageTheme } from "./theme.mjs";
 let category = "";
 
 /**
- * @param json 
-*   Tente de mettre à jour la grille avec les images renvoyés par la requête
+ * @param json
+ *   Tente de mettre à jour la grille avec les images renvoyés par la requête
  *   passée en paramètre, si le tableau est vide affiche un message sinon
  *   met à jour la page. En cas d'échec renvoie l'erreur correspondante.
  */
-function setPictureLoop (json){
+function setPictureLoop(json) {
   $("#nfound").html("");
   $.each(json, function (_, picture) {
     let $contain = $("<div>").addClass("img-bloc");
@@ -59,9 +59,9 @@ async function getPicturesByCategory(category) {
   const url = `/api/category/${category}/images`;
   try {
     const response = await fetch(url);
-    if (!response.ok){
-      if (response.status == 404) {;
-        if ($("#nfound").length == 0){
+    if (!response.ok) {
+      if (response.status == 404) {
+        if ($("#nfound").length == 0) {
           let $para = $("<p>").attr("id", "nfound").html("No posts yet 😢");
           $("#feed-container").append($para);
         } else {
@@ -89,7 +89,7 @@ async function getPicturesByCategory(category) {
  *   En cas d'échec renvoie l'erreur correspondante.
  */
 async function setSearchCategories() {
-  $("#search").on("change",async function () {
+  $("#search").on("change", async function () {
     category = $(this).val();
     $("nfound").html("");
     $("#img-container").empty();

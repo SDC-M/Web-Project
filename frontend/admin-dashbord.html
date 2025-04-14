@@ -1,42 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/css/admin-dashbord.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/frontend/css/admin-dashbord.css" />
     <link rel="icon" href="/frontend/img/logo.png" />
     <title>Dashbord</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="global-loader" style="display: none">
-        <div class="spinner"></div>
+      <div class="spinner"></div>
     </div>
     <div id="container">
-        <p id="test"></p>
-        <div class="form-container">
-            <input type="text" name="username" id="username" placeholder="username">
-        </div>
-        <div id="table-container">
-            <table id="dash-table" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                        <th>Author</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-            </table>
-        </div>
-        <div id="pages-container">
-            <ul id="pages">
-            </ul>
-        </div>
+      <p id="test"></p>
+      <div class="form-container">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="username"
+        />
+      </div>
+      <div id="table-container">
+        <table id="dash-table" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Author</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div id="pages-container">
+        <ul id="pages"></ul>
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module" src="/frontend/js/data-treatment.mjs"></script>
     <script type="module" src="/frontend/js/logs.js"></script>
-</body>
+  </body>
 </html>

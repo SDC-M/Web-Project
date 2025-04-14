@@ -59,7 +59,7 @@ async function getNb() {
 
 /**
  * Tente de mettre dans l'élément d'id nb-likes le nombre de like de l'utilisateur
- *  connecté, en cas d'échec renvoie l'erreur correspondante. 
+ *  connecté, en cas d'échec renvoie l'erreur correspondante.
  */
 async function setNbLikes() {
   const userId = await getUserId();
@@ -101,7 +101,7 @@ async function setBiography() {
  * Tente d'afficher la photo de profile dans l'image d'if profile-picture,
  *  en cas d'échec renvoie l'erreur correspondante.
  */
-async function setProfilePicture () {
+async function setProfilePicture() {
   $("#profile-picture").attr("src", `/api/user/${await getUserId()}/picture`);
 }
 
