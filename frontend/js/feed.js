@@ -61,8 +61,13 @@ async function getPicturesByCategory(category) {
     const response = await fetch(url);
     if (!response.ok){
       if (response.status == 404) {;
-        let $para = $("<p>").attr("id", "nfound").html("No posts yet 😢");
-        $("#feed-container").append($para);
+        console.log($("#nfound"));
+        if ($("#nfound").length == 0){
+          let $para = $("<p>").attr("id", "nfound").html("No posts yet 😢");
+          $("#feed-container").append($para);
+        } else {
+          $("#nfound").html("No posts yet 😢");
+        }
         return;
       }
       throw new Error(`Response status: ${response.status}`);
@@ -87,6 +92,7 @@ async function getPicturesByCategory(category) {
 async function setSearchCategories() {
   $("#search").on("change",async function () {
     category = $(this).val();
+    $("nfound").html("");
     $("#img-container").empty();
     if (category == "") {
       await getPictures();

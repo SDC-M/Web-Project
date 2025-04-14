@@ -15,10 +15,6 @@ CREATE TABLE `users` (
   CONSTRAINT email_unique UNIQUE(email) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `migration` (
-  `version` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `images` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `file_path` varchar(255) NOT NULL,
@@ -60,7 +56,3 @@ CREATE TABLE `likes` (
   FOREIGN KEY (`image_id`) REFERENCES `images`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO migration
-VALUES ("1");
-
