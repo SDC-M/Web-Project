@@ -15,8 +15,6 @@ export function getImageId(pathname) {
   return pathname[3];
 }
 
-let cachedme = null;
-
 /**
  *
  * @param pathname
@@ -24,9 +22,6 @@ let cachedme = null;
  *  En cas d'échec l'erreur correspondante.
  */
 export async function getUserId() {
-  if (cachedme != null) {
-    return cachedme.id;
-  }
   const url = "/api/user/me";
   try {
     const response = await fetch(url);
@@ -34,7 +29,6 @@ export async function getUserId() {
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    cachedme = json;
     return json.id;
   } catch (error) {
     console.error(error.message);
