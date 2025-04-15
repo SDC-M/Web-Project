@@ -22,13 +22,13 @@ class LoginHandler extends Handler
 
         $login = User::getByNameAndPassword($form_values['username'], $form_values['password']);
         if ($login == null) {
-            $this->response = new Response(400, headers: ['Location' => '/login']);
+            $this->response = new Response(400);
             return;
         }
         (new SessionVariable())->setUserId($login->id);
 
         Logs::create_with("User {$login->id} is logged", $login);
 
-        $this->response = new Response(301, headers: ['Location' => '/profile']);
+        $this->response = new Response(200);
     }
 }
