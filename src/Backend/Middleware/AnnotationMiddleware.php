@@ -9,7 +9,7 @@ use Kuva\Utils\Router\Response;
 
 class AnnotationMiddleware
 {
-    const ANNOTATION_NOT_FOUND = "This image doesn't exist";
+    const ANNOTATION_NOT_FOUND = "This annotation doesn't exist";
     
     public static function getFromUrl(Request $req): Image
     {

@@ -17,7 +17,7 @@ class PutDescriptionOfImageHandler extends Handler
     {
         $image = ImageMiddleware::getFromUrl($req);
         $user = UserMiddleware::getFromSession();
-        $description = FormMiddleware::validate((new FormValidator())->addTextField("description"));
+        $description = FormMiddleware::validate((new FormValidator())->addTextFieldWithMaxLength("description", 4096));
 
         if ($user->id != $image->owner->id) {
             if ($image->is_public) {

@@ -18,7 +18,7 @@ class RecoveryHandler extends Handler
         $this->response = new Response(400);
 
         $form_value = FormMiddleware::validate((new FormValidator())
-                        ->addTextField("username")
+                        ->addTextFieldWithMaxLength("username", 100)
                         ->addTextField("password")
                         ->addTextField("recovery_answer"));
 
@@ -38,7 +38,7 @@ class RecoveryHandler extends Handler
 
         $login->updatePassword($form_value['password']);
         
-        Logs::create_with("User {$login->id} change his password", $user);
+        Logs::create_with("User {$login->id} change his password", $login);
 
         $this->response = new Response(301, headers: ["Location" => "/"]);
     }

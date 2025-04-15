@@ -38,6 +38,11 @@ class FormValidator
         return $name;
     }    
 
+    private static function intValidator(string $name): ?int {
+       $name = self::textValidator($name);
+       return filter_var($name, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+    }
+
     private static function emailValidator(string $name): ?string
     {
         if (!isset($_POST[$name])) {
@@ -137,6 +142,17 @@ class FormValidator
         );
 
         return $this;
+    }
+
+    public function addIntField(string $name): FormValidator {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name) {
+                return FormValidator::intValidator($name);
+            },
+        );
+
+        return $this;        
     }
     
     public function addFileField(string $name): FormValidator
