@@ -11,7 +11,7 @@ class AnnotationMiddleware
 {
     const ANNOTATION_NOT_FOUND = "This annotation doesn't exist";
     
-    public static function getFromUrl(Request $req): Image
+    public static function getFromUrl(Request $req): Annotation
     {
         $annotation_id = $req->extracts["annotation_id"] ?? '';
 
