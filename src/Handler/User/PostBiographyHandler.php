@@ -15,8 +15,8 @@ class PostBiographyHandler extends Handler
     public function handle(Request $req): void
     {
         $form = FormMiddleware::validate((new FormValidator())
-            ->addTextField("username")
-            ->addTextField("biography")
+            ->addTextFieldWithMaxLength("username", 100)
+            ->addTextField("biography", 250)
             ->addTextField("password")
             ->addFileField("profile_picture"));
 

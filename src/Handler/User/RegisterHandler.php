@@ -3,6 +3,7 @@
 namespace Kuva\Handler\User;
 
 use Kuva\Backend\Logs;
+use Kuva\Backend\Middleware\FormMiddleware;
 use Kuva\Backend\User;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
@@ -17,16 +18,11 @@ class RegisterHandler extends Handler
 
         $this->response = new Response(400);
 
-        $form_value = (new FormValidator())
-                        ->addTextField("username")
-                        ->addTextField("email")
+        $form_value = FormMiddleware::validate((new FormValidator())
+                        ->addTextFieldWithMaxLength("username", 100)
+                        ->addEmailFieldWithMaxLength("email", 100)
                         ->addTextField("password")
-                        ->addTextField("recovery_answer")
-                        ->validate();
-
-        if ($form_value === false) {
-            return;
-        }
+                        ->addTextField("recovery_answer"));
 
         // TODO: Verify input
         $registered = User::register(
