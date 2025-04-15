@@ -1,15 +1,21 @@
 import { onSubmit } from "/frontend/js/form.mjs";
 
-const form = document.getElementsByTagName("form")[0];
-onSubmit(form, async function (formData) {
-  let req = await fetch(form.attributes["action"].value, {
-    method: "POST",
-    body: formData,
+
+$(document).ready(function () {
+  $("form").each(function () {
+    const $form = $(this);
+    onSubmit($form, async function (formData) {
+      const req = await fetch($form.attr("action"), {
+        method: "POST",
+        body: formData,
+      });
+      const $error = $("#error").css("padding", "0.25rem");
+      if (req.ok) {
+        $error.html("ok").css("background-color", "green");
+        window.location.replace("/");
+      } else {
+        $error.html("incorrect");
+      }
+    });
   });
-  if (req.ok) {
-    form.getElementsByClassName("error")[0].innerHTML = "ok";
-    window.location.replace("/");
-  } else {
-    form.getElementsByClassName("error")[0].innerHTML = "Erreur";
-  }
 });
