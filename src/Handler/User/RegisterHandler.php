@@ -39,6 +39,6 @@ class RegisterHandler extends Handler
 
         Logs::create_with("New user have been created with username {$form_value['username']} change his password");
 
-        $this->response = new Response(301, headers: ['Location' => '/']);
+        $this->response = new Response(200);
     }
 }

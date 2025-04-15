@@ -38,6 +38,6 @@ class ImageFormHandler extends Handler
 
         Logs::create_with("User {$user->id} create an image", $user);
 
-        $this->response = new Response(200, headers: ["Location" => "/profile"]);
+        $this->response = new Response(200);
     }
 }

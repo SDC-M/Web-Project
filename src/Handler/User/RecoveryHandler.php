@@ -27,12 +27,12 @@ class RecoveryHandler extends Handler
         $login = User::getByNameAndRecoverykey($form_value['username'], $form_value['recovery_answer']);
 
         if ($login == null) {
-            $this->response = new Response(400, headers: ['Location' => '/login']);
+            $this->response = new Response(400);
             return;
         }
 
         if ($login->recovery != $form_value['recovery_answer']) {
-            $this->response = new Response(400, headers: ['Location' => '/login']);
+            $this->response = new Response(400);
             return;
         }
 
@@ -40,6 +40,6 @@ class RecoveryHandler extends Handler
         
         Logs::create_with("User {$login->id} change his password", $login);
 
-        $this->response = new Response(301, headers: ["Location" => "/"]);
+        $this->response = new Response(200);
     }
 }

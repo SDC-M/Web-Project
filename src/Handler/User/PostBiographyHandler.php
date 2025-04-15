@@ -43,6 +43,6 @@ class PostBiographyHandler extends Handler
         Logs::create_with("User {$user->id} change his profile picture", $user);
         Logs::create_with("User {$user->id} change his description", $user);
 
-        $this->response = new Response(301, "", ["Location" => "/profile"]);
+        $this->response = new Response(200);
     }
 }
