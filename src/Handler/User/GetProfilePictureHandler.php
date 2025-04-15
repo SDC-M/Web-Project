@@ -19,7 +19,6 @@ class GetProfilePictureHandler extends Handler
             return;
         }
 
-
         $this->response = new Response(200, $bytes, ["Content-Type" => "image/png"]);
     }
 }

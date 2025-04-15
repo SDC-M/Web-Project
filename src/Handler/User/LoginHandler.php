@@ -17,7 +17,7 @@ class LoginHandler extends Handler
     {
 
         $form_values = FormMiddleware::validate((new FormValidator())
-                            ->addTextField("username")
+                            ->addTextFieldWithMaxLength("username", 100)
                             ->addTextField("password"));
 
         $login = User::getByNameAndPassword($form_values['username'], $form_values['password']);

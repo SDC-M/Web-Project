@@ -12,7 +12,6 @@ class FormMiddleware
      */
     public static function validate(FormValidator $fv): array
     {
-
         $values = $fv->validate();
         if ($values === false) {
             throw new MiddlewareException(new Response(400, "Bad request"));
