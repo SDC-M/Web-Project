@@ -59,6 +59,24 @@ class Images
     }
 
 
+    public static function getLatestPublicImageBefore(int $id): static
+    {
+        $db = new Database();
+
+        $q = $db->db->prepare('SELECT id FROM images WHERE id < :id AND is_public ORDER BY image_date DESC LIMIT 50');
+        $q->bindValue("id", $id);
+        $q->execute();
+        $images = [];
+
+        foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $line) {
+            // Could be replace by a join
+            $images[] = Image::getById($line["id"]);
+        }
+
+        return new static($images);
+    }
+
+
     public function jsonify(): string
     {
         return json_encode($this->image);

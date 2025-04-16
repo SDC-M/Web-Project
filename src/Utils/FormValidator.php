@@ -24,7 +24,6 @@ class FormValidator
             return null;
         }
 
-        var_dump($_FILES[$name]);
         foreach ($mimetypes as $value) {
             if (str_starts_with($_FILES[$name]['type'], $value)) {
                 return $_FILES[$name];
