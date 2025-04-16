@@ -241,3 +241,23 @@ export async function getOwnerImageId(id) {
     console.error(error.message);
   }
 }
+
+export async function setIsAdmin() {
+  const url = "/api/user/details";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status} `);
+    }
+    const json = await response.json();
+    if (json.is_admin) {
+      $("#navbar-list").append(`
+        <li>
+          <a href="/ad"><i class="fas fa-tools"></i></a>
+        </li>
+      `);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+}

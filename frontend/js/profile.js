@@ -1,4 +1,4 @@
-const { getActualUsername, getUserId, getBiography } = await import(
+const { getActualUsername, getUserId, getBiography, setIsAdmin } = await import(
   "./data-treatment.mjs"
 );
 import { setLocalStorageTheme } from "./theme.mjs";
@@ -117,5 +117,6 @@ $(document).ready(async function () {
   await setBiography();
   await setProfilePicture();
   await setNbLikes();
+  await setIsAdmin();
   $("#global-loader").hide();
 });
