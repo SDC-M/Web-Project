@@ -243,7 +243,7 @@ export async function getOwnerImageId(id) {
 }
 
 export async function setIsAdmin() {
-  const url = "/api/user/details";
+  const url = "/api/user/me";
   try {
     const response = await fetch(url);
     if (!response.ok) {
