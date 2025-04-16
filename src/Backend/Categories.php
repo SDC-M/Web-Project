@@ -142,7 +142,7 @@ class Categories implements JsonSerializable
 
     private static function getCategoriesFromDescription(string $description): array
     {
-        $regex = "/#(\w+)/";
+        $regex = "/#([\w\+\.\-\_]+)/";
         $matches = [];
         $r = preg_match_all($regex, $description, $matches);
         return $matches[1];
