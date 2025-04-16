@@ -242,6 +242,10 @@ export async function getOwnerImageId(id) {
   }
 }
 
+/**
+ * Initialise un bouton pour permettre d'acceder au pannel administrateur
+ *  si l'utilisateur en est un. En cas d'échec renvoie l'erreur correspondante.
+ */
 export async function setIsAdmin() {
   const url = "/api/user/me";
   try {
