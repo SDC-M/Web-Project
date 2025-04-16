@@ -75,6 +75,27 @@ class Likes implements JsonSerializable
     }
 
 
+    public static function getLikesOfImagesOf(User $user): array
+    {
+        $db = (new Database())->db;
+
+        $q = $db->prepare("SELECT likes.image_id, COUNT(likes.user_id)  as count_likes
+                            FROM likes, images
+                            WHERE likes.image_id = images.id
+                            AND images.user_id = :user_id
+                            GROUP BY image_id");
+        $q->execute(["user_id" => $user->id]);
+
+        if ($q === false) {
+            return [];
+        }
+
+        $d = $q->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(fn ($d): array => ["image_id" => $d["image_id"], "count" => $d['count_likes']], $d);
+    }
+
+
     public static function getAllOfImage(Image $image): array
     {
         $db = (new Database())->db;
