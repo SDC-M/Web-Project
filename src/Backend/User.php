@@ -209,6 +209,21 @@ class User implements JsonSerializable
 
     }
 
+    public function isAdmin(): bool {
+        $db = new Database();
+        $q = $db->db->prepare('SELECT user_id FROM administrators WHERE user_id = :id');
+        $q->bindParam('id', $this->id);
+        try {
+            if ($q->execute() === false) {
+                return false;
+            }
+        } catch (Exception $ex) {
+            return false;
+        }
+        return $q->rowCount() > 0; 
+    }
+
+    
     public function jsonify(): string
     {
         return json_encode($this);
