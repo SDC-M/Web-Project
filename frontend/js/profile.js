@@ -1,4 +1,4 @@
-const { getActualUsername, getUserId, getBiography, setIsAdmin } = await import(
+const { getActualUsername, getBiography, setIsAdmin } = await import(
   "./data-treatment.mjs"
 );
 import { setLocalStorageTheme } from "./theme.mjs";
@@ -8,8 +8,7 @@ import { setLocalStorageTheme } from "./theme.mjs";
  *  En cas d'échec retourne l'erreur correspondante.
  */
 async function getPictures() {
-  const userId = await getUserId();
-  const url = `/api/user/${userId}/images`;
+  const url = `/api/user/me/images`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -18,7 +17,7 @@ async function getPictures() {
 
     const json = await response.json();
     $.each(json.image, function (_, picture) {
-      let $link = $("<a>").attr("href", `/annotations/${userId}/${picture.id}`);
+      let $link = $("<a>").attr("href", `/annotations/me/${picture.id}`);
       let $img = $("<img>").attr("src", `/api/image/${picture.id}`).attr("decoding", "async").attr("loading", "lazy");
       $link.append($img);
       $("#img-container").append($link);
@@ -33,8 +32,7 @@ async function getPictures() {
  *  En cas d'échec retourne l'erreur correspondante.
  */
 async function getNb() {
-  const userId = await getUserId();
-  const url = `/api/user/${userId}/images`;
+  const url = `/api/user/me/images`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -62,8 +60,7 @@ async function getNb() {
  *  connecté, en cas d'échec renvoie l'erreur correspondante.
  */
 async function setNbLikes() {
-  const userId = await getUserId();
-  const url = `/api/user/${userId}/likes`;
+  const url = `/api/user/me/likes`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -102,7 +99,7 @@ async function setBiography() {
  *  en cas d'échec renvoie l'erreur correspondante.
  */
 async function setProfilePicture() {
-  $("#profile-picture").attr("src", `/api/user/${await getUserId()}/picture`);
+  $("#profile-picture").attr("src", `/api/user/me/picture`);
 }
 
 /* --------------------------------------------------------------------- */
