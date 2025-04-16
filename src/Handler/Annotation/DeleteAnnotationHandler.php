@@ -15,8 +15,9 @@ class DeleteAnnotationHandler extends Handler
     {
         $annotation = AnnotationMiddleware::getFromUrl($req);
         $user = UserMiddleware::getFromSession();
-
-        if ($annotation->user->id != $user->id) {
+        $image = $annotation->image;
+        
+        if (!$image->isOwnedBy($user) && $annotation->user->id != $user->id) {
             $this->response = new Response(400, "You aren't the owner of this annotation !");
             return;
         }

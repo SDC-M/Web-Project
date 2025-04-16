@@ -26,6 +26,6 @@ class DeleteImageHandler extends Handler
             return;
         }
 
-        Logs::create_with("User {$user->id} deleted an image ({$image->getId()}", $user);
+        Logs::create_with("User {$user->id} deleted an image ({$image->getId()})", $user);
     }
 }
