@@ -14,7 +14,8 @@ class GetLikesHandler extends Handler {
         $user = UserMiddleware::getFromSession();
         $target_user = UserMiddleware::getFromUrl($req);
 
-        $likes =Likes::getAnyLikesOf($target_user);
-        $this->response = new JsonResponse(200, ["nb_likes" => count($likes), "likes" => $likes]);
+        $likes = Likes::getLikesOfImagesOf($target_user);
+        $total_likes = array_reduce($likes, fn ($acc, $d) => $acc + $d['count'], 0);
+        $this->response = new JsonResponse(200, ["nb_likes" => $total_likes, "image" => $likes]);
     }   
 }
