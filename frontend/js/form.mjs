@@ -1,6 +1,6 @@
 /**
- * @param form 
- * @param handler 
+ * @param form
+ * @param handler
  *  Permet de soumettre un formulaire en utilisant le handler passé en paramètre.
  */
 export function onSubmit(form, handler) {

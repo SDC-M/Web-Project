@@ -18,7 +18,10 @@ async function getPictures() {
     const json = await response.json();
     $.each(json.image, function (_, picture) {
       let $link = $("<a>").attr("href", `/annotations/me/${picture.id}`);
-      let $img = $("<img>").attr("src", `/api/image/${picture.id}`).attr("decoding", "async").attr("loading", "lazy");
+      let $img = $("<img>")
+        .attr("src", `/api/image/${picture.id}`)
+        .attr("decoding", "async")
+        .attr("loading", "lazy");
       $link.append($img);
       $("#img-container").append($link);
     });

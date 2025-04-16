@@ -7,7 +7,7 @@ const {
   resizeCanvas,
   setDescription,
   getVisibilityImage,
-  switchVisibilityImage
+  switchVisibilityImage,
 } = await import("./data-treatment.mjs");
 import { getOwnerImageId } from "./data-treatment.mjs";
 import { setLocalStorageTheme } from "./theme.mjs";
@@ -257,14 +257,16 @@ async function setAnnotations() {
 }
 
 /**
- * @param json 
- * @param annotation 
+ * @param json
+ * @param annotation
  * Tente d'afficher un bouton de suppression de l'annotation
  *  dans la div d'id annotation.id, en cas de succès affiche le bouton
  *  sinon renvoie l'erreur correspondante.
  */
 async function setDeleteAnnotation(annotation) {
-  let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="fas fa-trash-alt"></i>`);
+  let $del_annotation = $("<div>")
+    .addClass("delannotation")
+    .html(`<i class="fas fa-trash-alt"></i>`);
   $(`#${annotation.id}`).append($del_annotation);
   $del_annotation.on("click", async function () {
     const confirmation = window.confirm("Are you sure to delete it ?");
