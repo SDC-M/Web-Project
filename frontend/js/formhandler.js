@@ -10,7 +10,7 @@ function redirect() {
   }
 
   const redirection = {
-    "/login": "/aaa",
+    "/login": "/",
     "/signup": "/",
     "/upload-file": "/profile",
     "/recovery": "/login",

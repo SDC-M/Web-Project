@@ -7,8 +7,7 @@ const {
   resizeCanvas,
   setDescription,
   getVisibilityImage,
-  switchVisibilityImage,
-  getOwnerImageId,
+  switchVisibilityImage
 } = await import("./data-treatment.mjs");
 import { setLocalStorageTheme } from "./theme.mjs";
 
@@ -42,9 +41,6 @@ function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
   });
   return tab2;
 }
-
-/* --------------------------------------------------------------------- */
-/* --------------------------------------------------------------------- */
 
 /**
  * @param annotations
@@ -248,18 +244,7 @@ async function setAnnotations() {
         displayAnnotations(json);
       });
       if ((await isMyAnnotation(annotation.user.id)) || (await isMyImage())) {
-        let $del_annotation = $("<div>")
-          .addClass("delannotation")
-          .html(`<i class="fas fa-trash-alt"></i>`);
-        $(`#${annotation.id}`).append($del_annotation);
-        $del_annotation.on("click", async function () {
-          const confirmation = window.confirm("Are you sure to delete it ?");
-          if (confirmation) {
-            await deleteAnnotation(annotation.id);
-            const ownerIdImage = await getOwnerImageId(imageId);
-            window.location.href = `/annotations/${ownerIdImage}/${imageId}`;
-          }
-        });
+        setDeleteAnnotation(annotation);
       }
     });
 
@@ -268,6 +253,28 @@ async function setAnnotations() {
   } catch (error) {
     console.error(error.message);
   }
+}
+
+/**
+ * @param json 
+ * @param annotation 
+ * Tente d'afficher un bouton de suppression de l'annotation
+ *  dans la div d'id annotation.id, en cas de succès affiche le bouton
+ *  sinon renvoie l'erreur correspondante.
+ */
+async function setDeleteAnnotation(annotation) {
+  let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="fas fa-trash-alt"></i>`);
+  $(`#${annotation.id}`).append($del_annotation);
+  $del_annotation.on("click", async function () {
+    const confirmation = window.confirm("Are you sure to delete it ?");
+    if (confirmation) {
+      await deleteAnnotation(annotation.id);
+      $("#annot-content").empty();
+      let annotationsData = await setAnnotations();
+      clearCanvas();
+      displayAnnotations(annotationsData);
+    }
+  });
 }
 
 /**
@@ -303,14 +310,22 @@ async function setIsMyImage() {
  */
 async function setSwitchVisibilityImage() {
   let imageId = await getImageId(getPathName());
+  setIconVisibility();
+  $("#privacy").on("click", async function () {
+    await switchVisibilityImage(imageId);
+    await setIconVisibility();
+  });
+}
+
+/**
+ * Affiche l'icone de l'élément d'id privacy en fonction de la visibilité.
+ */
+async function setIconVisibility() {
   if (await getVisibilityImage(getImageId(getPathName()))) {
     $("#privacy").html(`<i class="fas fa-eye"></i>`);
   } else {
     $("#privacy").html(`<i class="fas fa-eye-slash"></i>`);
   }
-  $("#privacy").on("click", async function () {
-    await switchVisibilityImage(imageId);
-  });
 }
 
 /**

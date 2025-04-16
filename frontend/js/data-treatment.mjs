@@ -218,7 +218,6 @@ export async function switchVisibilityImage(id) {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    location.reload();
   } catch (error) {
     console.error(error.message);
   }
