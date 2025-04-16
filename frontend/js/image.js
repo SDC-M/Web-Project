@@ -7,8 +7,7 @@ const {
   resizeCanvas,
   setDescription,
   getVisibilityImage,
-  switchVisibilityImage,
-  getOwnerImageId,
+  switchVisibilityImage
 } = await import("./data-treatment.mjs");
 import { setLocalStorageTheme } from "./theme.mjs";
 
@@ -42,9 +41,6 @@ function convertTabPoints(tab, realWidth, printWidth, realHeight, printHeight) {
   });
   return tab2;
 }
-
-/* --------------------------------------------------------------------- */
-/* --------------------------------------------------------------------- */
 
 /**
  * @param annotations
@@ -275,7 +271,7 @@ async function setDeleteAnnotation(annotation) {
       await deleteAnnotation(annotation.id);
       $("#annot-content").empty();
       let newjson = await setAnnotations();
-      await displayAnnotations(newjson);
+      console.log(newjson);
       clearCanvas();
       displayAnnotations(newjson);
     }
