@@ -248,18 +248,7 @@ async function setAnnotations() {
         displayAnnotations(json);
       });
       if ((await isMyAnnotation(annotation.user.id)) || (await isMyImage())) {
-        let $del_annotation = $("<div>")
-          .addClass("delannotation")
-          .html(`<i class="fas fa-trash-alt"></i>`);
-        $(`#${annotation.id}`).append($del_annotation);
-        $del_annotation.on("click", async function () {
-          const confirmation = window.confirm("Are you sure to delete it ?");
-          if (confirmation) {
-            await deleteAnnotation(annotation.id);
-            const ownerIdImage = await getOwnerImageId(imageId);
-            window.location.href = `/annotations/${ownerIdImage}/${imageId}`;
-          }
-        });
+        setDeleteAnnotation(json, annotation);
       }
     });
 
@@ -268,6 +257,29 @@ async function setAnnotations() {
   } catch (error) {
     console.error(error.message);
   }
+}
+
+/**
+ * @param json 
+ * @param annotation 
+ * Tente d'afficher un bouton de suppression de l'annotation
+ *  dans la div d'id annotation.id, en cas de succès affiche le bouton
+ *  sinon renvoie l'erreur correspondante.
+ */
+async function setDeleteAnnotation(json, annotation) {
+  let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="fas fa-trash-alt"></i>`);
+  $(`#${annotation.id}`).append($del_annotation);
+  $del_annotation.on("click", async function () {
+    const confirmation = window.confirm("Are you sure to delete it ?");
+    if (confirmation) {
+      await deleteAnnotation(annotation.id);
+      $("#annot-content").empty();
+      let newjson = await setAnnotations();
+      await displayAnnotations(newjson);
+      clearCanvas();
+      displayAnnotations(newjson);
+    }
+  });
 }
 
 /**
