@@ -311,14 +311,22 @@ async function setIsMyImage() {
  */
 async function setSwitchVisibilityImage() {
   let imageId = await getImageId(getPathName());
+  setIconVisibility();
+  $("#privacy").on("click", async function () {
+    await switchVisibilityImage(imageId);
+    await setIconVisibility();
+  });
+}
+
+/**
+ * Affiche l'icone de l'élément d'id privacy en fonction de la visibilité.
+ */
+async function setIconVisibility() {
   if (await getVisibilityImage(getImageId(getPathName()))) {
     $("#privacy").html(`<i class="fas fa-eye"></i>`);
   } else {
     $("#privacy").html(`<i class="fas fa-eye-slash"></i>`);
   }
-  $("#privacy").on("click", async function () {
-    await switchVisibilityImage(imageId);
-  });
 }
 
 /**
