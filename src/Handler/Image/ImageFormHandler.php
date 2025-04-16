@@ -17,7 +17,7 @@ class ImageFormHandler extends Handler
     public function handle(Request $req): void
     {
         $form = FormMiddleware::validate((new FormValidator())
-            ->addFileField("image")
+            ->addFileFieldWithAcceptedMimeType("image", ["image/png", "image/jpeg", "image/webp", "image/gif"])
             ->addOptionalTextField("description")
             ->addCheckBoxField("is_public"));
 
@@ -28,7 +28,18 @@ class ImageFormHandler extends Handler
             return;
         }
 
-        $image = Image::fromFile($form["image"]["tmp_name"]);
+
+        $path = escapeshellarg($form["image"]["tmp_name"]);
+        $result = '';
+        $status = 0;
+        $cmd = "ffmpeg -i {$path} -vcodec webp -loop 0 -pix_fmt yuva420p {$path}.webp";
+        $ffmpeg_cmd = exec($cmd, $result, $status);
+        if ($status == 1) {
+            $this->response = new Response(500);
+            return;
+        }
+
+        $image = Image::fromFile($form["image"]["tmp_name"] . ".webp");
         $image->description = $form["description"];
         $image->is_public = $form["is_public"];
         $image->linkTo($user);

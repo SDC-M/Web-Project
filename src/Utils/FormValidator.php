@@ -15,6 +15,24 @@ class FormValidator
 
         return $_FILES[$name];
     }
+    /**
+     * @param array<int,mixed> $mimetypes
+     */
+    private static function fileValidatorWithMimetypes(string $name, array $mimetypes): ?array
+    {
+        if (!isset($_FILES[$name]) || $_FILES[$name]['error'] != UPLOAD_ERR_OK) {
+            return null;
+        }
+
+        var_dump($_FILES[$name]);
+        foreach ($mimetypes as $value) {
+            if (str_starts_with($_FILES[$name]['type'], $value)) {
+                return $_FILES[$name];
+            }
+        }
+
+        return null;
+    }
 
 
     private static function textValidator(string $name): ?string
@@ -164,6 +182,21 @@ class FormValidator
             function (string $name) {
                 return FormValidator::fileValidator($name);
             }
+        );
+
+        return $this;
+    }
+    /**
+     * @param array<int,string> $mimes
+     */
+    public function addFileFieldWithAcceptedMimeType(string $name, array $mimes): FormValidator
+    {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name, $mimes) {
+                return FormValidator::fileValidatorWithMimetypes($name, $mimes);
+            },
+            [$mimes]
         );
 
         return $this;
