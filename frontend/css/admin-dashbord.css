@@ -54,8 +54,8 @@ html {
 .form-container {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
+  justify-content: center;
+  flex-direction: row;
   background-color: var(--purple-color);
   width: 70%;
   border-radius: 5px;
@@ -72,6 +72,14 @@ input,
 button,
 select {
   margin: 1rem;
+}
+
+#username{
+  min-width: 50%;
+}
+
+#home{
+  color: white;
 }
 
 #pages-container {

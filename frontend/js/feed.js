@@ -1,4 +1,5 @@
 import { setLocalStorageTheme } from "./theme.mjs";
+import { setIsAdmin } from "./data-treatment.mjs";
 
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
@@ -109,5 +110,6 @@ $(document).ready(async function () {
   setLocalStorageTheme();
   await getPictures();
   await setSearchCategories();
+  await setIsAdmin();
   $("#global-loader").hide();
 });
