@@ -270,10 +270,9 @@ async function setDeleteAnnotation(annotation) {
     if (confirmation) {
       await deleteAnnotation(annotation.id);
       $("#annot-content").empty();
-      let newjson = await setAnnotations();
-      console.log(newjson);
+      let annotationsData = await setAnnotations();
       clearCanvas();
-      displayAnnotations(newjson);
+      displayAnnotations(annotationsData);
     }
   });
 }
