@@ -152,6 +152,10 @@ figcaption {
 }
 
 @media screen and (max-width: 1245px) {
+  * {
+    font-size: var(--small-font-size);
+  }
+
   #img-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -165,10 +169,6 @@ figcaption {
 }
 
 @media screen and (max-width: 940px) {
-  * {
-    font-size: var(--small-font-size);
-  }
-
   #container,
   #feed-container {
     width: 100vw;
