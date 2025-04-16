@@ -6,7 +6,8 @@ use Kuva\Backend\Categories;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
-class CategoriesMiddleware {   
+class CategoriesMiddleware
+{
     public static function getFromUrl(Request $req): Categories
     {
         $category_name = $req->extracts["category_name"] ?? '';

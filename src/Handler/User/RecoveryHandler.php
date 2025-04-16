@@ -37,7 +37,7 @@ class RecoveryHandler extends Handler
         }
 
         $login->updatePassword($form_value['password']);
-        
+
         Logs::create_with("User {$login->id} change his password", $login);
 
         $this->response = new Response(200);

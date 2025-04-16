@@ -7,7 +7,8 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\JsonResponse;
 use Kuva\Utils\Router\Request;
 
-class GetImagesOfCategories extends Handler {
+class GetImagesOfCategories extends Handler
+{
     public function handle(Request $req): void
     {
         $categories = CategoriesMiddleware::getFromUrl($req);

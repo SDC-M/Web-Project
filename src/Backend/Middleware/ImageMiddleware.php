@@ -8,8 +8,8 @@ use Kuva\Utils\Router\Response;
 
 class ImageMiddleware
 {
-    const IMAGE_NOT_FOUND = "This image doesn't exist";
-    
+    public const IMAGE_NOT_FOUND = "This image doesn't exist";
+
     public static function getFromUrl(Request $req): Image
     {
         $image_id = $req->extracts["image_id"] ?? '';

@@ -38,7 +38,7 @@ class PostBiographyHandler extends Handler
 
         if (!$user->setProfilePicture(file_get_contents($form["profile_picture"]["tmp_name"]))) {
             return;
-        }        
+        }
 
         Logs::create_with("User {$user->id} change his profile picture", $user);
         Logs::create_with("User {$user->id} change his description", $user);

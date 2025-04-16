@@ -8,7 +8,8 @@ use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\JsonResponse;
 use Kuva\Utils\Router\Request;
 
-class GetCategorieOfImageHandler extends Handler {
+class GetCategorieOfImageHandler extends Handler
+{
     public function handle(Request $req): void
     {
         $image = ImageMiddleware::getFromUrlAndCheckVisibilityForUser($req);

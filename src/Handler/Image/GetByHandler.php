@@ -13,7 +13,7 @@ class GetByHandler extends Handler
     public function handle(Request $req): void
     {
 
-        $session_user = UserMiddleware::getFromSession();        
+        $session_user = UserMiddleware::getFromSession();
         $user_id = UserMiddleware::getFromUrl($req);
 
         if ($session_user->id == $user_id->id) {

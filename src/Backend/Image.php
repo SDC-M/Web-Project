@@ -68,7 +68,7 @@ class Image implements JsonSerializable
         }
 
         return new static($values["id"], $values["file_path"], $values["is_public"] == 1, $values["description"], new DateTime($values['image_date']), User::getById($values["user_id"]), "");
-    }    
+    }
 
     public function getPath(): string
     {

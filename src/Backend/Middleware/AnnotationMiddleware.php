@@ -3,14 +3,13 @@
 namespace Kuva\Backend\Middleware;
 
 use Kuva\Backend\Annotation;
-use Kuva\Backend\Image;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
 
 class AnnotationMiddleware
 {
-    const ANNOTATION_NOT_FOUND = "This annotation doesn't exist";
-    
+    public const ANNOTATION_NOT_FOUND = "This annotation doesn't exist";
+
     public static function getFromUrl(Request $req): Annotation
     {
         $annotation_id = $req->extracts["annotation_id"] ?? '';

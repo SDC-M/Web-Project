@@ -36,11 +36,12 @@ class FormValidator
         }
 
         return $name;
-    }    
+    }
 
-    private static function intValidator(string $name): ?int {
-       $name = self::textValidator($name);
-       return filter_var($name, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+    private static function intValidator(string $name): ?int
+    {
+        $name = self::textValidator($name);
+        return filter_var($name, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
     }
 
     private static function emailValidator(string $name): ?string
@@ -62,7 +63,7 @@ class FormValidator
         }
 
         return $name;
-    }    
+    }
 
 
     private static function checkboxValidator(string $name): bool
@@ -91,7 +92,7 @@ class FormValidator
 
         return $this;
     }
-    
+
     public function addOptionalTextField(string $name): FormValidator
     {
         $this->addCustomValidatorField(
@@ -128,7 +129,7 @@ class FormValidator
         );
 
         return $this;
-    }    
+    }
 
 
     public function addEmailFieldWithMaxLength(string $name, int $length): FormValidator
@@ -144,7 +145,8 @@ class FormValidator
         return $this;
     }
 
-    public function addIntField(string $name): FormValidator {
+    public function addIntField(string $name): FormValidator
+    {
         $this->addCustomValidatorField(
             $name,
             function (string $name) {
@@ -152,9 +154,9 @@ class FormValidator
             },
         );
 
-        return $this;        
+        return $this;
     }
-    
+
     public function addFileField(string $name): FormValidator
     {
         $this->addCustomValidatorField(

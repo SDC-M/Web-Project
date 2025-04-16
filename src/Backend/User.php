@@ -209,7 +209,8 @@ class User implements JsonSerializable
 
     }
 
-    public function isAdmin(): bool {
+    public function isAdmin(): bool
+    {
         $db = new Database();
         $q = $db->db->prepare('SELECT user_id FROM administrators WHERE user_id = :id');
         $q->bindParam('id', $this->id);
@@ -220,10 +221,10 @@ class User implements JsonSerializable
         } catch (Exception $ex) {
             return false;
         }
-        return $q->rowCount() > 0; 
+        return $q->rowCount() > 0;
     }
 
-    
+
     public function jsonify(): string
     {
         return json_encode($this);
