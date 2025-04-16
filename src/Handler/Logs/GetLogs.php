@@ -16,8 +16,7 @@ class GetLogs extends Handler
     {
         $user = UserMiddleware::getFromSession();
 
-        /* Hackish work-around while there is no permission */
-        if ($user->id != 1) {
+        if (!$user->isAdmin()) {
             return;
         }
 
