@@ -248,7 +248,7 @@ async function setAnnotations() {
         displayAnnotations(json);
       });
       if ((await isMyAnnotation(annotation.user.id)) || (await isMyImage())) {
-        setDeleteAnnotation(json, annotation);
+        setDeleteAnnotation(annotation);
       }
     });
 
@@ -266,7 +266,7 @@ async function setAnnotations() {
  *  dans la div d'id annotation.id, en cas de succès affiche le bouton
  *  sinon renvoie l'erreur correspondante.
  */
-async function setDeleteAnnotation(json, annotation) {
+async function setDeleteAnnotation(annotation) {
   let $del_annotation = $("<div>").addClass("delannotation").html(`<i class="fas fa-trash-alt"></i>`);
   $(`#${annotation.id}`).append($del_annotation);
   $del_annotation.on("click", async function () {
