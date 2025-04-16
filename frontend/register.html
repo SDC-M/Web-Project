@@ -13,6 +13,7 @@
     <div id="page-container" class="session">
       <div class="left" id="register"></div>
       <h3 id="error" style="background-color: red"></h3>
+      <h3 id="error" style="background-color: red"></h3>
       <form action="/api/user" method="post" class="log-in" autocomplete="off">
         <h4>Bienvenue sur <span>Kuva</span></h4>
         <input
@@ -69,12 +70,15 @@
           <label id="conditions" for="checkbox">
             I accept the terms and conditions
           </label>
+          <label id="conditions" for="checkbox">
+            I accept the terms and conditions
+          </label>
         </div>
         <button type="submit">Register</button>
         <a href="login"> Log in </a>
       </form>
     </div>
-    <script type="module" src="/frontend/js/auth.js"></script>
+    <script type="module" src="/frontend/js/formhandler.js"></script>
     <script type="module" src="/frontend/js/theme.mjs"></script>
     <script type="module" src="/frontend/js/dark-login-register.js"></script>
   </body>

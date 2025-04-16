@@ -5,6 +5,7 @@ namespace Kuva\Utils;
 class FormValidator
 {
     private array $fields = [];
+    private array $extras_params = [];
 
     private static function fileValidator(string $name): ?array
     {
@@ -22,8 +23,46 @@ class FormValidator
             return null;
         }
 
-        return $_POST[$name];
+        return htmlspecialchars($_POST[$name]);
     }
+
+
+    private static function textValidatorWithMaxLength(string $name, int $length): ?string
+    {
+        $name = self::textValidator($name);
+
+        if ($name == null || strlen($name) >= $length) {
+            return null;
+        }
+
+        return $name;
+    }    
+
+    private static function intValidator(string $name): ?int {
+       $name = self::textValidator($name);
+       return filter_var($name, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+    }
+
+    private static function emailValidator(string $name): ?string
+    {
+        if (!isset($_POST[$name])) {
+            return null;
+        }
+
+        return filter_var(htmlspecialchars($_POST[$name]), FILTER_SANITIZE_EMAIL, FILTER_NULL_ON_FAILURE | FILTER_FLAG_EMPTY_STRING_NULL);
+    }
+
+
+    private static function emailValidatorWithMaxLength(string $name, int $length): ?string
+    {
+        $name = self::emailValidator($name);
+
+        if ($name == null || strlen($name) >= $length) {
+            return null;
+        }
+
+        return $name;
+    }    
 
 
     private static function checkboxValidator(string $name): bool
@@ -33,10 +72,12 @@ class FormValidator
 
     /**
      * @param callable(): mixed $validator
+     * @param array<int,mixed> $extras
      */
-    private function addCustomValidatorField(string $name, callable $validator): void
+    private function addCustomValidatorField(string $name, callable $validator, array $extras = []): void
     {
         $this->fields[$name] = $validator;
+        $this->extras_params[$name] = $extras;
     }
 
     public function addTextField(string $name): FormValidator
@@ -50,8 +91,7 @@ class FormValidator
 
         return $this;
     }
-
-
+    
     public function addOptionalTextField(string $name): FormValidator
     {
         $this->addCustomValidatorField(
@@ -64,6 +104,57 @@ class FormValidator
         return $this;
     }
 
+
+    public function addTextFieldWithMaxLength(string $name, int $length): FormValidator
+    {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name, int $length) {
+                return FormValidator::textValidatorWithMaxLength($name, $length);
+            },
+            [$length]
+        );
+
+        return $this;
+    }
+
+    public function addEmailField(string $name): FormValidator
+    {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name) {
+                return FormValidator::emailValidator($name);
+            }
+        );
+
+        return $this;
+    }    
+
+
+    public function addEmailFieldWithMaxLength(string $name, int $length): FormValidator
+    {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name, int $length) {
+                return FormValidator::emailValidatorWithMaxLength($name, $length);
+            },
+            [$length]
+        );
+
+        return $this;
+    }
+
+    public function addIntField(string $name): FormValidator {
+        $this->addCustomValidatorField(
+            $name,
+            function (string $name) {
+                return FormValidator::intValidator($name);
+            },
+        );
+
+        return $this;        
+    }
+    
     public function addFileField(string $name): FormValidator
     {
         $this->addCustomValidatorField(
@@ -92,7 +183,8 @@ class FormValidator
     {
         $array = [];
         foreach ($this->fields as $key => $validator) {
-            $value = $validator($key);
+            $extras = $this->extras_params[$key];
+            $value = $validator($key, ...$extras);
             if ($value === null) {
                 echo "{$key} is unvalid";
                 return false;

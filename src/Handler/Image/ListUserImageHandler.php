@@ -19,6 +19,6 @@ class ListUserImageHandler extends Handler
             return;
         }
 
-        $this->response = new JsonResponse(body: $images->jsonify());
+        $this->response = new JsonResponse(body: $images);
     }
 }

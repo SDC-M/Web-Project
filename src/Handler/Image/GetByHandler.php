@@ -3,29 +3,25 @@
 namespace Kuva\Handler\Image;
 
 use Kuva\Backend\Images;
-use Kuva\Backend\User;
+use Kuva\Backend\Middleware\UserMiddleware;
 use Kuva\Utils\Router\Handler;
+use Kuva\Utils\Router\JsonResponse;
 use Kuva\Utils\Router\Request;
-use Kuva\Utils\Router\Response;
 
 class GetByHandler extends Handler
 {
     public function handle(Request $req): void
     {
-        $user_id = User::getById($req->extracts["id"]);
 
-        if ($user_id == null) {
-            $this->response = new Response(400, "The targeted user doesn't exist");
+        $session_user = UserMiddleware::getFromSession();        
+        $user_id = UserMiddleware::getFromUrl($req);
+
+        if ($session_user->id == $user_id->id) {
+            $this->response = new JsonResponse(body: Images::getAllImagesOf($user_id));
             return;
         }
 
-        $session_user = User::getFromSession();
-        if ($session_user != null && $session_user->id == $user_id->id) {
-            $this->response = new Response(200, Images::getAllImagesOf($user_id)->jsonify(), ["Content-Type" => "application/json"]);
-            return;
-        }
-
-        $this->response = new Response(200, Images::getPublicImagesOf($user_id)->jsonify(), ["Content-Type" => "application/json"]);
+        $this->response = new JsonResponse(body: Images::getPublicImagesOf($user_id));
     }
 
 }

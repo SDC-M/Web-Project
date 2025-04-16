@@ -15,8 +15,8 @@ class PostBiographyHandler extends Handler
     public function handle(Request $req): void
     {
         $form = FormMiddleware::validate((new FormValidator())
-            ->addTextField("username")
-            ->addTextField("biography")
+            ->addTextFieldWithMaxLength("username", 100)
+            ->addTextField("biography", 250)
             ->addTextField("password")
             ->addFileField("profile_picture"));
 
@@ -43,6 +43,6 @@ class PostBiographyHandler extends Handler
         Logs::create_with("User {$user->id} change his profile picture", $user);
         Logs::create_with("User {$user->id} change his description", $user);
 
-        $this->response = new Response(301, "", ["Location" => "/profile"]);
+        $this->response = new Response(200);
     }
 }

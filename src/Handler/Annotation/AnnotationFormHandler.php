@@ -18,11 +18,11 @@ class AnnotationFormHandler extends Handler
     {
 
         $image = ImageMiddleware::getFromUrl($req);
-        $form = FormMiddleware::validate((new FormValidator())->addTextField("description")
-            ->addTextField("x1")
-            ->addTextField("x2")
-            ->addTextField("y1")
-            ->addTextField("y2"));
+        $form = FormMiddleware::validate((new FormValidator())->addTextFieldWithMaxLength("description", 4096)
+            ->addIntField("x1")
+            ->addIntField("x2")
+            ->addIntField("y1")
+            ->addIntField("y2"));
         $user = UserMiddleware::getFromSession();
 
         $annotation = Annotation::createWithUserAndImage($image, $user);
@@ -35,6 +35,6 @@ class AnnotationFormHandler extends Handler
 
         Logs::create_with("User {$user->id} created an annotation on image({$image->getId()}", $user);
 
-        $this->response = new Response(200, headers: ["Location" => "/annotations/{$image->owner->id}/{$image->getId()}"]);
+        $this->response = new Response(200);
     }
 }

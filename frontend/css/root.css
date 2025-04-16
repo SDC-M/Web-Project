@@ -87,7 +87,7 @@ input:invalid:required {
   background-color: var(--smooth-red-color);
 }
 
-#error{
+#error {
   color: white;
 }
 

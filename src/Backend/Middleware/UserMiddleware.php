@@ -36,6 +36,10 @@ class UserMiddleware
             return UserMiddleware::getFromSession();
         }
 
+        if (filter_var($user_id, FILTER_VALIDATE_INT) === false) {
+            throw new MiddlewareException(new Response(404, "This user doesn't exist"));
+        }
+
         $user = User::getById($user_id);
 
         if ($user === null) {
