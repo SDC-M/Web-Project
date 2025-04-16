@@ -1,6 +1,7 @@
 {
   "name": "kuva/kuva",
   "type": "project",
+  "optimize-autoloader": true,
   "autoload": {
     "psr-4": {
       "Kuva\\": "src/"
