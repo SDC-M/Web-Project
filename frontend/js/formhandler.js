@@ -1,5 +1,12 @@
 import { onSubmit } from "/frontend/js/form.mjs";
 
+/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
+
+/**
+ * Redirige l'utilisateur vers la page d'accueil si le formulaire est
+ *  correctement rempli.
+ */
 function redirect() {
   const path = window.location.pathname;
   console.log(path);
@@ -26,6 +33,9 @@ function redirect() {
   window.location.replace("/");
 }
 
+/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
+
 $(document).ready(function () {
   $("form").each(function () {
     const $form = $(this);
@@ -38,8 +48,6 @@ $(document).ready(function () {
       if (req.ok) {
         $error.html("ok").css("background-color", "green");
         redirect();
-        // As you said, probably we need to change redirect based on the current url
-        // window.location.replace("/");
       } else {
         $error.html("incorrect");
       }

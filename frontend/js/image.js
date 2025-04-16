@@ -9,6 +9,7 @@ const {
   getVisibilityImage,
   switchVisibilityImage
 } = await import("./data-treatment.mjs");
+import { getOwnerImageId } from "./data-treatment.mjs";
 import { setLocalStorageTheme } from "./theme.mjs";
 
 /**
@@ -198,8 +199,8 @@ async function isMyAnnotation(id) {
  */
 async function setNav() {
   const path = getPathName();
-  const userId = await getUserId();
   const imageId = getImageId(path);
+  const userId = await getOwnerImageId(imageId);
   $("#goto-ping").attr("href", `/new_annotations/${userId}/${imageId}`);
 }
 
