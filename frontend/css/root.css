@@ -87,6 +87,10 @@ input:invalid:required {
   background-color: var(--smooth-red-color);
 }
 
+#error {
+  color: white;
+}
+
 /* loader */
 
 #global-loader {

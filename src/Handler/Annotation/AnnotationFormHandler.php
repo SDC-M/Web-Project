@@ -35,6 +35,6 @@ class AnnotationFormHandler extends Handler
 
         Logs::create_with("User {$user->id} created an annotation on image({$image->getId()}", $user);
 
-        $this->response = new Response(200, headers: ["Location" => "/annotations/{$image->owner->id}/{$image->getId()}"]);
+        $this->response = new Response(200);
     }
 }
