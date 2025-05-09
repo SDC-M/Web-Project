@@ -90,7 +90,7 @@ async function getPicturesByCategory(category) {
  *   En cas d'échec renvoie l'erreur correspondante.
  */
 async function setSearchCategories() {
-  $("#search").on("change", async function () {
+  $("#search").on("input", async function () {
     category = $(this).val();
     $("nfound").html("");
     $("#img-container").empty();
