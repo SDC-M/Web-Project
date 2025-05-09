@@ -3,6 +3,7 @@
 namespace Kuva\Handler;
 
 use Exception;
+use Kuva\Utils\Router\FileBody;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -29,10 +30,9 @@ class FolderHandler extends Handler
                 $ext = new \FileEye\MimeMap\Extension(pathinfo($path, PATHINFO_EXTENSION));
                 $mime_type = $ext->getDefaultType();
             } catch (Exception $e) {
-                // UwU
             }
         }
 
-        $this->response = new Response(200, file_get_contents($path), ['Content-Type' => $mime_type]);
+        $this->response = new Response(200, new FileBody($path), ['Content-Type' => $mime_type]);
     }
 }

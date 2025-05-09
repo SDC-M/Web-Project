@@ -2,6 +2,7 @@
 
 namespace Kuva\Handler;
 
+use Kuva\Utils\Router\FileBody;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -19,6 +20,6 @@ class FileHandler extends Handler
             return;
         }
 
-        $this->response = new Response(200, file_get_contents($this->file_path));
+        $this->response = new Response(200, new FileBody($this->file_path));
     }
 }

@@ -15,13 +15,18 @@ export function getImageId(pathname) {
   return pathname[3];
 }
 
+var me = null;
+
+
 /**
- *
- * @param pathname
- * @returns Tente de retourner l'id de l'utilisateur connecté.
+ * @returns Tente de retourner le json lié à l'utilisateur connecté.
  *  En cas d'échec l'erreur correspondante.
  */
-export async function getUserId() {
+export async function getMe() {
+  if (me != null) {
+    return me;
+  }
+
   const url = "/api/user/me";
   try {
     const response = await fetch(url);
@@ -29,10 +34,23 @@ export async function getUserId() {
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    return json.id;
+    me = json;
+    return json;
   } catch (error) {
     console.error(error.message);
   }
+
+}
+
+/**
+ *
+ * @param pathname
+ * @returns Tente de retourner l'id de l'utilisateur connecté.
+ *  En cas d'échec l'erreur correspondante.
+ */
+export async function getUserId() {
+  let me = await getMe();
+  return me.id;
 }
 
 /**
@@ -63,7 +81,7 @@ export function displayImage() {
   let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
   $("#img-container").html($img);
 
-  $img[0].onload = function () {
+  $img[0].onload = function() {
     $("#canvas")[0].width = $img[0].clientWidth;
     $("#canvas")[0].height = $img[0].clientHeight;
   };
@@ -86,7 +104,7 @@ function previewPhoto() {
   if (file && file[0]) {
     const fileReader = new FileReader();
     const preview = $("#file-preview");
-    fileReader.onload = function (event) {
+    fileReader.onload = function(event) {
       preview.attr("src", event.target.result);
     };
     fileReader.readAsDataURL(file[0]);
@@ -106,17 +124,8 @@ export function setFileUploadPreview() {
  *  En cas d'échec renvoie l'erreur correspondante.
  */
 export async function getActualUsername() {
-  const url = "/api/user/me";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status} `);
-    }
-    const json = await response.json();
-    return json.username;
-  } catch (error) {
-    console.error(error.message);
-  }
+  let me = await getMe();
+  return me.username;
 }
 
 /**
@@ -168,17 +177,8 @@ export async function setDescription() {
  *  retourne l'erreur associée en cas d'échec.
  */
 export async function getBiography() {
-  const url = "/api/user/me";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status} `);
-    }
-    const json = await response.json();
-    return json.biography;
-  } catch (error) {
-    console.error(error.message);
-  }
+  let me = await getMe();
+  return me.biography;
 }
 
 /**
@@ -247,21 +247,13 @@ export async function getOwnerImageId(id) {
  *  si l'utilisateur en est un. En cas d'échec renvoie l'erreur correspondante.
  */
 export async function setIsAdmin() {
-  const url = "/api/user/me";
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status} `);
-    }
-    const json = await response.json();
-    if (json.is_admin) {
-      $("#navbar-list").append(`
-        <li>
-          <a href="/ad"><i class="fas fa-tools"></i></a>
-        </li>
-      `);
-    }
-  } catch (error) {
-    console.error(error.message);
+  let me = await getMe();  
+  if (me.is_admin) {
+    $("#navbar-list").append(`
+      <li>
+        <a href="/ad"><i class="fas fa-tools"></i></a>
+      </li>
+    `);
   }
+  
 }

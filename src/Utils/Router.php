@@ -29,7 +29,14 @@ class Router
         foreach ($req->headers as $key => $value) {
             header("$key: $value", true);
         }
-        echo $req->body;
+        setcookie("SPX_ENABLED", "1");
+        setcookie("SPX_KEY", "dev");
+        if (gettype($req->body) != "string") {
+            $req->body->outputToBody();
+        } else {
+            echo $req->body;
+        }
+
     }
 
     private function handleRequest(Request $req): Response

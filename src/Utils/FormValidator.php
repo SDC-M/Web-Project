@@ -2,6 +2,8 @@
 
 namespace Kuva\Utils;
 
+use Exception;
+
 class FormValidator
 {
     private array $fields = [];
@@ -213,15 +215,14 @@ class FormValidator
         return $this;
     }
 
-    public function validate(): bool|array
+    public function validate(): array
     {
         $array = [];
         foreach ($this->fields as $key => $validator) {
             $extras = $this->extras_params[$key];
             $value = $validator($key, ...$extras);
             if ($value === null) {
-                echo "{$key} is unvalid";
-                return false;
+                throw new Exception($key);
             }
             $array[$key] = $value;
         }

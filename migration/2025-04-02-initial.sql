@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS kuva;
 
 USE kuva;
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE `users` (
   CONSTRAINT email_unique UNIQUE(email) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `images` (
+CREATE TABLE IF NOT EXISTS `images` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `file_path` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `images` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `annotations` (
+CREATE TABLE IF NOT EXISTS `annotations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `image_id` int(10) unsigned NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `annotations` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `followers` (
+CREATE TABLE IF NOT EXISTS `followers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_follow` int(10) unsigned NOT NULL,
   `id_follower` int(10) unsigned NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE `followers` (
   FOREIGN KEY (`id_follower`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `likes` (
+CREATE TABLE IF NOT EXISTS `likes` (
   `image_id` int(10) unsigned NOT NULL,
   `user_id` int (10) unsigned NOT NULL,
   PRIMARY KEY (`image_id`, `user_id`),

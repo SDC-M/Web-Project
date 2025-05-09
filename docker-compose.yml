@@ -18,6 +18,7 @@ services:
     volumes:
       - "./migration/:/migration"
       - ${MARIADB_VOLUME:-mariadb_data}:/var/lib/mysql
+      - ./migration:/docker-entrypoint-initdb.d
 
 volumes:
   mariadb_data:

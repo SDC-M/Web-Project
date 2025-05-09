@@ -2,6 +2,7 @@
 
 namespace Kuva\Backend\Middleware;
 
+use Exception;
 use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Response;
 
@@ -12,11 +13,11 @@ class FormMiddleware
      */
     public static function validate(FormValidator $fv): array
     {
-        $values = $fv->validate();
-        if ($values === false) {
-            throw new MiddlewareException(new Response(400, "Bad request"));
+        try {
+            $values = $fv->validate();
+        } catch (Exception $e) {
+            throw new MiddlewareException(new Response(400, "Bad request : {$e->getMessage()} is badly set"));
         }
-
         return $values;
     }
 }

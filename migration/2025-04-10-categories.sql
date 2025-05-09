@@ -1,11 +1,13 @@
-CREATE TABLE `categories` (
+USE kuva;
+
+CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` text NOT NULL,
   `creation_date` datetime NOT NULL,
    CONSTRAINT UC_Name UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `image_categorie` (
+CREATE TABLE IF NOT EXISTS `image_categorie` (
   `image_id` int(10) unsigned NOT NULL,
   `categorie_id` int(10) unsigned NOT NULL,
   KEY `image_categories_categories_FK` (`categorie_id`),

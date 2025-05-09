@@ -47,7 +47,7 @@ async function getNb() {
     const json = await response.json();
     let $cptr = 0;
     let $cptr_pri = 0;
-    $.each(json, function (index, picture) {
+    $.each(json.image, function (index, picture) {
       $cptr += 1;
       if (!picture.is_public) {
         $cptr_pri += 1;

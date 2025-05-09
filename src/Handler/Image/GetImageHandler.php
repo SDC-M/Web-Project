@@ -4,6 +4,7 @@ namespace Kuva\Handler\Image;
 
 use Kuva\Backend\Middleware\ImageMiddleware;
 use Kuva\Backend\User;
+use Kuva\Utils\Router\FileBody;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
@@ -23,7 +24,7 @@ class GetImageHandler extends Handler
             }
         }
 
-        $this->response = new Response(200, $image->getBytes(), ["Content-Type" => "image/png"]);
+        $this->response = new Response(200, new FileBody($image->getPath()), ["Content-Type" => "image/png"]);
     }
 
 }

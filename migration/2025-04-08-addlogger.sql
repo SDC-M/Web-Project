@@ -1,4 +1,6 @@
-CREATE TABLE `logs` (
+use kuva;
+
+CREATE TABLE IF NOT EXISTS `logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `description` text NOT NULL,
   `creation_date` datetime NOT NULL,
