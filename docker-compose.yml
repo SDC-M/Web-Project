@@ -1,12 +1,8 @@
 services:
   php:
-    build: docker/php
-    command: bash -c "php -S 0.0.0.0:8080 -t /app/public"
-    user: "1000:1000"
+    build: .
     ports:
-        - 8080:8080
-    volumes:
-        - ".:/app"
+        - 8080:80
 
   mariadb:
     container_name: db
@@ -16,7 +12,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - "./migration/:/migration"
       - ${MARIADB_VOLUME:-mariadb_data}:/var/lib/mysql
       - ./migration:/docker-entrypoint-initdb.d
 
