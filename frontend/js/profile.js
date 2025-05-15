@@ -38,7 +38,8 @@ async function getPictures() {
  */
 async function getNb() {
   const userId = await getUserId();
-  const url = `/api/user/${userId}/images`;  try {
+  const url = `/api/user/${userId}/images`;
+  try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);

@@ -46,10 +46,10 @@ $(document).ready(function () {
       });
       const $error = $("#error").css("padding", "0.25rem");
       if (req.ok) {
-        $error.html("ok").css("background-color", "green");
+        $error.html("Ok").css("background-color", "green");
         redirect();
       } else {
-        $error.html("incorrect");
+        $error.html("Failed");
       }
     });
   });

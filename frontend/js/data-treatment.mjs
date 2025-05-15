@@ -17,7 +17,6 @@ export function getImageId(pathname) {
 
 var me = null;
 
-
 /**
  * @returns Tente de retourner le json lié à l'utilisateur connecté.
  *  En cas d'échec l'erreur correspondante.
@@ -39,7 +38,6 @@ export async function getMe() {
   } catch (error) {
     console.error(error.message);
   }
-
 }
 
 /**
@@ -81,7 +79,7 @@ export function displayImage() {
   let $img = $("<img>").attr("src", imageUrl).attr("id", "image");
   $("#img-container").html($img);
 
-  $img[0].onload = function() {
+  $img[0].onload = function () {
     $("#canvas")[0].width = $img[0].clientWidth;
     $("#canvas")[0].height = $img[0].clientHeight;
   };
@@ -104,7 +102,7 @@ function previewPhoto() {
   if (file && file[0]) {
     const fileReader = new FileReader();
     const preview = $("#file-preview");
-    fileReader.onload = function(event) {
+    fileReader.onload = function (event) {
       preview.attr("src", event.target.result);
     };
     fileReader.readAsDataURL(file[0]);
@@ -247,7 +245,7 @@ export async function getOwnerImageId(id) {
  *  si l'utilisateur en est un. En cas d'échec renvoie l'erreur correspondante.
  */
 export async function setIsAdmin() {
-  let me = await getMe();  
+  let me = await getMe();
   if (me.is_admin) {
     $("#navbar-list").append(`
       <li>
@@ -255,5 +253,4 @@ export async function setIsAdmin() {
       </li>
     `);
   }
-  
 }
