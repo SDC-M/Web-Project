@@ -52,8 +52,6 @@ class User implements JsonSerializable
             }
             return file_put_contents("../profilepicture/" . $name, file_get_contents('../src/Assets/default_pp.jpg')) !== false;
         } catch (Exception $ex) {
-            var_dump($ex);
-
             return false;
         }
     }

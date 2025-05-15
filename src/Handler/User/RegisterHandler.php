@@ -9,6 +9,7 @@ use Kuva\Utils\FormValidator;
 use Kuva\Utils\Router\Handler;
 use Kuva\Utils\Router\Request;
 use Kuva\Utils\Router\Response;
+use Kuva\Utils\SessionVariable;
 
 class RegisterHandler extends Handler
 {
@@ -32,10 +33,15 @@ class RegisterHandler extends Handler
             $form_value['recovery_answer']
         );
 
-        if (! $registered) {
+
+        $login = User::getByNameAndPassword($form_value['username'], $form_value['password']);
+
+        if (! $registered || $login == null) {
             $this->response = new Response(500);
             return;
         }
+
+        (new SessionVariable())->setUserId($login->id);
 
         Logs::create_with("New user have been created with username {$form_value['username']} change his password");
 
